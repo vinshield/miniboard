@@ -148,36 +148,10 @@ export default function EventForm({ userId, type, event, eventId }) {
         <div>
           <FormField
             control={form.control}
-            name="location"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <div className="flex-center overflow-hidden rounded-t-lg bg-secondary p-3 pl-4">
-                    <Image
-                      src="/assets/icons/location-grey.svg"
-                      alt="location"
-                      width={18}
-                      height={18}
-                    />
-                    <div></div>
-                    <Input
-                      placeholder="Add Event Location"
-                      {...field}
-                      className="input-field p-0 pl-1"
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
             name="online-event"
             render={({ field }) => (
               <FormItem className="">
-                <div className="flex items-center space-x-2 rounded-b-lg bg-secondary pb-4 pl-8">
+                <div className="flex items-center space-x-2 rounded-t-lg bg-secondary pl-4 pt-4">
                   <FormLabel className="text-muted-foreground">
                     Online event
                   </FormLabel>
@@ -189,6 +163,31 @@ export default function EventForm({ userId, type, event, eventId }) {
                     />
                   </FormControl>
                 </div>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="flex-center overflow-hidden rounded-b-lg bg-secondary p-2 pl-4">
+                    <Image
+                      src="/assets/icons/location-grey.svg"
+                      alt="location"
+                      width={18}
+                      height={18}
+                    />
+                    <Input
+                      placeholder="Add Event Location"
+                      {...field}
+                      className="input-field p-0 pl-1"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
