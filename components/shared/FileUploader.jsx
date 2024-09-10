@@ -44,12 +44,12 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }) {
             height={77}
             alt="file upload"
           />
-          <h3 className="my-1 mt-2">Drag photo here</h3>
-          <p className="p-medium-12 mb-8">SVG, PNG, JPG</p>
+          <h3 className="my-1 mt-2 text-sm">Drag photo here</h3>
+          <p className="p-medium-12 mb-8 text-sm">SVG, PNG, JPG</p>
           <Button
             type="button"
             variant="secondary"
-            className="rounded-full border border-primary"
+            className="h-auto rounded-full border border-primary px-6 py-[6px] text-sm"
           >
             Upload poster
           </Button>
