@@ -13,7 +13,7 @@ const Hero = () => {
       </h1>
       <p className="mt-6 text-center text-base tracking-tight text-[#010D3E]">
         Effortlessly create WhatsApp-ready event captions with reminders for
-        your guests
+        your attendees
       </p>
       <Button asChild className="mx-auto mt-6">
         <Link href="/events/create">Get started 🚀</Link>
