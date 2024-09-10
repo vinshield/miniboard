@@ -61,7 +61,7 @@ export default function EventForm({ userId, type, event, eventId }) {
   }
 
   return (
-    <div className="container">
+    <div className="container overflow-hidden">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

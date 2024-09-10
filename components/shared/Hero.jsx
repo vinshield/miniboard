@@ -6,7 +6,7 @@ import EventForm from "./EventForm";
 const Hero = () => {
   return (
     <>
-      <section className="mb-14 mt-14 flex flex-col items-center px-10 lg:container">
+      <section className="mb-[2.5rem] mt-14 flex flex-col items-center px-10 lg:container">
         <p className="rounded-full border border-dashed border-gray-400 px-6 py-[6px] text-xs font-bold text-muted-foreground">
           miniboard 📰
         </p>
@@ -18,10 +18,11 @@ const Hero = () => {
           your attendees
         </p>
         <Button asChild className="mx-auto mt-6">
-          <Link href="/events/create">Get started 🚀</Link>
+          <Link href="#start-here">Get started 🚀</Link>
         </Button>
       </section>
 
+      <div className="h-4" id="start-here"></div>
       <EventForm />
     </>
   );

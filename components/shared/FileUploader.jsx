@@ -22,7 +22,7 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }) {
   return (
     <div
       {...getRootProps()}
-      className="flex-center flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-dashed"
+      className="flex-center flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-dashed border-primary"
     >
       <input {...getInputProps()} className="cursor-pointer" />
 
@@ -45,11 +45,10 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }) {
             alt="file upload"
           />
           <h3 className="my-1 mt-2 text-sm">Drag photo here</h3>
-          <p className="p-medium-12 mb-8 text-sm">SVG, PNG, JPG</p>
+          <p className="mb-8 text-sm">SVG, PNG, JPG</p>
           <Button
             type="button"
-            variant="secondary"
-            className="h-auto rounded-full border border-primary px-6 py-[6px] text-sm"
+            className="h-auto rounded-full border bg-transparent px-6 py-[6px] text-sm text-primary shadow-none"
           >
             Upload poster
           </Button>
