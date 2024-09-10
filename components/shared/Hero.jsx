@@ -8,7 +8,7 @@ const Hero = () => {
       <p className="rounded-full border border-dashed border-gray-400 px-6 py-2 text-sm font-bold text-muted-foreground">
         miniboard 📰
       </p>
-      <h1 className="leading-12 mt-6 text-center text-4xl font-bold tracking-tighter md:text-7xl">
+      <h1 className="leading-12 mt-6 text-center text-5xl font-bold tracking-tighter md:text-7xl">
         Promote your event like a <span className="highlight">pro</span>
       </h1>
       <p className="mt-6 text-center text-lg tracking-tight text-[#010D3E]">
