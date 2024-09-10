@@ -29,7 +29,7 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }) {
         </Button>
       </div>
 
-      <div className="flex-center flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-xl border bg-secondary">
+      <div className="flex-center flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-dashed bg-transparent">
         {imageUrl ? (
           <div className="flex h-full w-full flex-1 justify-center">
             <Image
