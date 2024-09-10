@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 const Hero = () => {
   return (
     <section className="container mt-16 flex min-h-screen flex-col items-center">
-      <p className="rounded-full border border-dashed border-gray-400 px-6 py-2 text-lg font-bold text-muted-foreground">
+      <p className="rounded-full border border-dashed border-gray-400 px-6 py-2 font-bold text-muted-foreground">
         miniboard
       </p>
       <h1 className="leading-12 mt-6 px-5 text-center text-5xl font-bold tracking-tighter md:text-7xl">
