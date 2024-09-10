@@ -61,7 +61,7 @@ export default function EventForm({ userId, type, event, eventId }) {
   }
 
   return (
-    <div className="container mt-10">
+    <div className="container">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
