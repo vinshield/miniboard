@@ -115,7 +115,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                         onChange={(date) => field.onChange(date)}
                         showTimeSelect
                         timeInputLabel="Time"
-                        dateFormat={`MMMM d, yyyy ${"|"} h:mm aa`}
+                        dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
                         wrapperClassName="datePicker"
                       />
                     </div>
@@ -140,7 +140,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                         onChange={(date) => field.onChange(date)}
                         showTimeSelect
                         timeInputLabel="Time"
-                        dateFormat={`MMMM d, yyyy ${"|"} h:mm aa`}
+                        dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
                         wrapperClassName="datePicker"
                       />
                     </div>

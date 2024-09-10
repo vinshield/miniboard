@@ -50,7 +50,7 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }) {
             type="button"
             className="h-auto rounded-full border bg-transparent px-6 py-[6px] text-sm text-primary shadow-none"
           >
-            Upload poster
+            Upload a poster
           </Button>
         </div>
       )}
