@@ -17,9 +17,9 @@ const Hero = () => {
           Effortlessly create WhatsApp-ready event captions with reminders for
           your attendees
         </p>
-        <Button asChild className="mx-auto mt-6">
+        {/* <Button asChild className="mx-auto mt-6">
           <Link href="/events/create">Get started 🚀</Link>
-        </Button>
+        </Button> */}
       </section>
 
       <EventForm />

@@ -44,10 +44,10 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }) {
             height={77}
             alt="file upload"
           />
-          <h3 className="mb-2 mt-2">Drag photo here</h3>
-          <p className="p-medium-12 mb-4">SVG, PNG, JPG</p>
-          <Button type="button" className="rounded-full">
-            Upload poster
+          <h3 className="my-1 mt-2">Drag photo here</h3>
+          <p className="p-medium-12 mb-8">SVG, PNG, JPG</p>
+          <Button type="button" className="rounded-lg">
+            Upload poster 🚀
           </Button>
         </div>
       )}
