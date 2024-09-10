@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 const Hero = () => {
   return (
-    <section className="mt-20 flex min-h-screen flex-col items-center px-10 lg:container">
+    <section className="mt-14 flex min-h-screen flex-col items-center px-10 lg:container">
       <p className="rounded-full border border-dashed border-gray-400 px-6 py-[6px] text-xs font-bold text-muted-foreground">
         miniboard 📰
       </p>
@@ -15,7 +15,7 @@ const Hero = () => {
         Effortlessly create WhatsApp-ready event captions with reminders for
         your guests
       </p>
-      <Button asChild className="mx-auto mt-6" size="lg">
+      <Button asChild className="mx-auto mt-6">
         <Link href="/events/create">Get started 🚀</Link>
       </Button>
     </section>
