@@ -1,8 +1,13 @@
 "use client";
 
+import React from "react";
+import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import TextareaAutosize from "react-textarea-autosize";
 
 import { eventDefaultValues } from "@/constants";
 
@@ -18,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { FileUploader } from "./FileUploader";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Switch } from "../ui/switch";
 import { Textarea } from "../ui/textarea";
@@ -56,64 +61,22 @@ export default function EventForm({ userId, type, event, eventId }) {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col space-y-4"
-      >
-        <FormField
-          control={form.control}
-          name="imageUrl"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FileUploader
-                onFieldChange={field.onChange}
-                imageUrl={field.value}
-                setFiles={setFiles}
-              />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="Event Name"
-                  className="border-none bg-transparent p-0 text-3xl font-semibold shadow-none focus-visible:ring-0"
+    <div className="container mt-10">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col space-y-4"
+        >
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FileUploader
+                  onFieldChange={field.onChange}
+                  imageUrl={field.value}
+                  setFiles={setFiles}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div className="flex flex-col">
-          <FormField
-            control={form.control}
-            name="startDateTime"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <div className="flex h-[54px] overflow-hidden rounded-t-lg bg-secondary p-4">
-                    <p className="w-1/6 whitespace-nowrap text-muted-foreground">
-                      Start
-                    </p>
-                    <DatePicker
-                      selected={field.value}
-                      onChange={(date) => field.onChange(date)}
-                      showTimeSelect
-                      timeInputLabel="Time"
-                      dateFormat={`MMMM d, yyyy ${"|"} h:mm aa`}
-                      wrapperClassName="datePicker"
-                    />
-                  </div>
-                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
@@ -121,100 +84,144 @@ export default function EventForm({ userId, type, event, eventId }) {
 
           <FormField
             control={form.control}
-            name="endDateTime"
+            name="title"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex h-[54px] overflow-hidden rounded-b-lg bg-secondary p-4">
-                    <p className="w-1/6 whitespace-nowrap text-muted-foreground">
-                      End
-                    </p>
-                    <DatePicker
-                      selected={field.value}
-                      onChange={(date) => field.onChange(date)}
-                      showTimeSelect
-                      timeInputLabel="Time"
-                      dateFormat={`MMMM d, yyyy ${"|"} h:mm aa`}
-                      wrapperClassName="datePicker"
-                    />
-                  </div>
+                  <TextareaAutosize
+                    {...field}
+                    placeholder="Event Name"
+                    className="border-none bg-transparent p-0 text-3xl font-semibold shadow-none focus-visible:outline-none focus-visible:ring-0"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div>
 
-        <div>
-          <FormField
-            control={form.control}
-            name="online-event"
-            render={({ field }) => (
-              <FormItem className="">
-                <div className="flex items-center space-x-2 rounded-t-lg bg-secondary pl-4 pt-4">
-                  <FormLabel className="text-muted-foreground">
-                    Online event
-                  </FormLabel>
-
+          <div className="flex flex-col">
+            <FormField
+              control={form.control}
+              name="startDateTime"
+              render={({ field }) => (
+                <FormItem>
                   <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <div className="flex h-[54px] overflow-hidden rounded-t-lg bg-secondary p-4">
+                      <p className="w-1/6 whitespace-nowrap text-muted-foreground">
+                        Start
+                      </p>
+                      <DatePicker
+                        selected={field.value}
+                        onChange={(date) => field.onChange(date)}
+                        showTimeSelect
+                        timeInputLabel="Time"
+                        dateFormat={`MMMM d, yyyy ${"|"} h:mm aa`}
+                        wrapperClassName="datePicker"
+                      />
+                    </div>
                   </FormControl>
-                </div>
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="endDateTime"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="flex h-[54px] overflow-hidden rounded-b-lg bg-secondary p-4">
+                      <p className="w-1/6 whitespace-nowrap text-muted-foreground">
+                        End
+                      </p>
+                      <DatePicker
+                        selected={field.value}
+                        onChange={(date) => field.onChange(date)}
+                        showTimeSelect
+                        timeInputLabel="Time"
+                        dateFormat={`MMMM d, yyyy ${"|"} h:mm aa`}
+                        wrapperClassName="datePicker"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div>
+            <FormField
+              control={form.control}
+              name="online-event"
+              render={({ field }) => (
+                <FormItem className="">
+                  <div className="flex items-center space-x-2 rounded-t-lg bg-secondary pl-4 pt-4">
+                    <FormLabel className="text-muted-foreground">
+                      Online event
+                    </FormLabel>
+
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </div>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="flex-center overflow-hidden rounded-b-lg bg-secondary p-2 pl-4">
+                      <Image
+                        src="/assets/icons/location-grey.svg"
+                        alt="location"
+                        width={18}
+                        height={18}
+                      />
+                      <Input
+                        placeholder="Add Event Location"
+                        {...field}
+                        className="input-field p-0 pl-1"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <FormField
             control={form.control}
-            name="location"
+            name="description"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <div className="flex-center overflow-hidden rounded-b-lg bg-secondary p-2 pl-4">
-                    <Image
-                      src="/assets/icons/location-grey.svg"
-                      alt="location"
-                      width={18}
-                      height={18}
-                    />
-                    <Input
-                      placeholder="Add Event Location"
-                      {...field}
-                      className="input-field p-0 pl-1"
-                    />
-                  </div>
+                  <Textarea
+                    placeholder="Add Description"
+                    className="input-field resize-none rounded-lg p-4"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div>
 
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Add Description"
-                  className="input-field resize-none rounded-lg p-4"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit" className="w-full">
-          Submit
-        </Button>
-      </form>
-    </Form>
+          <Button type="submit" className="w-full">
+            Submit
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 }
