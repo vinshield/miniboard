@@ -91,7 +91,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                   <TextareaAutosize
                     {...field}
                     placeholder="Event Name"
-                    className="border-none bg-transparent p-0 text-3xl font-semibold shadow-none focus-visible:outline-none focus-visible:ring-0"
+                    className="mt-2 border-none bg-transparent p-0 text-3xl font-semibold shadow-none focus-visible:outline-none focus-visible:ring-0"
                   />
                 </FormControl>
                 <FormMessage />
@@ -107,7 +107,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                 <FormItem>
                   <FormControl>
                     <div className="flex h-[54px] overflow-hidden rounded-t-lg bg-secondary p-4">
-                      <p className="w-1/6 whitespace-nowrap text-muted-foreground">
+                      <p className="w-1/6 whitespace-nowrap text-sm text-muted-foreground">
                         Start
                       </p>
                       <DatePicker
@@ -116,7 +116,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                         showTimeSelect
                         timeInputLabel="Time"
                         dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
-                        wrapperClassName="datePicker"
+                        wrapperClassName="datePicker text-sm"
                       />
                     </div>
                   </FormControl>
@@ -132,7 +132,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                 <FormItem>
                   <FormControl>
                     <div className="flex h-[54px] overflow-hidden rounded-b-lg bg-secondary p-4">
-                      <p className="w-1/6 whitespace-nowrap text-muted-foreground">
+                      <p className="w-1/6 whitespace-nowrap text-sm text-muted-foreground">
                         End
                       </p>
                       <DatePicker
@@ -141,7 +141,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                         showTimeSelect
                         timeInputLabel="Time"
                         dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
-                        wrapperClassName="datePicker"
+                        wrapperClassName="datePicker text-sm"
                       />
                     </div>
                   </FormControl>
@@ -156,18 +156,17 @@ export default function EventForm({ userId, type, event, eventId }) {
               control={form.control}
               name="online-event"
               render={({ field }) => (
-                <FormItem className="">
+                <FormItem>
                   <div className="flex items-center space-x-2 rounded-t-lg bg-secondary pl-4 pt-4">
-                    <FormLabel className="text-muted-foreground">
-                      Online event
-                    </FormLabel>
-
                     <FormControl>
                       <Switch
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
+                    <FormLabel className="text-xs text-muted-foreground">
+                      Online event
+                    </FormLabel>
                   </div>
                 </FormItem>
               )}
@@ -189,7 +188,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                       <Input
                         placeholder="Add Event Location"
                         {...field}
-                        className="input-field p-0 pl-1"
+                        className="input-field p-0 pl-1 text-sm"
                       />
                     </div>
                   </FormControl>
