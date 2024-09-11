@@ -91,7 +91,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                   <TextareaAutosize
                     {...field}
                     placeholder="Event Name"
-                    className="mt-2 border-none bg-transparent p-0 text-3xl font-semibold shadow-none focus-visible:outline-none focus-visible:ring-0"
+                    className="mt-2 w-full border-none bg-transparent p-0 text-3xl font-semibold shadow-none focus-visible:outline-none focus-visible:ring-0"
                   />
                 </FormControl>
                 <FormMessage />
