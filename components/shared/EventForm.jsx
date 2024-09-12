@@ -99,7 +99,7 @@ export default function EventForm({ userId, type, event, eventId }) {
             )}
           />
 
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <FormField
               control={form.control}
               name="startDateTime"
@@ -149,7 +149,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                 </FormItem>
               )}
             />
-          </div>
+          </div> */}
 
           <div>
             <FormField
@@ -158,15 +158,15 @@ export default function EventForm({ userId, type, event, eventId }) {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex items-center space-x-2 rounded-t-lg bg-secondary pl-4 pt-4">
+                    <FormLabel className="text-xs text-muted-foreground">
+                      Online event
+                    </FormLabel>
                     <FormControl>
                       <Switch
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
-                    <FormLabel className="text-xs text-muted-foreground">
-                      Online event
-                    </FormLabel>
                   </div>
                 </FormItem>
               )}
