@@ -5,7 +5,7 @@ import EventForm from "./EventForm";
 
 const Hero = () => {
   return (
-    <>
+    <div className="pb-16">
       <section className="mb-[2.5rem] mt-14 flex flex-col items-center px-10 lg:container">
         <p className="rounded-full border border-dashed border-gray-400 px-6 py-[6px] text-xs font-bold text-muted-foreground">
           miniboard 📰
@@ -24,7 +24,7 @@ const Hero = () => {
 
       <div className="h-4" id="start-here"></div>
       <EventForm />
-    </>
+    </div>
   );
 };
 

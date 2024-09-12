@@ -99,7 +99,7 @@ export default function EventForm({ userId, type, event, eventId }) {
             )}
           />
 
-          {/* <div className="flex flex-col">
+          <div className="flex flex-col">
             <FormField
               control={form.control}
               name="startDateTime"
@@ -149,7 +149,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                 </FormItem>
               )}
             />
-          </div> */}
+          </div>
 
           <div>
             <FormField
@@ -157,7 +157,7 @@ export default function EventForm({ userId, type, event, eventId }) {
               name="online-event"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center space-x-2 rounded-t-lg bg-secondary pl-4 pt-4">
+                  <div className="flex items-center justify-between space-x-2 rounded-t-lg bg-secondary pl-4 pt-4">
                     <FormLabel className="text-xs text-muted-foreground">
                       Online event
                     </FormLabel>
@@ -217,7 +217,7 @@ export default function EventForm({ userId, type, event, eventId }) {
           />
 
           <Button type="submit" className="w-full">
-            Submit
+            Save
           </Button>
         </form>
       </Form>
