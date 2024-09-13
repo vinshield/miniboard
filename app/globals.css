@@ -149,3 +149,10 @@ body {
 .react-datepicker__time-list-item--selected {
   background-color: #624cf5 !important;
 }
+
+/* background gray: #f4f5f7
+light field gray: #ecedef;
+dark field gray: #e5e6e8
+button gray: #69737d
+dark text gray: #64696e
+light text gray: #8e9297 */
