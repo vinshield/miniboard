@@ -1,31 +1,32 @@
 "use client";
 
-import { useEffect } from "react";
+import Header from "@/components/shared/Header";
+import { AddToCalendarButton } from "add-to-calendar-button-react";
 
 export default function Page() {
-  useEffect(() => {
-    // Find the button or link by its ID or any other selector
-    const button = document.getElementById("redirectButton");
-
-    if (button) {
-      // Simulate a click event
-      setTimeout(() => {
-        button.click();
-      }, 2000);
-    }
-  }, []);
-
   return (
-    <div>
-      <h1>This page will redirect soon...</h1>
-      {/* Hidden button or link */}
-      <a
-        id="redirectButton"
-        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Movie%20Night%3A%20Guardians%20of%20the%20Galaxy%20%F0%9F%8E%AC&dates=20240928T183000/20240928T200000&ctz=Africa/Lagos&location=PTCF&details=Come%20and%20have%20a%20good%20time&reminder=30,60"
-        style={{ display: "none" }}
-      >
-        Redirect
-      </a>
-    </div>
+    <>
+      <Header />
+      <div className="h-screen overflow-hidden">
+        <div className="mb-[2.5rem] mt-36 flex flex-col items-center px-10 lg:container">
+          <h1 className="leading-12 mb-4 text-center text-3xl font-bold tracking-tighter md:text-7xl">
+            Choose your calendar
+          </h1>
+          <div className="flex-center">
+            <AddToCalendarButton
+              name="Movie Night: Guardians of the Galaxy 🎬"
+              options={["Apple", "Google", "iCal", "Microsoft365"]}
+              location="World Wide Web"
+              startDate="2024-09-16"
+              endDate="2024-09-16"
+              startTime="10:15"
+              endTime="23:30"
+              timeZone="Africa/Lagos"
+              buttonsList
+            ></AddToCalendarButton>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
