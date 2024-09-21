@@ -3,15 +3,24 @@
 import { useCallback, Dispatch, SetStateAction } from "react";
 import { useDropzone } from "@uploadthing/react/hooks";
 import { generateClientDropzoneAccept } from "uploadthing/client";
+import { extractPosterInfo } from "@/lib/actions/event.actions";
 
 import { Button } from "@/components/ui/button";
-import { convertFileToUrl } from "@/lib/utils";
+import { convertFiletoBase64, convertFileToUrl } from "@/lib/utils";
 import Image from "next/image";
 
 export function FileUploader({ imageUrl, onFieldChange, setFiles }) {
   const onDrop = useCallback((acceptedFiles) => {
     setFiles(acceptedFiles);
-    onFieldChange(convertFileToUrl(acceptedFiles[0]));
+    onFieldChange(async () => {
+      console.log("test");
+      const val = await convertFiletoBase64(acceptedFiles[0]);
+
+      const res = await extractPosterInfo(val);
+
+      console.log(res);
+    });
+    // convertFileToUrl(acceptedFiles[0]));
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({

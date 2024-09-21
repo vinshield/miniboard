@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 import EventForm from "./EventForm";
+import { chat } from "@/lib/actions/event.actions";
 
 const Hero = () => {
   return (
@@ -17,10 +20,15 @@ const Hero = () => {
           Effortlessly create WhatsApp-ready event captions with reminder links
           for your attendees
         </p>
-        <Button asChild className="mx-auto mt-6">
-          <Link href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Movie%20Night%3A%20Guardians%20of%20the%20Galaxy%20%F0%9F%8E%AC&dates=20240928T183000/20240928T200000&ctz=Africa/Lagos&location=PTCF&details=Come%20and%20have%20a%20good%20time&reminder=30,60">
-            Get started 🚀
-          </Link>
+        <Button
+          className="mx-auto mt-6"
+          onClick={async () => {
+            await chat().then((res) => {
+              console.log(res);
+            });
+          }}
+        >
+          Get started 🚀
         </Button>
       </section>
 
