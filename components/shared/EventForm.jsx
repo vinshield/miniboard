@@ -82,7 +82,7 @@ export default function EventForm({ userId, type, event, eventId }) {
             )}
           />
 
-          <Button size="lg" variant="outline" className="">
+          <Button type="button" size="lg" variant="secondary" className="">
             Enter details manually
           </Button>
 
