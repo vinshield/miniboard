@@ -82,7 +82,7 @@ export default function EventForm({ userId, type, event, eventId }) {
             )}
           />
 
-          <Button type="button" size="lg" variant="secondary" className="">
+          <Button type="button" variant="ghost" className="-mt-9">
             Enter details manually
           </Button>
 
