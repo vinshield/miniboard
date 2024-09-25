@@ -24,7 +24,7 @@ const buttonVariants = cva(
         default: "h-9 px-4 py-2 rounded-lg",
         sm: "h-8 rounded-md px-3 text-xs",
         //I have modified the height of lg size buttons
-        lg: "h-11 rounded-md px-8",
+        lg: "h-12 rounded-md px-8",
         icon: "h-9 w-9",
       },
     },

@@ -20,15 +20,8 @@ const Hero = () => {
           Effortlessly create WhatsApp-ready event captions with reminder links
           for your attendees
         </p>
-        <Button
-          className="mx-auto mt-6"
-          onClick={async () => {
-            await chat().then((res) => {
-              console.log(res);
-            });
-          }}
-        >
-          Get started 🚀
+        <Button aschild className="mx-auto mt-6">
+          <Link href="#start-here">Get started 🚀</Link>
         </Button>
       </section>
 
