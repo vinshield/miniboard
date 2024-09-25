@@ -13,15 +13,22 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }) {
   const onDrop = useCallback((acceptedFiles) => {
     setFiles(acceptedFiles);
     onFieldChange(async () => {
-      console.log("test");
-      const val = await convertFiletoBase64(acceptedFiles[0]);
+      const posterInfo = await convertFiletoBase64(acceptedFiles[0]).then(
+        (val) => extractPosterInfo(val),
+      );
 
-      const res = await extractPosterInfo(val);
-
-      console.log(res);
+      console.log(posterInfo);
     });
     // convertFileToUrl(acceptedFiles[0]));
   }, []);
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      onDrop([file]);
+      onField;
+    }
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -29,40 +36,53 @@ export function FileUploader({ imageUrl, onFieldChange, setFiles }) {
   });
 
   return (
-    <div
-      {...getRootProps()}
-      className="flex-center flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-dashed border-primary"
-    >
-      <input {...getInputProps()} className="cursor-pointer" />
+    <>
+      <div
+        {...getRootProps()}
+        className="flex-center mb-4 flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-dashed border-primary"
+        id="file-input"
+      >
+        <input {...getInputProps()} className="cursor-pointer" />
 
-      {imageUrl ? (
-        <div className="flex h-full w-full flex-1 justify-center">
-          <Image
-            src={imageUrl}
-            alt="image"
-            width={250}
-            height={250}
-            className="w-full object-cover object-center"
-          />
-        </div>
-      ) : (
-        <div className="flex-center flex-col py-5 text-grey-500">
-          <Image
-            src="/assets/icons/upload.svg"
-            width={77}
-            height={77}
-            alt="file upload"
-          />
-          <h3 className="my-1 mt-2 text-sm">Drag photo here</h3>
-          <p className="mb-8 text-sm">SVG, PNG, JPG</p>
-          <Button
+        {imageUrl ? (
+          <div className="flex h-full w-full flex-1 justify-center">
+            <Image
+              src={imageUrl}
+              alt="image"
+              width={250}
+              height={250}
+              className="w-full object-cover object-center"
+            />
+          </div>
+        ) : (
+          <div className="flex-center flex-col py-5 text-grey-500">
+            <Image
+              src="/assets/icons/upload.svg"
+              width={77}
+              height={77}
+              alt="file upload"
+            />
+            <h3 className="my-1 mt-2 text-sm">
+              Click or drag poster here to upload
+            </h3>
+            <p className="mb-8 text-sm">SVG, PNG, JPG</p>
+            {/* <Button
             type="button"
             className="h-auto rounded-full border bg-transparent px-6 py-[6px] text-sm text-primary shadow-none"
           >
             Upload a poster
-          </Button>
-        </div>
-      )}
-    </div>
+          </Button> */}
+          </div>
+        )}
+      </div>
+      <Button
+        size="lg"
+        className="block h-11 w-full"
+        type="button"
+        onClick={() => document.getElementById("file-input").click()}
+      >
+        Upload a poster
+      </Button>{" "}
+    </>
   );
 }

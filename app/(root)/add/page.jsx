@@ -13,7 +13,11 @@ export default function Page() {
             Choose your calendar
           </h1>
           <div className="flex-center">
-            {/* Remember to add an image to this button for a nice appearance in the calendar */}
+            {/* 
+            Remember to add an image to this button for a nice appearance in the calendar
+
+            Don't forget to include the link to this event's page in the description. Also add actual event description. Link to event page should come first
+            */}
             <AddToCalendarButton
               images={[
                 "https://firebasestorage.googleapis.com/v0/b/wknd-47e66.appspot.com/o/event-posters%2FMovie%20-%20ac23e24a-d4a5-4aa8-82ec-37cc0403b81e?alt=media&token=3fe092cc-9602-43fa-99b0-96fb2f6498c2",
