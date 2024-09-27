@@ -30,6 +30,7 @@ import { Textarea } from "../ui/textarea";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { eventFormSchema } from "@/lib/validator";
+import { text } from "body-parser";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -39,8 +40,10 @@ const formSchema = z.object({
 
 export default function EventForm({ userId, type, event, eventId }) {
   const [files, setFiles] = useState([]);
+  const [extractedDetails, setExtractedDetails] = useState(null);
+  const [isOnline, setisOnline] = useState(false);
 
-  const initialValues =
+  let initialValues =
     event && type === "Update"
       ? {
           ...event,
@@ -55,10 +58,29 @@ export default function EventForm({ userId, type, event, eventId }) {
     defaultValues: initialValues,
   });
 
+  const { setValue, reset } = form;
   // 2. Define a submit handler.
   function onSubmit(values) {
     console.log(values);
   }
+
+  useEffect(() => {
+    if (extractedDetails) {
+      console.log(extractedDetails);
+      Object.entries(extractedDetails).forEach(([key, value]) => {
+        if (key === "isOnline") {
+          if (value === true) {
+            setisOnline(true);
+          }
+        }
+        setValue(key, value);
+      });
+      // reset({
+      //   ...initialValues,
+      //   title: extractedDetails.title,
+      // });
+    }
+  }, [extractedDetails]);
 
   return (
     <div className="container overflow-hidden">
@@ -76,6 +98,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                   onFieldChange={field.onChange}
                   imageUrl={field.value}
                   setFiles={setFiles}
+                  setExtractedDetails={setExtractedDetails}
                 />
                 <FormMessage />
               </FormItem>
@@ -86,7 +109,8 @@ export default function EventForm({ userId, type, event, eventId }) {
             Enter details manually
           </Button>
 
-          <div className="hidden">
+          {/* {!extractedDetails && ( */}
+          <div className="">
             <FormField
               control={form.control}
               name="title"
@@ -159,7 +183,7 @@ export default function EventForm({ userId, type, event, eventId }) {
             <div>
               <FormField
                 control={form.control}
-                name="online-event"
+                name="isOnline"
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex items-center justify-between space-x-2 rounded-t-lg bg-secondary px-4 pt-4">
@@ -168,8 +192,11 @@ export default function EventForm({ userId, type, event, eventId }) {
                       </FormLabel>
                       <FormControl>
                         <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
+                          checked={isOnline}
+                          onCheckedChange={(checked) => {
+                            setisOnline(checked);
+                            field.onChange(checked);
+                          }}
                         />
                       </FormControl>
                     </div>
@@ -184,14 +211,24 @@ export default function EventForm({ userId, type, event, eventId }) {
                   <FormItem>
                     <FormControl>
                       <div className="flex-center overflow-hidden rounded-b-lg bg-secondary p-2 pl-4">
-                        <Image
-                          src="/assets/icons/location-grey.svg"
-                          alt="location"
-                          width={18}
-                          height={18}
-                        />
+                        {isOnline ? (
+                          <Image
+                            src="/assets/icons/link.svg"
+                            alt="location"
+                            width={18}
+                            height={18}
+                          />
+                        ) : (
+                          <Image
+                            src="/assets/icons/location-grey.svg"
+                            alt="location"
+                            width={18}
+                            height={18}
+                          />
+                        )}
+
                         <Input
-                          placeholder="Add Event Location"
+                          placeholder={`Add ${isOnline ? "Meeting URL" : "Event Location"}`}
                           {...field}
                           className="input-field p-0 pl-1 text-sm"
                         />
@@ -225,6 +262,7 @@ export default function EventForm({ userId, type, event, eventId }) {
               Save
             </Button>
           </div>
+          {/* )} */}
         </form>
       </Form>
     </div>

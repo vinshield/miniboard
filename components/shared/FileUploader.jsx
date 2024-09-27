@@ -9,20 +9,24 @@ import { Button } from "@/components/ui/button";
 import { convertFiletoBase64, convertFileToUrl } from "@/lib/utils";
 import Image from "next/image";
 
-export function FileUploader({ imageUrl, onFieldChange, setFiles }) {
+export function FileUploader({
+  imageUrl,
+  onFieldChange,
+  setFiles,
+  setExtractedDetails,
+}) {
   const onDrop = useCallback(async (acceptedFiles) => {
     setFiles(acceptedFiles);
     onFieldChange(convertFileToUrl(acceptedFiles[0]));
-    // const posterInfo = await convertFiletoBase64(acceptedFiles[0]).then((val) =>
-    //   extractPosterInfo(val),
-    // );
-    // console.log(posterInfo);
+    const posterInfo = await convertFiletoBase64(acceptedFiles[0]).then((val) =>
+      extractPosterInfo(val),
+    );
+    setExtractedDetails(posterInfo);
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: "image/*" ? generateClientDropzoneAccept(["image/*"]) : undefined,
-    maxFiles: 1,
   });
 
   return (

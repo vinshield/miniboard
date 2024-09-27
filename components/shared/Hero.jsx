@@ -20,7 +20,7 @@ const Hero = () => {
           Effortlessly create WhatsApp-ready event captions with reminder links
           for your attendees
         </p>
-        <Button aschild className="mx-auto mt-6">
+        <Button className="mx-auto mt-6">
           <Link href="#start-here">Get started 🚀</Link>
         </Button>
       </section>
