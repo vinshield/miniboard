@@ -8,6 +8,7 @@ import { extractPosterInfo } from "@/lib/actions/event.actions";
 import { Button } from "@/components/ui/button";
 import { convertFiletoBase64, convertFileToUrl } from "@/lib/utils";
 import Image from "next/image";
+import { resolve } from "styled-jsx/css";
 
 export function FileUploader({
   imageUrl,
@@ -18,6 +19,8 @@ export function FileUploader({
   const onDrop = useCallback(async (acceptedFiles) => {
     setFiles(acceptedFiles);
     onFieldChange(convertFileToUrl(acceptedFiles[0]));
+    
+    // convert file to base64 in order to send it to server function
     const posterInfo = await convertFiletoBase64(acceptedFiles[0]).then((val) =>
       extractPosterInfo(val),
     );
