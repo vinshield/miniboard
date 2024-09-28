@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  //   future: {
-  //     // by default, if you customize webpack config, they switch back to version 4.
-  //     // Looks like backward compatibility approach.
-  //     webpack5: true,
-  //   },
+
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
+  },
 
   webpack(config) {
     config.resolve.fallback = {
