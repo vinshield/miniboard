@@ -19,7 +19,7 @@ export function FileUploader({
   const onDrop = useCallback(async (acceptedFiles) => {
     setFiles(acceptedFiles);
     onFieldChange(convertFileToUrl(acceptedFiles[0]));
-    
+
     // convert file to base64 in order to send it to server function
     const posterInfo = await convertFiletoBase64(acceptedFiles[0]).then((val) =>
       extractPosterInfo(val),
@@ -30,6 +30,7 @@ export function FileUploader({
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: "image/*" ? generateClientDropzoneAccept(["image/*"]) : undefined,
+    maxSize: 3 * 1024 * 1024,
   });
 
   return (
