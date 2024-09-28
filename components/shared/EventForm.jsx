@@ -192,7 +192,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                       </FormLabel>
                       <FormControl>
                         <Switch
-                          checked={isOnline}
+                          checked={field.value}
                           onCheckedChange={(checked) => {
                             setisOnline(checked);
                             field.onChange(checked);
