@@ -141,13 +141,13 @@ body {
 }
 
 .react-datepicker__day--selected {
-  background-color: #624cf5 !important;
+  background-color: hsl(var(--primary)) !important;
   color: #ffffff !important;
   border-radius: 4px;
 }
 
 .react-datepicker__time-list-item--selected {
-  background-color: #624cf5 !important;
+  background-color: hsl(var(--primary)) !important;
 }
 
 /* background gray: #f4f5f7

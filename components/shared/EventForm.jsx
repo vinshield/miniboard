@@ -68,17 +68,23 @@ export default function EventForm({ userId, type, event, eventId }) {
     if (extractedDetails) {
       console.log(extractedDetails);
       Object.entries(extractedDetails).forEach(([key, value]) => {
+        if (key === "startDateTime" || key === "endDateTime") {
+          if (value) {
+            let myDate = new Date(value);
+            console.log(value instanceof Date);
+            console.log(myDate instanceof Date);
+            value = myDate;
+          } else {
+            value = new Date();
+          }
+        }
         if (key === "isOnline") {
-          if (value === true) {
+          if (value && value === true) {
             setisOnline(true);
           }
         }
         setValue(key, value);
       });
-      // reset({
-      //   ...initialValues,
-      //   title: extractedDetails.title,
-      // });
     }
   }, [extractedDetails]);
 
@@ -109,8 +115,8 @@ export default function EventForm({ userId, type, event, eventId }) {
             Enter details manually
           </Button>
 
-          {/* {!extractedDetails && ( */}
-          <div className="">
+          {/* {extractedDetails && ( */}
+          <div className="space-y-4">
             <FormField
               control={form.control}
               name="title"
@@ -128,25 +134,27 @@ export default function EventForm({ userId, type, event, eventId }) {
               )}
             />
 
-            <div className="flex flex-col">
+            <div className="divide flex flex-col divide-y-2 divide-dotted rounded-lg bg-secondary px-8">
               <FormField
                 control={form.control}
                 name="startDateTime"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="flex h-[54px] overflow-hidden rounded-t-lg bg-secondary p-4">
+                      <div className="flex h-[54px] justify-between overflow-hidden rounded-t-lg py-4">
                         <p className="w-1/6 whitespace-nowrap text-sm text-muted-foreground">
                           Start
                         </p>
-                        <DatePicker
-                          selected={field.value}
-                          onChange={(date) => field.onChange(date)}
-                          showTimeSelect
-                          timeInputLabel="Time"
-                          dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
-                          wrapperClassName="datePicker text-sm"
-                        />
+                        <div>
+                          <DatePicker
+                            selected={field.value}
+                            onChange={(date) => field.onChange(date)}
+                            showTimeSelect
+                            timeInputLabel="Time"
+                            dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
+                            wrapperClassName="datePicker text-[15px] margin-auto"
+                          />
+                        </div>
                       </div>
                     </FormControl>
                     <FormMessage />
@@ -160,18 +168,20 @@ export default function EventForm({ userId, type, event, eventId }) {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="flex h-[54px] overflow-hidden rounded-b-lg bg-secondary p-4">
+                      <div className="flex h-[54px] justify-between gap-4 overflow-hidden rounded-b-lg py-4">
                         <p className="w-1/6 whitespace-nowrap text-sm text-muted-foreground">
                           End
                         </p>
-                        <DatePicker
-                          selected={field.value}
-                          onChange={(date) => field.onChange(date)}
-                          showTimeSelect
-                          timeInputLabel="Time"
-                          dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
-                          wrapperClassName="datePicker text-sm"
-                        />
+                        <div>
+                          <DatePicker
+                            selected={field.value}
+                            onChange={(date) => field.onChange(date)}
+                            showTimeSelect
+                            timeInputLabel="Time"
+                            dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
+                            wrapperClassName="datePicker text-[15px]"
+                          />
+                        </div>
                       </div>
                     </FormControl>
                     <FormMessage />
@@ -247,11 +257,16 @@ export default function EventForm({ userId, type, event, eventId }) {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea
+                    <TextareaAutosize
+                      placeholder="Add Description"
+                      className="input-field flex min-h-[60px] w-full rounded-lg border border-none border-input bg-transparent p-4 px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                      {...field}
+                    />
+                    {/* <Textarea
                       placeholder="Add Description"
                       className="input-field resize-none rounded-lg p-4"
                       {...field}
-                    />
+                    /> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
