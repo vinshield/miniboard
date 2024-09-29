@@ -141,7 +141,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="flex h-[54px] justify-between overflow-hidden rounded-t-lg py-4">
+                      <div className="flex h-[54px] items-center justify-between overflow-hidden rounded-t-lg py-4">
                         <p className="w-1/6 whitespace-nowrap text-sm text-muted-foreground">
                           Start
                         </p>
@@ -168,7 +168,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <div className="flex h-[54px] justify-between gap-4 overflow-hidden rounded-b-lg py-4">
+                      <div className="flex h-[54px] items-center justify-between overflow-hidden rounded-t-lg py-4">
                         <p className="w-1/6 whitespace-nowrap text-sm text-muted-foreground">
                           End
                         </p>
