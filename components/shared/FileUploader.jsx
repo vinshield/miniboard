@@ -79,7 +79,7 @@ export function FileUploader({
         type="button"
         onClick={() => document.getElementById("file-input").click()}
       >
-        Upload a poster
+        Upload your event poster
       </Button>{" "}
     </>
   );
