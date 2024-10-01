@@ -31,12 +31,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { eventFormSchema } from "@/lib/validator";
 import { text } from "body-parser";
+import { Captions } from "lucide-react";
 
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
 });
+
+// TO-DO:
+// Create caption
+// Create form validation flow on front
+// Save posts
 
 export default function EventForm({ userId, type, event, eventId }) {
   const [files, setFiles] = useState([]);
