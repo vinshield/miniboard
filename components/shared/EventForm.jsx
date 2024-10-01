@@ -42,6 +42,7 @@ export default function EventForm({ userId, type, event, eventId }) {
   const [files, setFiles] = useState([]);
   const [extractedDetails, setExtractedDetails] = useState(null);
   const [isOnline, setisOnline] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   let initialValues =
     event && type === "Update"
@@ -64,6 +65,24 @@ export default function EventForm({ userId, type, event, eventId }) {
     console.log(values);
   }
 
+  const showFormAndScroll = () => {
+    setShowForm(true);
+
+    const formText = document.getElementById("form-text");
+
+    formText.classList.remove("h-0");
+    formText.classList.add("h-full");
+    // window.scrollTo({
+    //   top: formText.offsetTop,
+    //   behavior: "smooth",
+    // });
+    formText.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTimeout(() => {
+      formText.classList.remove("opacity-0");
+      formText.classList.add("opacity-100");
+    }, 1000);
+  };
+
   useEffect(() => {
     if (extractedDetails) {
       console.log(extractedDetails);
@@ -85,6 +104,8 @@ export default function EventForm({ userId, type, event, eventId }) {
         }
         setValue(key, value);
       });
+
+      showFormAndScroll();
     }
   }, [extractedDetails]);
 
@@ -105,18 +126,26 @@ export default function EventForm({ userId, type, event, eventId }) {
                   imageUrl={field.value}
                   setFiles={setFiles}
                   setExtractedDetails={setExtractedDetails}
+                  showForm={showForm}
                 />
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <Button type="button" variant="ghost" className="-mt-9">
+          <Button
+            type="button"
+            variant="ghost"
+            className={`${showForm ? "hidden" : "visible"} -mt-9`}
+          >
             Enter details manually
           </Button>
 
           {/* {extractedDetails && ( */}
-          <div className="space-y-4">
+          <div
+            className={`h-0 space-y-4 opacity-0 transition-opacity duration-1000 ease-in`}
+            id="form-text"
+          >
             <FormField
               control={form.control}
               name="title"

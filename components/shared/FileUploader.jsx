@@ -15,6 +15,7 @@ export function FileUploader({
   onFieldChange,
   setFiles,
   setExtractedDetails,
+  showForm,
 }) {
   const onDrop = useCallback(async (acceptedFiles) => {
     setFiles(acceptedFiles);
@@ -32,6 +33,8 @@ export function FileUploader({
     accept: "image/*" ? generateClientDropzoneAccept(["image/*"]) : undefined,
     maxSize: 3 * 1024 * 1024,
   });
+
+  console.log(showForm);
 
   return (
     <>
@@ -75,7 +78,7 @@ export function FileUploader({
       </div>
       <Button
         size="lg"
-        className="block h-12 w-full shadow-md"
+        className={`${showForm ? "hidden" : "block"} h-12 w-full shadow-md`}
         type="button"
         onClick={() => document.getElementById("file-input").click()}
       >
