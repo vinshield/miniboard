@@ -75,10 +75,11 @@ export default function EventForm({ userId, type, event, eventId }) {
     setShowForm(true);
 
     const formText = document.getElementById("form-text");
+    const formTextStart = document.getElementById("form-text-start");
 
     formText.classList.remove("h-0", "hidden");
     formText.classList.add("h-full");
-    formText.scrollIntoView({ behavior: "smooth", block: "start" });
+    formTextStart.scrollIntoView({ behavior: "smooth" });
     setTimeout(() => {
       formText.classList.remove("opacity-0");
       formText.classList.add("opacity-100");
@@ -140,9 +141,15 @@ export default function EventForm({ userId, type, event, eventId }) {
             type="button"
             variant="ghost"
             className={`${showForm ? "hidden" : "visible"}`}
+            onClick={() => showFormAndScroll()}
           >
             Enter details manually
           </Button>
+
+          <div
+            className={`${showForm ? "hidden" : ""} m-0 h-0 p-0`}
+            id="form-text-start"
+          ></div>
 
           {/* {extractedDetails && ( */}
           <div
