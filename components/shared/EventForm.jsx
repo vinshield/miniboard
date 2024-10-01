@@ -79,7 +79,7 @@ export default function EventForm({ userId, type, event, eventId }) {
 
     formText.classList.remove("h-0", "hidden");
     formText.classList.add("h-full");
-    formText.scrollIntoView({ behavior: "smooth", block: "end" });
+    formText.scrollIntoView({ behavior: "smooth", block: "nearest" });
     setTimeout(() => {
       formText.classList.remove("opacity-0");
       formText.classList.add("opacity-100");
