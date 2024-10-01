@@ -33,12 +33,6 @@ import { eventFormSchema } from "@/lib/validator";
 import { text } from "body-parser";
 import { Captions } from "lucide-react";
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
-
 // TO-DO:
 // Create caption
 // Create form validation flow on front
@@ -65,17 +59,16 @@ export default function EventForm({ userId, type, event, eventId }) {
     defaultValues: initialValues,
   });
 
-  const { setValue, reset } = form;
   // 2. Define a submit handler.
-  function onSubmit(values) {
-    console.log(values);
-  }
+  const onSubmit = async (values) => {
+    // console.log(values.title);
+    console.log("submit button clicked");
+  };
 
   const showFormAndScroll = () => {
     setShowForm(true);
 
     const formText = document.getElementById("form-text");
-    const formTextStart = document.getElementById("form-text-start");
 
     formText.classList.remove("h-0", "hidden");
     formText.classList.add("h-full");
@@ -86,10 +79,12 @@ export default function EventForm({ userId, type, event, eventId }) {
     }, 500);
   };
 
+  const { setValue, reset } = form;
+
   useEffect(() => {
     // Put the details extracted from the poster into the input fields
     if (extractedDetails) {
-      console.log(extractedDetails);
+      // console.log(extractedDetails);
       Object.entries(extractedDetails).forEach(([key, value]) => {
         if (key === "startDateTime" || key === "endDateTime") {
           if (value) {
@@ -146,12 +141,6 @@ export default function EventForm({ userId, type, event, eventId }) {
             Enter details manually
           </Button>
 
-          {/* <div
-            className={`${showForm ? "hidden" : ""} m-0 h-0 p-0`}
-            id="form-text-start"
-          ></div> */}
-
-          {/* {extractedDetails && ( */}
           <div
             className={`hidden h-0 space-y-4 opacity-0 transition-opacity duration-1000 ease-in`}
             id="form-text"
@@ -316,7 +305,6 @@ export default function EventForm({ userId, type, event, eventId }) {
               Save
             </Button>
           </div>
-          {/* )} */}
         </form>
       </Form>
     </div>

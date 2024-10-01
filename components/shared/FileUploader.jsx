@@ -34,8 +34,6 @@ export function FileUploader({
     maxSize: 3 * 1024 * 1024,
   });
 
-  console.log(showForm);
-
   return (
     <>
       <div
