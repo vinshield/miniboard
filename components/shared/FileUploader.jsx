@@ -40,7 +40,7 @@ export function FileUploader({
     <>
       <div
         {...getRootProps()}
-        className="flex-center mb-4 flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-dashed border-primary"
+        className={`${showForm ? "" : "mb-4"} flex-center flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-dashed border-primary`}
         id="file-input"
       >
         <input {...getInputProps()} className="cursor-pointer" />
