@@ -22,13 +22,15 @@ export default function Page() {
               images={[
                 "https://firebasestorage.googleapis.com/v0/b/wknd-47e66.appspot.com/o/event-posters%2FMovie%20-%20ac23e24a-d4a5-4aa8-82ec-37cc0403b81e?alt=media&token=3fe092cc-9602-43fa-99b0-96fb2f6498c2",
               ]}
-              description="[/p]Visit [url]https://miniboard-flax.vercel.app/add[/url] for more information."
-              name="Movie Night: Guardians of the Galaxy 🎬"
+              description="[/p]Join the tech revolution at Hackaholics 5.0! Innovate, collaborate, and lead Africa towards a prosperous future 🌍🚀
+
+              Visit [url]https://miniboard-flax.vercel.app[/url] for more information."
+              name="Meta Idea: Digi Tech Solutions For Africa's Prosperity 👨🏽‍💻"
               options={["Apple", "Google", "iCal", "Microsoft365"]}
-              location="World Wide Web"
-              startDate="2024-09-16"
-              endDate="2024-09-16"
-              startTime="10:15"
+              location="Owolabi Hall, Afe Babalola University"
+              startDate="2024-10-03"
+              endDate="2024-10-04"
+              startTime="09:00"
               endTime="23:30"
               timeZone="Africa/Lagos"
               buttonsList
