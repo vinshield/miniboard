@@ -61,10 +61,22 @@ export default function EventForm({ userId, type, event, eventId }) {
     defaultValues: initialValues,
   });
 
+  const { setValue, reset } = form;
+
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
-    // console.log(values.title);
-    console.log("submit button clicked");
+    try {
+      const newEvent = await createEvent({
+        event: { ...values },
+        path: "/profile",
+      });
+      console.log("sending to database");
+      if (newEvent) {
+        reset();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const showFormAndScroll = () => {
@@ -79,16 +91,16 @@ export default function EventForm({ userId, type, event, eventId }) {
       formText.classList.remove("opacity-0");
       formText.classList.add("opacity-100");
     }, 500);
-  };
 
-  const { setValue, reset } = form;
+    console.log(form.formState.errors);
+  };
 
   const generateCaption = (val) => {
     const { caption, startDateTime, endDateTime, location } = val;
     const captionDate = formatDate(startDateTime);
     console.log(captionDate);
 
-    const newCaption = `${caption}\n\n*_Stressless reminder link_* 👇🏽\n${"https://miniboard-flax.vercel.app/add"}\n\n📅 *${captionDate}*\n📍 *${location}*`;
+    const newCaption = `${caption}\n\n*_Stressless reminder link_* 👇🏽\n${"https://miniboard-flax.vercel.app/add"}\n\n📅 _${captionDate}_\n📍 _${location}_`;
 
     return newCaption;
   };

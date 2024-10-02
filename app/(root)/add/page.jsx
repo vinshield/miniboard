@@ -22,9 +22,7 @@ export default function Page() {
               images={[
                 "https://firebasestorage.googleapis.com/v0/b/wknd-47e66.appspot.com/o/event-posters%2FMovie%20-%20ac23e24a-d4a5-4aa8-82ec-37cc0403b81e?alt=media&token=3fe092cc-9602-43fa-99b0-96fb2f6498c2",
               ]}
-              description="[/p]Join the tech revolution at Hackaholics 5.0! Innovate, collaborate, and lead Africa towards a prosperous future 🌍🚀
-
-              Visit [url]https://miniboard-flax.vercel.app[/url] for more information."
+              description="[/p]Join the tech revolution at Hackaholics 5.0! Innovate, collaborate, and lead Africa towards a prosperous future 🌍🚀<br/>Visit [url]https://miniboard-flax.vercel.app[/url] for more information."
               name="Meta Idea: Digi Tech Solutions For Africa's Prosperity 👨🏽‍💻"
               options={["Apple", "Google", "iCal", "Microsoft365"]}
               location="Owolabi Hall, Afe Babalola University"
