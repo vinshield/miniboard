@@ -4,6 +4,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 
+import { formatDate, formatTime } from "@/lib/utils";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -81,6 +83,16 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   const { setValue, reset } = form;
 
+  const generateCaption = (val) => {
+    const { caption, startDateTime, endDateTime, location } = val;
+    const captionDate = formatDate(startDateTime);
+    console.log(captionDate);
+
+    const newCaption = `${caption}\n\n_Stressless reminder link_ 👇🏽👇🏽\n${"https://miniboard-flax.vercel.app/add"}\n\n📅 *${captionDate}*\n📍 *${location}*`;
+
+    return newCaption;
+  };
+
   useEffect(() => {
     // Put the details extracted from the poster into the input fields
     if (extractedDetails) {
@@ -100,6 +112,9 @@ export default function EventForm({ userId, type, event, eventId }) {
           if (value && value === true) {
             setisOnline(true);
           }
+        }
+        if (key === "caption") {
+          value = generateCaption(extractedDetails);
         }
         setValue(key, value);
       });
@@ -284,6 +299,29 @@ export default function EventForm({ userId, type, event, eventId }) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <TextareaAutosize
+                      placeholder="Add Description"
+                      className="input-field flex min-h-[60px] w-full rounded-lg border border-none border-input bg-transparent p-4 px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                      {...field}
+                    />
+                    {/* <Textarea
+                      placeholder="Add Description"
+                      className="input-field resize-none rounded-lg p-4"
+                      {...field}
+                    /> */}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="caption"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Caption</FormLabel>
                   <FormControl>
                     <TextareaAutosize
                       placeholder="Add Description"

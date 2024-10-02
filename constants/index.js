@@ -16,6 +16,7 @@ export const headerLinks = [
 export const eventDefaultValues = {
   title: "",
   description: "",
+  caption: "This is a sentence.\n\nThis is on a new line.",
   location: "",
   imageUrl: "",
   startDateTime: new Date(),
