@@ -63,13 +63,6 @@ export default function Page({ params }) {
                   updateNumOfSaves(event._id);
                 }}
               >
-                {event.numOfSaves > 4 && (
-                  <p className="text-center text-sm text-muted-foreground">
-                    <strong className="text-primary">{event.numOfSaves}</strong>{" "}
-                    people have set a reminder for this event
-                  </p>
-                )}
-
                 <div className="mt-4">
                   <AddToCalendarButton
                     images={[
@@ -87,6 +80,13 @@ export default function Page({ params }) {
                     buttonsList
                   ></AddToCalendarButton>
                 </div>
+
+                {event.numOfSaves > 4 && (
+                  <p className="mt-2 text-center text-sm text-muted-foreground">
+                    <strong className="text-primary">{event.numOfSaves}</strong>{" "}
+                    people have set a reminder for this event
+                  </p>
+                )}
 
                 <Button className="mx-auto mt-8">
                   <Link href="https://miniboard-flax.vercel.app/">
