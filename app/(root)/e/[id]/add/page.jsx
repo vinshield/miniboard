@@ -88,7 +88,7 @@ export default function Page({ params }) {
                   ></AddToCalendarButton>
                 </div>
 
-                <Button className="mx-auto">
+                <Button className="mx-auto shadow-md">
                   <Link href="https://miniboard-flax.vercel.app/">
                     Visit the homepage 🚀
                   </Link>
