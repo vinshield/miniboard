@@ -63,7 +63,14 @@ export default function Page({ params }) {
                   updateNumOfSaves(event._id);
                 }}
               >
-                <div className="mt-4">
+                {event.numOfSaves > 4 && (
+                  <p className="mb-10 text-center text-sm text-muted-foreground">
+                    <strong className="text-primary">{event.numOfSaves}</strong>{" "}
+                    people have set a reminder for this event
+                  </p>
+                )}
+
+                <div className="mb-11">
                   <AddToCalendarButton
                     images={[
                       "https://firebasestorage.googleapis.com/v0/b/wknd-47e66.appspot.com/o/event-posters%2FMovie%20-%20ac23e24a-d4a5-4aa8-82ec-37cc0403b81e?alt=media&token=3fe092cc-9602-43fa-99b0-96fb2f6498c2",
@@ -81,14 +88,7 @@ export default function Page({ params }) {
                   ></AddToCalendarButton>
                 </div>
 
-                {event.numOfSaves > 4 && (
-                  <p className="mt-2 text-center text-sm text-muted-foreground">
-                    <strong className="text-primary">{event.numOfSaves}</strong>{" "}
-                    people have set a reminder for this event
-                  </p>
-                )}
-
-                <Button className="mx-auto mt-8">
+                <Button className="mx-auto">
                   <Link href="https://miniboard-flax.vercel.app/">
                     Visit the homepage 🚀
                   </Link>
