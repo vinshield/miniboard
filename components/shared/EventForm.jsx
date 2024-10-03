@@ -66,8 +66,6 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
-    console.log(form.formState.errors);
-
     try {
       const newEvent = await createEvent({
         event: { ...values },

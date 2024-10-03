@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
         className={`${inter.className} bg-gradient-to-b from-sky-200 via-slate-50 via-10% to-slate-50`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
