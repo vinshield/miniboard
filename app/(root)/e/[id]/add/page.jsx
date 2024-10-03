@@ -58,6 +58,7 @@ export default function Page({ params }) {
 
             {event && (
               <div
+                className="flex flex-col justify-center"
                 onClick={() => {
                   updateNumOfSaves(event._id);
                 }}
@@ -77,14 +78,15 @@ export default function Page({ params }) {
                   timeZone="Africa/Lagos"
                   buttonsList
                 ></AddToCalendarButton>
+
+                <Button className="mx-auto mt-6">
+                  <Link href="https://miniboard-flax.vercel.app/">
+                    Visit the homepage 🚀
+                  </Link>
+                </Button>
               </div>
             )}
           </div>
-          <Button className="mx-auto mt-6">
-            <Link href="https://miniboard-flax.vercel.app/">
-              Visit the homepage 🚀
-            </Link>
-          </Button>
         </div>
       </div>
     </>
