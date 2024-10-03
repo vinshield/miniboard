@@ -9,6 +9,8 @@ import { updateNumOfSaves } from "@/lib/actions/event.actions";
 
 import { useEffect, useState } from "react";
 import { DateTime } from "luxon";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Page({ params }) {
   const pathname = usePathname();
@@ -78,6 +80,11 @@ export default function Page({ params }) {
               </div>
             )}
           </div>
+          <Button className="mx-auto mt-6">
+            <Link href="https://miniboard-flax.vercel.app/">
+              Visit the homepage 🚀
+            </Link>
+          </Button>
         </div>
       </div>
     </>
