@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 
 import { formatDate, formatTime } from "@/lib/utils";
+import { createEvent } from "@/lib/actions/event.actions";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -65,13 +66,15 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
+    console.log(form.formState.errors);
+
     try {
       const newEvent = await createEvent({
         event: { ...values },
         path: "/profile",
       });
-      console.log("sending to database");
       if (newEvent) {
+        // console.log(newEvent.publicId);
         reset();
       }
     } catch (error) {
@@ -91,14 +94,11 @@ export default function EventForm({ userId, type, event, eventId }) {
       formText.classList.remove("opacity-0");
       formText.classList.add("opacity-100");
     }, 500);
-
-    console.log(form.formState.errors);
   };
 
   const generateCaption = (val) => {
     const { caption, startDateTime, endDateTime, location } = val;
     const captionDate = formatDate(startDateTime);
-    console.log(captionDate);
 
     const newCaption = `${caption}\n\n*_Stressless reminder link_* 👇🏽\n${"https://miniboard-flax.vercel.app/add"}\n\n📅 _${captionDate}_\n📍 _${location}_`;
 
@@ -108,7 +108,7 @@ export default function EventForm({ userId, type, event, eventId }) {
   useEffect(() => {
     // Put the details extracted from the poster into the input fields
     if (extractedDetails) {
-      // console.log(extractedDetails);
+      console.log(extractedDetails);
       Object.entries(extractedDetails).forEach(([key, value]) => {
         if (key === "startDateTime" || key === "endDateTime") {
           if (value) {
@@ -188,7 +188,6 @@ export default function EventForm({ userId, type, event, eventId }) {
                 </FormItem>
               )}
             />
-
             <div className="divide flex flex-col divide-y-2 divide-dotted rounded-lg bg-secondary px-8">
               <FormField
                 control={form.control}
@@ -244,7 +243,6 @@ export default function EventForm({ userId, type, event, eventId }) {
                 )}
               />
             </div>
-
             <div>
               <FormField
                 control={form.control}
@@ -304,7 +302,6 @@ export default function EventForm({ userId, type, event, eventId }) {
                 )}
               />
             </div>
-
             <FormField
               control={form.control}
               name="description"
@@ -327,7 +324,6 @@ export default function EventForm({ userId, type, event, eventId }) {
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="caption"
@@ -350,8 +346,14 @@ export default function EventForm({ userId, type, event, eventId }) {
                 </FormItem>
               )}
             />
-
-            <Button size="lg" type="submit" className="w-full">
+            <Button
+              onClick={() => {
+                console.log(form.formState.errors);
+              }}
+              size="lg"
+              type="submit"
+              className="w-full"
+            >
               Save
             </Button>
           </div>
