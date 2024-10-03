@@ -70,7 +70,7 @@ export default function Page({ params }) {
                   </p>
                 )}
 
-                <div className="mb-11">
+                <div className="mb-20">
                   <AddToCalendarButton
                     images={[
                       "https://firebasestorage.googleapis.com/v0/b/wknd-47e66.appspot.com/o/event-posters%2FMovie%20-%20ac23e24a-d4a5-4aa8-82ec-37cc0403b81e?alt=media&token=3fe092cc-9602-43fa-99b0-96fb2f6498c2",
