@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "miniboard",
-  description: "Generate captions and add-to-calendar link with one click",
+  description: "Create captions and add-to-calendar link with one click",
 };
 
 export default function RootLayout({ children }) {
