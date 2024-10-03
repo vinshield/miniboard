@@ -72,7 +72,7 @@ export default function EventForm({ userId, type, event, eventId }) {
         path: "/profile",
       });
       if (newEvent) {
-        // console.log(newEvent.publicId);
+        console.log(newEvent.publicId);
         reset();
       }
     } catch (error) {

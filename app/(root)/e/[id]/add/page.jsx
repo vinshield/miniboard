@@ -46,7 +46,7 @@ export default function Page({ params }) {
       <Header />
       <div className="h-screen overflow-hidden">
         <div className="mb-[2.5rem] mt-36 flex flex-col items-center px-10 lg:container">
-          <h1 className="leading-12 mb-4 text-center text-3xl font-bold tracking-tighter md:text-7xl">
+          <h1 className="leading-12 text-center text-3xl font-bold tracking-tighter md:text-7xl">
             Choose your calendar
           </h1>
           <div className="flex-center">
@@ -63,23 +63,32 @@ export default function Page({ params }) {
                   updateNumOfSaves(event._id);
                 }}
               >
-                <AddToCalendarButton
-                  images={[
-                    "https://firebasestorage.googleapis.com/v0/b/wknd-47e66.appspot.com/o/event-posters%2FMovie%20-%20ac23e24a-d4a5-4aa8-82ec-37cc0403b81e?alt=media&token=3fe092cc-9602-43fa-99b0-96fb2f6498c2",
-                  ]}
-                  description={`[/p]${description}\n\nVisit [url]https://miniboard-flax.vercel.app[/url] for more information.`}
-                  name={title}
-                  options={["Apple", "Google", "iCal", "Microsoft365"]}
-                  location={location}
-                  startDate={startDate}
-                  endDate={endDate}
-                  startTime={startTime}
-                  endTime={endTime}
-                  timeZone="Africa/Lagos"
-                  buttonsList
-                ></AddToCalendarButton>
+                {event.numOfSaves > 4 && (
+                  <p className="text-center text-sm text-muted-foreground">
+                    <strong className="text-primary">{event.numOfSaves}</strong>{" "}
+                    people have set a reminder for this event
+                  </p>
+                )}
 
-                <Button className="mx-auto mt-6">
+                <div className="mt-4">
+                  <AddToCalendarButton
+                    images={[
+                      "https://firebasestorage.googleapis.com/v0/b/wknd-47e66.appspot.com/o/event-posters%2FMovie%20-%20ac23e24a-d4a5-4aa8-82ec-37cc0403b81e?alt=media&token=3fe092cc-9602-43fa-99b0-96fb2f6498c2",
+                    ]}
+                    description={`[/p]${description}\n\nVisit [url]https://miniboard-flax.vercel.app[/url] for more information.`}
+                    name={title}
+                    options={["Apple", "Google", "iCal", "Microsoft365"]}
+                    location={location}
+                    startDate={startDate}
+                    endDate={endDate}
+                    startTime={startTime}
+                    endTime={endTime}
+                    timeZone="Africa/Lagos"
+                    buttonsList
+                  ></AddToCalendarButton>
+                </div>
+
+                <Button className="mx-auto mt-8">
                   <Link href="https://miniboard-flax.vercel.app/">
                     Visit the homepage 🚀
                   </Link>
