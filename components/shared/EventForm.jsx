@@ -98,7 +98,7 @@ export default function EventForm({ userId, type, event, eventId }) {
     const { caption, startDateTime, endDateTime, location } = val;
     const captionDate = formatDate(startDateTime);
 
-    const newCaption = `${caption}\n\n*_Stressless reminder link_* 👇🏽\n${"https://miniboard-flax.vercel.app/add"}\n\n📅 _${captionDate}_\n📍 _${location}_`;
+    const newCaption = `${caption}\n\n*_Set a reminder stress-free_* 👇🏽\n${"https://miniboard-flax.vercel.app/add"}\n\n📅 _${captionDate}_\n📍 _${location}_`;
 
     return newCaption;
   };
