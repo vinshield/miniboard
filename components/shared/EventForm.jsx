@@ -87,9 +87,7 @@ export default function EventForm({ userId, type, event, eventId }) {
         const { startDateTime, endDateTime, location } = values;
         const captionDate = formatDateTime(startDateTime).dateOnly;
 
-        const newCaption = `${caption}
-        \n\n*_Set a reminder stress-free_* 👇🏽
-        \nhttps://miniboard-flax.vercel.app/${eventId}/add\n\n📅 _${captionDate}_\n⏰ _${formatDateTime(startDateTime).timeOnly} - ${formatDateTime(endDateTime).timeOnly}_\n📍 _${location}_`;
+        const newCaption = `${caption}\n\n*_Set a reminder stress-free_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${formatDateTime(startDateTime).timeOnly} - ${formatDateTime(endDateTime).timeOnly}_\n📍 _${location}_`;
 
         setValue("caption", newCaption);
       }
@@ -114,9 +112,6 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   const copyToClipboard = () => {
     if (captionRef.current) {
-      captionRef.current.select();
-      captionRef.current.setSelectionRange(0, 99999);
-
       const text = captionRef.current.value;
       navigator.clipboard.writeText(text);
       setCopied(true);
@@ -139,8 +134,7 @@ export default function EventForm({ userId, type, event, eventId }) {
         const { caption, startDateTime, endDateTime, location } = values;
         const captionDate = formatDateTime(startDateTime).dateOnly;
 
-        const newCaption = `${caption}
-        \n\n*_Set a reminder stress-free_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${formatDateTime(startDateTime).timeOnly} - ${formatDateTime(endDateTime).timeOnly}_\n📍 _${location}_`;
+        const newCaption = `${caption}\n\n*_Set a reminder stress-free_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${formatDateTime(startDateTime).timeOnly} - ${formatDateTime(endDateTime).timeOnly}_\n📍 _${location}_`;
 
         setValue("caption", newCaption);
       }
