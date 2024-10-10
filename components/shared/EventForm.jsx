@@ -174,16 +174,17 @@ export default function EventForm({ userId, type, event, eventId }) {
       }
       // Add one hour to startDateTime if it is not a full day event and endDateTime was not provided
       if (!extractedDetails.isAllDay && !extractedDetails.endDateTime) {
-        const date = new Date(extractedDetails.startDateTime);
-        date.setHours(date.getHours() + 1);
-        extractedDetails.endDateTime = date.toISOString();
+        if (extractedDetails.startDateTime) {
+          const date = new Date(extractedDetails.startDateTime);
+          date.setHours(date.getHours() + 1);
+          extractedDetails.endDateTime = date.toISOString();
+        }
       }
       Object.entries(extractedDetails).forEach(([key, value]) => {
-        if (key === "startDateTime" || key === "endDateTime") {
+        if (key && (key === "startDateTime" || key === "endDateTime")) {
           if (value) {
             // Convert date to JSDate
             value = new Date(value);
-            const startDateTimeProvided = value;
           }
         }
         if (key === "endDateTime" && !value) {
