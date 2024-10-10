@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 
-import { formatDate, formatTime } from "@/lib/utils";
+import { formatDateFromJSDate, formatDateTime } from "@/lib/utils";
 import { createEvent } from "@/lib/actions/event.actions";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,6 +35,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { eventFormSchema } from "@/lib/validator";
 import { text } from "body-parser";
 import { Captions } from "lucide-react";
+import { CaptionSkeleton } from "../ui/skeletons";
 
 // TO-DO:
 // Create caption
@@ -46,6 +47,9 @@ export default function EventForm({ userId, type, event, eventId }) {
   const [extractedDetails, setExtractedDetails] = useState(null);
   const [isOnline, setisOnline] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [showCaptionField, setShowCaptionField] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const captionRef = useRef(null);
 
   let initialValues =
     event && type === "Update"
@@ -62,7 +66,12 @@ export default function EventForm({ userId, type, event, eventId }) {
     defaultValues: initialValues,
   });
 
-  const { setValue, reset } = form;
+  const {
+    setValue,
+    reset,
+    getValues,
+    formState: { isSubmitting },
+  } = form;
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
@@ -71,9 +80,18 @@ export default function EventForm({ userId, type, event, eventId }) {
         event: { ...values },
         path: "/profile",
       });
+
       if (newEvent) {
-        console.log(newEvent.publicId);
-        reset();
+        const { publicId: eventId } = newEvent;
+        const caption = extractedDetails.caption;
+        const { startDateTime, endDateTime, location } = values;
+        const captionDate = formatDateTime(startDateTime).dateOnly;
+
+        const newCaption = `${caption}
+        \n\n*_Set a reminder stress-free_* 👇🏽
+        \nhttps://miniboard-flax.vercel.app/${eventId}/add\n\n📅 _${captionDate}_\n⏰ _${formatDateTime(startDateTime).timeOnly} - ${formatDateTime(endDateTime).timeOnly}_\n📍 _${location}_`;
+
+        setValue("caption", newCaption);
       }
     } catch (error) {
       console.log(error);
@@ -94,26 +112,50 @@ export default function EventForm({ userId, type, event, eventId }) {
     }, 500);
   };
 
-  const generateCaption = (val) => {
-    const { caption, startDateTime, endDateTime, location } = val;
-    const captionDate = formatDate(startDateTime);
+  const copyToClipboard = () => {
+    if (captionRef.current) {
+      captionRef.current.select();
+      captionRef.current.setSelectionRange(0, 99999);
 
-    const newCaption = `${caption}\n\n*_Set a reminder stress-free_* 👇🏽\n${"https://miniboard-flax.vercel.app/add"}\n\n📅 _${captionDate}_\n📍 _${location}_`;
+      const text = captionRef.current.value;
+      navigator.clipboard.writeText(text);
+      setCopied(true);
+    }
 
-    return newCaption;
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
+
+  const generateCaption = async () => {
+    const values = getValues();
+    try {
+      const newEvent = await createEvent({
+        event: { ...values },
+        path: "/profile",
+      });
+      if (newEvent) {
+        const eventId = newEvent.publicId;
+        const { caption, startDateTime, endDateTime, location } = values;
+        const captionDate = formatDateTime(startDateTime).dateOnly;
+
+        const newCaption = `${caption}
+        \n\n*_Set a reminder stress-free_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${formatDateTime(startDateTime).timeOnly} - ${formatDateTime(endDateTime).timeOnly}_\n📍 _${location}_`;
+
+        setValue("caption", newCaption);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     // Put the details extracted from the poster into the input fields
     if (extractedDetails) {
-      console.log(extractedDetails);
       Object.entries(extractedDetails).forEach(([key, value]) => {
         if (key === "startDateTime" || key === "endDateTime") {
           if (value) {
-            let myDate = new Date(value);
-            console.log(value instanceof Date);
-            console.log(myDate instanceof Date);
-            value = myDate;
+            value = new Date(value);
           } else {
             value = new Date();
           }
@@ -122,9 +164,6 @@ export default function EventForm({ userId, type, event, eventId }) {
           if (value && value === true) {
             setisOnline(true);
           }
-        }
-        if (key === "caption") {
-          value = generateCaption(extractedDetails);
         }
         setValue(key, value);
       });
@@ -322,37 +361,50 @@ export default function EventForm({ userId, type, event, eventId }) {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="caption"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Caption</FormLabel>
-                  <FormControl>
-                    <TextareaAutosize
-                      placeholder="Add Description"
-                      className="input-field flex min-h-[60px] w-full rounded-lg border border-none border-input bg-transparent p-4 px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                      {...field}
-                    />
-                    {/* <Textarea
-                      placeholder="Add Description"
-                      className="input-field resize-none rounded-lg p-4"
-                      {...field}
-                    /> */}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
+            {showCaptionField && (
+              <div>
+                {isSubmitting ? (
+                  <CaptionSkeleton />
+                ) : (
+                  <FormField
+                    control={form.control}
+                    name="caption"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Caption</FormLabel>
+                        <FormControl ref={captionRef}>
+                          <TextareaAutosize
+                            className="input-field flex min-h-[60px] w-full rounded-lg border border-none border-input bg-transparent p-4 px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+              </div>
+            )}
+
             <Button
               onClick={() => {
-                console.log(form.formState.errors);
+                setShowCaptionField(true);
               }}
               size="lg"
               type="submit"
-              className="w-full"
+              className={`w-full ${showCaptionField ? "hidden" : ""}`}
             >
-              Save
+              Create caption
+            </Button>
+
+            <Button
+              type="button"
+              onClick={copyToClipboard}
+              size="lg"
+              className={`w-full ${!showCaptionField ? "hidden" : ""}`}
+            >
+              {copied ? "Copied!" : "Copy caption"}
             </Button>
           </div>
         </form>
