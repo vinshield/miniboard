@@ -19,10 +19,11 @@ export const eventDefaultValues = {
   caption: "",
   location: "",
   imageUrl: "",
-  startDateTime: "",
+  startDateTime: new Date(),
   endDateTime: "",
   categoryId: "",
   price: "",
   isFree: false,
   url: "",
+  isAllDay: false,
 };

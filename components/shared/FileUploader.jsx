@@ -48,6 +48,7 @@ export function FileUploader({
         id="file-input"
       >
         {gettingPosterInfo && <PosterSkeleton />}
+        {/* <PosterSkeleton/> */}
         <input {...getInputProps()} className="cursor-pointer" />
 
         {imageUrl ? (

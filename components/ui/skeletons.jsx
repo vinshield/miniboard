@@ -38,8 +38,19 @@ export function PosterSkeleton() {
         >
           <path d="M21 12a9 9 0 1 1-6.219-8.56" />
         </svg>
-        <p className="text-sm font-medium">Getting event details...</p>
+        <p className="rounded-md text-sm font-medium">
+          Getting event details...
+        </p>
       </div>
+    </div>
+  );
+}
+
+export function AddToCalendarSkeleton() {
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <div className="h-32 w-80 animate-pulse rounded-lg bg-gray-300"></div>
+      <div className="mt-20 h-9 w-52 animate-pulse rounded-lg bg-gray-300"></div>
     </div>
   );
 }

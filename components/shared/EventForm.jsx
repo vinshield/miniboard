@@ -47,6 +47,8 @@ export default function EventForm({ userId, type, event, eventId }) {
   const [extractedDetails, setExtractedDetails] = useState(null);
   const [isOnline, setisOnline] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [allDayEvent, setAllDayEvent] = useState(false);
+  const [endDateTimeProvided, setEndDateTimeProvided] = useState();
   const [showCaptionField, setShowCaptionField] = useState(false);
   const [copied, setCopied] = useState(false);
   const [gettingPosterInfo, setGettingPosterInfo] = useState(false);
@@ -77,17 +79,6 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
-    // Validate the form values
-    // const validationResult = eventFormSchema.parse(values);
-
-    // console.log(validationResult);
-
-    // if (!validationResult.success) {
-    //   // Handle validation errors here
-    //   console.log("Validation errors:", validationResult.error.errors);
-    //   return; // Exit the function if validation fails
-    // }
-
     try {
       const newEvent = await createEvent({
         event: { ...values },
@@ -96,12 +87,18 @@ export default function EventForm({ userId, type, event, eventId }) {
 
       if (newEvent) {
         const { publicId: eventId } = newEvent;
+        const { isAllDay: allDay } = values;
+        console.log(allDayEvent);
         const caption = extractedDetails.caption;
         const { startDateTime, endDateTime, location } = values;
         const captionDate = formatDateTime(startDateTime).dateOnly;
 
-        const newCaption = `${caption}\n\n*_Set a reminder stress-free_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${formatDateTime(startDateTime).timeOnly}${
-          endDateTime ? ` - ${formatDateTime(endDateTime).timeOnly}` : ""
+        const newCaption = `${caption}\n\n*_Set a reminder stress-free_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${
+          allDay
+            ? "All day"
+            : `${formatDateTime(startDateTime).timeOnly}${
+                endDateTime ? ` - ${formatDateTime(endDateTime).timeOnly}` : ""
+              }`
         }_\n📍 _${location}_`;
 
         setValue("caption", newCaption);
@@ -109,6 +106,8 @@ export default function EventForm({ userId, type, event, eventId }) {
     } catch (error) {
       console.log(error);
     }
+
+    console.log(values);
   };
 
   const showFormAndScroll = () => {
@@ -123,6 +122,33 @@ export default function EventForm({ userId, type, event, eventId }) {
       formText.classList.remove("opacity-0");
       formText.classList.add("opacity-100");
     }, 500);
+  };
+
+  const resetForm = () => {
+    reset();
+    const formText = document.getElementById("form-text");
+
+    // Remove visible classes
+    formText.classList.remove("opacity-100");
+    formText.classList.add("opacity-0");
+
+    setTimeout(() => {
+      formText.classList.remove("h-full");
+    }, 500);
+
+    setTimeout(() => {
+      formText.classList.add(
+        "h-0",
+        "transition-all",
+        "duration-500",
+        "hidden",
+        "opacity-0",
+      );
+    }, 700);
+
+    setShowForm(false);
+    setShowCaptionField(false);
+    setAllDayEvent(false);
   };
 
   const copyToClipboard = () => {
@@ -141,15 +167,36 @@ export default function EventForm({ userId, type, event, eventId }) {
     // Put the details extracted from the poster into the input fields
     if (extractedDetails) {
       console.log(extractedDetails);
+
+      // Set endDateTime to startDateTime if full day event
+      if (extractedDetails.isAllDay) {
+        extractedDetails.endDateTime = extractedDetails.startDateTime;
+      }
+      // Add one hour to startDateTime if it is not a full day event and endDateTime was not provided
+      if (!extractedDetails.isAllDay && !extractedDetails.endDateTime) {
+        const date = new Date(extractedDetails.startDateTime);
+        date.setHours(date.getHours() + 1);
+        extractedDetails.endDateTime = date.toISOString();
+      }
       Object.entries(extractedDetails).forEach(([key, value]) => {
         if (key === "startDateTime" || key === "endDateTime") {
           if (value) {
+            // Convert date to JSDate
             value = new Date(value);
+            const startDateTimeProvided = value;
           }
+        }
+        if (key === "endDateTime" && !value) {
+          setEndDateTimeProvided(false);
         }
         if (key === "isOnline") {
           if (value && value === true) {
             setisOnline(true);
+          }
+        }
+        if (key === "isAllDay") {
+          if (value && value === true) {
+            setAllDayEvent(true);
           }
         }
         setValue(key, value);
@@ -158,6 +205,16 @@ export default function EventForm({ userId, type, event, eventId }) {
       showFormAndScroll();
     }
   }, [extractedDetails]);
+
+  useEffect(() => {
+    if (allDayEvent) {
+      let date = getValues("startDateTime");
+      date.setHours(0, 0, 0, 0);
+      setValue("startDateTime", date);
+      setValue("endDateTime", date);
+      setValue("isAllDay", allDayEvent);
+    }
+  }, [allDayEvent]);
 
   return (
     <div className="container overflow-hidden">
@@ -215,62 +272,91 @@ export default function EventForm({ userId, type, event, eventId }) {
                 </FormItem>
               )}
             />
-            <div className="divide flex flex-col divide-y-2 divide-dotted rounded-lg bg-secondary px-8">
+            <div>
               <FormField
                 control={form.control}
-                name="startDateTime"
+                name="isAllDay"
                 render={({ field }) => (
                   <FormItem>
-                    <FormControl>
-                      <div className="flex h-[54px] items-center justify-between overflow-hidden rounded-t-lg py-4">
-                        <p className="w-1/6 whitespace-nowrap text-sm text-muted-foreground">
-                          Start
-                        </p>
-                        <div>
-                          <DatePicker
-                            selected={field.value}
-                            onChange={(date) => field.onChange(date)}
-                            showTimeSelect
-                            timeInputLabel="Time"
-                            dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
-                            wrapperClassName="datePicker text-[15px] margin-auto"
-                            placeholderText="-- -- ----"
-                          />
-                        </div>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
+                    <div className="flex items-center justify-between rounded-t-lg bg-secondary px-4 py-4">
+                      <FormLabel className="text-xs text-muted-foreground">
+                        All day event
+                      </FormLabel>
+                      <FormControl>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={(checked) => {
+                            setAllDayEvent(checked);
+                            field.onChange(checked);
+                          }}
+                        />
+                      </FormControl>
+                    </div>
                   </FormItem>
                 )}
               />
+              <div className="divide flex flex-col divide-y-2 divide-dotted rounded-b-lg bg-secondary px-8">
+                <FormField
+                  control={form.control}
+                  name="startDateTime"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="flex h-[54px] items-center justify-between overflow-hidden py-4">
+                          <p className="w-1/6 whitespace-nowrap text-sm text-muted-foreground">
+                            Start
+                          </p>
+                          <div>
+                            <DatePicker
+                              selected={field.value}
+                              onChange={(date) => field.onChange(date)}
+                              showTimeSelect={!allDayEvent}
+                              timeInputLabel="Time"
+                              dateFormat={`MMM d, yyyy${!allDayEvent ? " | h:mm aa" : ""}`}
+                              wrapperClassName="datePicker text-[15px] margin-auto"
+                              placeholderText="-- -- ----"
+                            />
+                          </div>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="endDateTime"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className="flex h-[54px] items-center justify-between overflow-hidden rounded-t-lg py-4">
-                        <p className="w-1/6 whitespace-nowrap text-sm text-muted-foreground">
-                          End
-                        </p>
-                        <div>
-                          <DatePicker
-                            selected={field.value}
-                            onChange={(date) => field.onChange(date)}
-                            showTimeSelect
-                            timeInputLabel="Time"
-                            dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
-                            wrapperClassName="datePicker text-[15px]"
-                            placeholderText="-- -- ----"
-                          />
+                <FormField
+                  control={form.control}
+                  name="endDateTime"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="flex h-[54px] items-center justify-between overflow-hidden rounded-t-lg py-4">
+                          <p className="w-1/6 whitespace-nowrap text-sm text-muted-foreground">
+                            End
+                          </p>
+                          <div>
+                            <DatePicker
+                              selected={
+                                allDayEvent
+                                  ? form.getValues("startDateTime")
+                                  : field.value
+                              } // Use startDateTime if isAllDay is true
+                              disabled={allDayEvent}
+                              onChange={(date) => field.onChange(date)}
+                              showTimeSelect={!allDayEvent}
+                              timeInputLabel="Time"
+                              dateFormat={`MMM d, yyyy${!allDayEvent ? " | h:mm aa" : ""}`}
+                              wrapperClassName="datePicker text-[15px]"
+                              placeholderText="-- -- ----"
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
             <div>
               <FormField
@@ -397,6 +483,16 @@ export default function EventForm({ userId, type, event, eventId }) {
               className={`w-full ${!showCaptionField ? "hidden" : ""}`}
             >
               {copied ? "Copied!" : "Copy caption"}
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="lg"
+              disabled={gettingPosterInfo}
+              onClick={resetForm}
+              className={`w-full shadow-lg ${!showCaptionField ? "hidden" : ""}`}
+            >
+              Create new event 📆
             </Button>
           </div>
         </form>
