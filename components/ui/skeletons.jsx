@@ -48,8 +48,8 @@ export function PosterSkeleton() {
 
 export function AddToCalendarSkeleton() {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="h-32 w-80 animate-pulse rounded-lg bg-gray-300"></div>
+    <div className="flex flex-col items-center justify-center px-5">
+      <div className="mx-5 h-32 w-72 animate-pulse rounded-lg bg-gray-300"></div>
       <div className="mt-20 h-9 w-52 animate-pulse rounded-lg bg-gray-300"></div>
     </div>
   );

@@ -50,12 +50,9 @@ export default function Page({ params }) {
           options={["Apple", "Google", "iCal", "Microsoft365"]}
           location={event.location}
           startDate={event.startDate}
-          description={`Visit [url]https://miniboard-flax.vercel.app[/url] for more information.\n\n${event.description}`}
+          description={`${event.description}\n\nVisit [url]https://miniboard-flax.vercel.app[/url] for more information.`}
           timeZone="Africa/Lagos"
           buttonsList
-          images={[
-            "https://firebasestorage.googleapis.com/v0/b/wknd-47e66.appspot.com/o/event-posters%2FMovie%20-%20ac23e24a-d4a5-4aa8-82ec-37cc0403b81e?alt=media&token=3fe092cc-9602-43fa-99b0-96fb2f6498c2",
-          ]}
         />
       );
     }
@@ -67,12 +64,9 @@ export default function Page({ params }) {
         startDate={event.startDate}
         startTime={event.startTime}
         endTime={event.endTime || ""}
-        description={`Visit [url]https://miniboard-flax.vercel.app[/url] for more information.\n\n${event.description}`}
+        description={`${event.description}\n\nVisit [url]https://miniboard-flax.vercel.app[/url] for more information.`}
         timeZone="Africa/Lagos"
         buttonsList
-        images={[
-          "https://firebasestorage.googleapis.com/v0/b/wknd-47e66.appspot.com/o/event-posters%2FMovie%20-%20ac23e24a-d4a5-4aa8-82ec-37cc0403b81e?alt=media&token=3fe092cc-9602-43fa-99b0-96fb2f6498c2",
-        ]}
       />
     );
   };
