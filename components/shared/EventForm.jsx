@@ -49,6 +49,8 @@ export default function EventForm({ userId, type, event, eventId }) {
   const [showForm, setShowForm] = useState(false);
   const [showCaptionField, setShowCaptionField] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [gettingPosterInfo, setGettingPosterInfo] = useState(false);
+
   const captionRef = useRef(null);
 
   let initialValues =
@@ -75,6 +77,17 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
+    // Validate the form values
+    // const validationResult = eventFormSchema.parse(values);
+
+    // console.log(validationResult);
+
+    // if (!validationResult.success) {
+    //   // Handle validation errors here
+    //   console.log("Validation errors:", validationResult.error.errors);
+    //   return; // Exit the function if validation fails
+    // }
+
     try {
       const newEvent = await createEvent({
         event: { ...values },
@@ -87,7 +100,9 @@ export default function EventForm({ userId, type, event, eventId }) {
         const { startDateTime, endDateTime, location } = values;
         const captionDate = formatDateTime(startDateTime).dateOnly;
 
-        const newCaption = `${caption}\n\n*_Set a reminder stress-free_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${formatDateTime(startDateTime).timeOnly} - ${formatDateTime(endDateTime).timeOnly}_\n📍 _${location}_`;
+        const newCaption = `${caption}\n\n*_Set a reminder stress-free_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${formatDateTime(startDateTime).timeOnly}${
+          endDateTime ? ` - ${formatDateTime(endDateTime).timeOnly}` : ""
+        }_\n📍 _${location}_`;
 
         setValue("caption", newCaption);
       }
@@ -122,36 +137,14 @@ export default function EventForm({ userId, type, event, eventId }) {
     }, 2000);
   };
 
-  const generateCaption = async () => {
-    const values = getValues();
-    try {
-      const newEvent = await createEvent({
-        event: { ...values },
-        path: "/profile",
-      });
-      if (newEvent) {
-        const eventId = newEvent.publicId;
-        const { caption, startDateTime, endDateTime, location } = values;
-        const captionDate = formatDateTime(startDateTime).dateOnly;
-
-        const newCaption = `${caption}\n\n*_Set a reminder stress-free_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${formatDateTime(startDateTime).timeOnly} - ${formatDateTime(endDateTime).timeOnly}_\n📍 _${location}_`;
-
-        setValue("caption", newCaption);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     // Put the details extracted from the poster into the input fields
     if (extractedDetails) {
+      console.log(extractedDetails);
       Object.entries(extractedDetails).forEach(([key, value]) => {
         if (key === "startDateTime" || key === "endDateTime") {
           if (value) {
             value = new Date(value);
-          } else {
-            value = new Date();
           }
         }
         if (key === "isOnline") {
@@ -184,6 +177,8 @@ export default function EventForm({ userId, type, event, eventId }) {
                   setFiles={setFiles}
                   setExtractedDetails={setExtractedDetails}
                   showForm={showForm}
+                  gettingPosterInfo={gettingPosterInfo}
+                  setGettingPosterInfo={setGettingPosterInfo}
                 />
                 <FormMessage />
               </FormItem>
@@ -194,6 +189,7 @@ export default function EventForm({ userId, type, event, eventId }) {
             type="button"
             variant="ghost"
             className={`${showForm ? "hidden" : "visible"}`}
+            disabled={gettingPosterInfo}
             onClick={() => showFormAndScroll()}
           >
             Enter details manually
@@ -238,6 +234,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                             timeInputLabel="Time"
                             dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
                             wrapperClassName="datePicker text-[15px] margin-auto"
+                            placeholderText="-- -- ----"
                           />
                         </div>
                       </div>
@@ -265,6 +262,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                             timeInputLabel="Time"
                             dateFormat={`MMM d, yyyy ${"|"} h:mm aa`}
                             wrapperClassName="datePicker text-[15px]"
+                            placeholderText="-- -- ----"
                           />
                         </div>
                       </div>

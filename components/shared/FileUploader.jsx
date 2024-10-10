@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, Dispatch, SetStateAction } from "react";
+import { useCallback, Dispatch, SetStateAction, useState } from "react";
 import { useDropzone } from "@uploadthing/react/hooks";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { extractPosterInfo } from "@/lib/actions/event.actions";
@@ -10,14 +10,19 @@ import { convertFiletoBase64, convertFileToUrl } from "@/lib/utils";
 import Image from "next/image";
 import { resolve } from "styled-jsx/css";
 
+import { PosterSkeleton } from "../ui/skeletons";
+
 export function FileUploader({
   imageUrl,
   onFieldChange,
   setFiles,
   setExtractedDetails,
   showForm,
+  gettingPosterInfo,
+  setGettingPosterInfo,
 }) {
   const onDrop = useCallback(async (acceptedFiles) => {
+    setGettingPosterInfo(true);
     setFiles(acceptedFiles);
     onFieldChange(convertFileToUrl(acceptedFiles[0]));
 
@@ -26,6 +31,7 @@ export function FileUploader({
       extractPosterInfo(val),
     );
     setExtractedDetails(posterInfo);
+    setGettingPosterInfo(false);
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -38,9 +44,10 @@ export function FileUploader({
     <>
       <div
         {...getRootProps()}
-        className={`${showForm ? "" : "mb-4"} flex-center flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-dashed border-primary`}
+        className={`${showForm ? "" : "mb-4"} flex-center borderfill-primary relative flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-dashed`}
         id="file-input"
       >
+        {gettingPosterInfo && <PosterSkeleton />}
         <input {...getInputProps()} className="cursor-pointer" />
 
         {imageUrl ? (
@@ -65,19 +72,14 @@ export function FileUploader({
               Click or drag poster here to upload
             </h3>
             <p className="mb-8 text-sm">SVG, PNG, JPG</p>
-            {/* <Button
-            type="button"
-            className="h-auto rounded-full border bg-transparent px-6 py-[6px] text-sm text-primary shadow-none"
-          >
-            Upload a poster
-          </Button> */}
           </div>
         )}
       </div>
       <Button
         size="lg"
-        className={`${showForm ? "hidden" : "block"} h-12 w-full shadow-md`}
+        className={`${showForm ? "hidden" : "block"} $ h-12 w-full shadow-md`}
         type="button"
+        disabled={gettingPosterInfo}
         onClick={() => document.getElementById("file-input").click()}
       >
         Upload your event poster
