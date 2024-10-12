@@ -460,10 +460,11 @@ export default function EventForm({ userId, type, event, eventId }) {
                           />
                         </FormControl>
                         <FormDescription>
-                          Share this caption alongside your poster to promote
-                          your event. It contains a link that automatically adds
-                          the event to the user&apos;s calendar and will remind
-                          them 30 minutes before the event starts.
+                          Share this caption with your poster to promote your
+                          event. It includes a link that allows users to easily
+                          add the event to their calendar, along with a reminder
+                          automatically set for 30 minutes before the event
+                          starts.
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
