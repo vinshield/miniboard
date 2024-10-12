@@ -88,7 +88,6 @@ export default function EventForm({ userId, type, event, eventId }) {
       if (newEvent) {
         const { publicId: eventId } = newEvent;
         const { isAllDay: allDay } = values;
-        console.log(allDayEvent);
         const caption = extractedDetails.caption;
         const { startDateTime, endDateTime, location } = values;
         const captionDate = formatDateTime(startDateTime).dateOnly;
@@ -106,8 +105,6 @@ export default function EventForm({ userId, type, event, eventId }) {
     } catch (error) {
       console.log(error);
     }
-
-    console.log(values);
   };
 
   const showFormAndScroll = () => {
@@ -166,8 +163,6 @@ export default function EventForm({ userId, type, event, eventId }) {
   useEffect(() => {
     // Put the details extracted from the poster into the input fields
     if (extractedDetails) {
-      console.log(extractedDetails);
-
       // Set endDateTime to startDateTime if full day event
       if (extractedDetails.isAllDay) {
         extractedDetails.endDateTime = extractedDetails.startDateTime;
@@ -229,16 +224,22 @@ export default function EventForm({ userId, type, event, eventId }) {
             name="imageUrl"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FileUploader
-                  onFieldChange={field.onChange}
-                  imageUrl={field.value}
-                  setFiles={setFiles}
-                  setExtractedDetails={setExtractedDetails}
-                  showForm={showForm}
-                  gettingPosterInfo={gettingPosterInfo}
-                  setGettingPosterInfo={setGettingPosterInfo}
-                />
-                <FormMessage />
+                <div
+                  onClick={() => {
+                    field.value && resetForm();
+                  }}
+                >
+                  <FileUploader
+                    onFieldChange={field.onChange}
+                    imageUrl={field.value}
+                    setFiles={setFiles}
+                    setExtractedDetails={setExtractedDetails}
+                    showForm={showForm}
+                    gettingPosterInfo={gettingPosterInfo}
+                    setGettingPosterInfo={setGettingPosterInfo}
+                  />
+                  <FormMessage />
+                </div>
               </FormItem>
             )}
           />
@@ -458,6 +459,12 @@ export default function EventForm({ userId, type, event, eventId }) {
                             {...field}
                           />
                         </FormControl>
+                        <FormDescription>
+                          Share this caption alongside your poster to promote
+                          your event. It contains a link that automatically adds
+                          the event to the user&apos;s calendar and will remind
+                          them 30 minutes before the event starts.
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -479,17 +486,27 @@ export default function EventForm({ userId, type, event, eventId }) {
 
             <Button
               type="button"
+              variant="ghost"
+              size="lg"
+              onClick={resetForm}
+              className={`w-full ${showCaptionField ? "hidden" : ""}`}
+            >
+              Start over 🔃
+            </Button>
+
+            <Button
+              type="button"
               onClick={copyToClipboard}
               size="lg"
               className={`w-full ${!showCaptionField ? "hidden" : ""}`}
             >
               {copied ? "Copied!" : "Copy caption"}
             </Button>
+
             <Button
               type="button"
               variant="ghost"
               size="lg"
-              disabled={gettingPosterInfo}
               onClick={resetForm}
               className={`w-full shadow-lg ${!showCaptionField ? "hidden" : ""}`}
             >

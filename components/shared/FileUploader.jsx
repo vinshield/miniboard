@@ -22,16 +22,19 @@ export function FileUploader({
   setGettingPosterInfo,
 }) {
   const onDrop = useCallback(async (acceptedFiles) => {
-    setGettingPosterInfo(true);
     setFiles(acceptedFiles);
     onFieldChange(convertFileToUrl(acceptedFiles[0]));
 
-    // convert file to base64 in order to send it to server function
-    const posterInfo = await convertFiletoBase64(acceptedFiles[0]).then((val) =>
-      extractPosterInfo(val),
-    );
-    setExtractedDetails(posterInfo);
-    setGettingPosterInfo(false);
+    if (!showForm) {
+      setGettingPosterInfo(true);
+
+      // convert file to base64 in order to send it to server function
+      const posterInfo = await convertFiletoBase64(acceptedFiles[0]).then(
+        (val) => extractPosterInfo(val),
+      );
+      setExtractedDetails(posterInfo);
+      setGettingPosterInfo(false);
+    }
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
