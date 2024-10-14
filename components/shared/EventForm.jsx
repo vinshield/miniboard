@@ -173,10 +173,8 @@ export default function EventForm({ userId, type, event, eventId }) {
       if (!extractedDetails.isAllDay && !extractedDetails.endDateTime) {
         if (extractedDetails.startDateTime) {
           const date = new Date(extractedDetails.startDateTime);
-          if (date instanceof Date) {
-            date.setHours(date.getHours() + 1);
-            extractedDetails.endDateTime = date.toISOString();
-          }
+          date.setHours(date.getHours() + 1);
+          extractedDetails.endDateTime = date.toISOString();
         }
       }
       Object.entries(extractedDetails).forEach(([key, value]) => {
@@ -208,11 +206,13 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   useEffect(() => {
     if (allDayEvent) {
-      let date = getValues("startDateTime");
-      date.setHours(0, 0, 0, 0);
-      setValue("startDateTime", date);
-      setValue("endDateTime", date);
-      setValue("isAllDay", allDayEvent);
+      if (getValues("startDateTime")) {
+        let date = getValues("startDateTime");
+        date.setHours(0, 0, 0, 0);
+        setValue("startDateTime", date);
+        setValue("endDateTime", date);
+        setValue("isAllDay", allDayEvent);
+      }
     }
   }, [allDayEvent]);
 
@@ -464,7 +464,11 @@ export default function EventForm({ userId, type, event, eventId }) {
                           />
                         </FormControl>
                         <FormDescription>
-                          Share this caption on WhatsApp along with your poster to boost your event’s visibility. It includes a link that lets users easily add the event to their calendar, with a reminder automatically set for 30 minutes before it begins.
+                          Share this caption on WhatsApp along with your poster
+                          to boost your event’s visibility. It includes a link
+                          that lets users easily add the event to their
+                          calendar, with a reminder automatically set for 30
+                          minutes before it begins.
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
