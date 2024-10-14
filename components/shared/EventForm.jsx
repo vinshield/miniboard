@@ -101,6 +101,7 @@ export default function EventForm({ userId, type, event, eventId }) {
         }_\n📍 _${location}_`;
 
         setValue("caption", newCaption);
+        setShowCaptionField(true);
       }
     } catch (error) {
       console.log(error);
@@ -167,12 +168,15 @@ export default function EventForm({ userId, type, event, eventId }) {
       if (extractedDetails.isAllDay) {
         extractedDetails.endDateTime = extractedDetails.startDateTime;
       }
+
       // Add one hour to startDateTime if it is not a full day event and endDateTime was not provided
       if (!extractedDetails.isAllDay && !extractedDetails.endDateTime) {
         if (extractedDetails.startDateTime) {
           const date = new Date(extractedDetails.startDateTime);
-          date.setHours(date.getHours() + 1);
-          extractedDetails.endDateTime = date.toISOString();
+          if (date instanceof Date) {
+            date.setHours(date.getHours() + 1);
+            extractedDetails.endDateTime = date.toISOString();
+          }
         }
       }
       Object.entries(extractedDetails).forEach(([key, value]) => {
@@ -475,9 +479,6 @@ export default function EventForm({ userId, type, event, eventId }) {
             )}
 
             <Button
-              onClick={() => {
-                setShowCaptionField(true);
-              }}
               size="lg"
               type="submit"
               className={`w-full ${showCaptionField ? "hidden" : ""}`}
