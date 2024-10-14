@@ -464,11 +464,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                           />
                         </FormControl>
                         <FormDescription>
-                          Share this caption with your poster to promote your
-                          event. It includes a link that allows users to easily
-                          add the event to their calendar, along with a reminder
-                          automatically set for 30 minutes before the event
-                          starts.
+                          Share this caption on WhatsApp along with your poster to boost your event’s visibility. It includes a link that lets users easily add the event to their calendar, with a reminder automatically set for 30 minutes before it begins.
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
