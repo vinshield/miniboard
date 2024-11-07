@@ -92,7 +92,7 @@ export default function EventForm({ userId, type, event, eventId }) {
         const { startDateTime, endDateTime, location } = values;
         const captionDate = formatDateTime(startDateTime).dateOnly;
 
-        const newCaption = `${caption}\n\n*_Set a reminder stress-free_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${
+        const newCaption = `${caption}\n\n*_Add to your calendar app_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${
           allDay
             ? "All day"
             : `${formatDateTime(startDateTime).timeOnly}${
