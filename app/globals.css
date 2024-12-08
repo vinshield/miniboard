@@ -142,6 +142,37 @@ body {
   .skeleton {
     animation: skeleton 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
+
+  .blur-bg-btn {
+    @apply relative flex items-center justify-center rounded-full;
+  }
+
+  .blur-bg-btn::after {
+    content: "";
+    @apply absolute inset-0 -z-10 h-full w-full rounded-full opacity-20 blur-lg;
+  }
+}
+
+.gradient-btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.3em 1.5em;
+  border-radius: 1000px;
+  border: none;
+  background-color: white;
+}
+
+.gradient-btn::after {
+  content: "";
+  position: absolute;
+  height: 107%;
+  width: 102%;
+  background-image: linear-gradient(to bottom right, #008cff, #e100ff);
+  border-radius: 1000px;
+  z-index: -1;
 }
 
 /* ========================================== REACT-DATEPICKER STYLES */

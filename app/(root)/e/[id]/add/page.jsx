@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "@/components/shared/Header";
 import { AddToCalendarButton } from "add-to-calendar-button-react";
 import { useRouter, usePathname } from "next/navigation";
 import {
@@ -73,7 +72,6 @@ export default function Page({ params }) {
 
   return (
     <>
-      <Header />
       <div className="h-screen overflow-hidden">
         <div className="mb-[2.5rem] mt-36 flex flex-col items-center px-10 lg:container">
           <h1

@@ -1,0 +1,10 @@
+Link to clerk, create bio entry point (1 day)
+Create card UI (1 day)
+Create sign up and login page (1 day)
+Add login/sign up feature to home page (1 day)
+Logic for loading events from database (1 day)
+Create individual event UI (1 day)
+Delete for events
+Update for events.
+
+Projected finish time: Sun, Dec 1

@@ -18,6 +18,8 @@ const nextConfig = {
       async_hooks: false, // added for 'cannot resolve async_hooks' error
     };
 
+    config.module.rules.push({ test: /\.svg$/, use: ["@svgr/webpack"] });
+
     return config;
   },
 };
