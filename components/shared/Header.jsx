@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { UserBio } from "./UserBio";
+import { usePathname } from "next/navigation";
 
 const DotIcon = () => {
   return (
@@ -17,8 +18,16 @@ const DotIcon = () => {
 };
 
 const Header = () => {
+  const [signInVisible, setSignInVisible] = useState(null);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
+
+  let pathname = usePathname();
+  console.log(pathname);
+  useEffect(() => {
+    setSignInVisible(true);
+    if (pathname === "/sign-up") setSignInVisible(false);
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +51,7 @@ const Header = () => {
             miniboard
           </Link>
 
-          <div>
+          <div className={`${!signInVisible ? "hidden" : ""}`}>
             <SignedOut>
               <div className="rounded-full bg-[#7480911a] px-4 py-2 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
                 <SignInButton />
