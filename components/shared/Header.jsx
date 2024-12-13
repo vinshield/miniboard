@@ -44,7 +44,7 @@ const Header = () => {
 
           <div>
             <SignedOut>
-              <div className="rounded-full bg-[#7480911a] px-4 py-2 text-sm text-[#474b51] hover:bg-slate-400/40">
+              <div className="rounded-full bg-[#7480911a] px-4 py-2 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
                 <SignInButton />
               </div>
             </SignedOut>
