@@ -1,15 +1,7 @@
 "use client";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { UserBio } from "./UserBio";
 
 const DotIcon = () => {
@@ -25,36 +17,53 @@ const DotIcon = () => {
 };
 
 const Header = () => {
-  return (
-    <header className="container w-full py-3">
-      <nav className="flex w-full items-center justify-between">
-        <Link href="/" className="text-base font-bold text-[#757b85]">
-          miniboard
-        </Link>
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
 
-        <div>
-          <SignedOut>
-            <div className="rounded-full bg-[#7480911a] px-4 py-2 text-[#474b51] hover:bg-slate-400/40">
-              <SignInButton />
-            </div>
-          </SignedOut>
-          <SignedIn>
-            <UserButton>
-              <UserButton.UserProfilePage
-                label="Bio"
-                labelIcon={<DotIcon />}
-                url="terms"
-              >
-                <UserBio />
-              </UserButton.UserProfilePage>
-            </UserButton>
-          </SignedIn>
-        </div>
-      </nav>
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos]);
+
+  return (
+    <header
+      className={`transition-translate fixed left-0 right-0 top-0 z-10 h-16 bg-gradient-to-b from-sky-200 via-slate-50 via-90% to-white duration-300 ${visible ? "translate-y-0" : "-translate-y-full"}`}
+    >
+      <div className="container w-full py-3">
+        <nav className="flex w-full items-center justify-between">
+          <Link href="/" className="text-base font-bold text-[#757b85]">
+            miniboard
+          </Link>
+
+          <div>
+            <SignedOut>
+              <div className="rounded-full bg-[#7480911a] px-4 py-2 text-sm text-[#474b51] hover:bg-slate-400/40">
+                <SignInButton />
+              </div>
+            </SignedOut>
+            <SignedIn>
+              <UserButton>
+                <UserButton.UserProfilePage
+                  label="Bio"
+                  labelIcon={<DotIcon />}
+                  url="terms"
+                >
+                  <UserBio />
+                </UserButton.UserProfilePage>
+              </UserButton>
+            </SignedIn>
+          </div>
+        </nav>
+      </div>
     </header>
   );
 };
 
 export default Header;
-
-// rounded-full border-4 border-[linear-gradient(to_right,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF)] p-3

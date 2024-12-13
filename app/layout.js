@@ -9,18 +9,17 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "miniboard",
-  description: "Create captions and add-to-calendar link with one click",
+  description: "Create captions and add-to-calendar links with one click",
 };
 
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={`${inter.className} bg-gradient-to-b from-sky-200 via-slate-50 via-10% to-slate-50`}
-        >
+        <body className={`${inter.className} `}>
           <Header />
-          <main>{children}</main>
+          <main className="relative min-h-screen pt-16">{children}</main>
+
           <Analytics />
         </body>
       </html>
