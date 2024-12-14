@@ -372,7 +372,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                   <FormItem>
                     <div className="flex items-center justify-between space-x-2 rounded-t-lg bg-secondary px-4 pt-4">
                       <FormLabel className="text-xs text-muted-foreground">
-                        Online event
+                        This is an online event
                       </FormLabel>
                       <FormControl>
                         <Switch

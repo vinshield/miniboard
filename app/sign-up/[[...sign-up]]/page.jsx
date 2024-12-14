@@ -24,15 +24,19 @@ export default function SignUpFlow() {
   };
 
   return (
-    <div className="container mx-auto max-w-md p-6">
-      {step === "username" && <UsernameForm onSubmit={handleUsernameSubmit} />}
-      {step === "signup" && (
-        <SignUpOptions
-          username={username}
-          onSignUpComplete={handleSignUpComplete}
-        />
-      )}
-      {step === "bio" && <BioForm onSubmit={handleBioSubmit} />}
+    <div className="container p-[20px] lg:p-[80px]">
+      <div className="max-w-2xl">
+        {step === "username" && (
+          <UsernameForm onSubmit={handleUsernameSubmit} />
+        )}
+        {step === "signup" && (
+          <SignUpOptions
+            username={username}
+            onSignUpComplete={handleSignUpComplete}
+          />
+        )}
+        {step === "bio" && <BioForm onSubmit={handleBioSubmit} />}
+      </div>
     </div>
   );
 }
