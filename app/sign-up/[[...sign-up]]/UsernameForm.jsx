@@ -88,10 +88,10 @@ export function UsernameForm({ onSubmit }) {
 
   return (
     <div className="flex h-[60vh] flex-col justify-center">
-      <form onSubmit={handleSubmit} className="space-y-10">
+      <form onSubmit={handleSubmit} className="space-y-3">
         <Label
           htmlFor="username"
-          className="leading-12 mb-14 block text-3xl font-semibold tracking-tighter md:text-4xl"
+          className="leading-12 mb-20 block text-3xl font-semibold tracking-tighter md:text-4xl"
         >
           First, create your unique link
         </Label>
@@ -149,7 +149,7 @@ export function UsernameForm({ onSubmit }) {
             size="lg"
             type="submit"
             variant="outline"
-            className="w-2/5"
+            className="w-2/5 px-4"
             disabled={!usernameAvailable || isChecking || username.length < 3}
           >
             Claim my link!
