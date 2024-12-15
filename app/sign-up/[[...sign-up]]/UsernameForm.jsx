@@ -4,7 +4,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, LoaderCircle, Check, X } from "lucide-react";
+import { LoaderCircle, Check, X } from "lucide-react";
 
 import { checkUsernameAvailability } from "@/lib/actions/clerk.actions";
 
@@ -95,7 +95,7 @@ export function UsernameForm({ onSubmit }) {
         >
           First, create your unique link
         </Label>
-        <div className="relative flex items-center justify-between overflow-hidden rounded-lg bg-secondary p-2 pl-4">
+        <div className="relative flex items-center justify-between overflow-hidden rounded-lg bg-secondary px-4 py-2">
           <div className="flex items-center">
             <Input
               ref={inputRef}
