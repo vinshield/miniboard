@@ -32,7 +32,11 @@ export function UsernameForm({ onSubmit }) {
   };
 
   const handleInputChange = (e) => {
-    const newUsername = e.target.value.trim();
+    const newUsername = e.target.value
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-_]/g, "")
+      .replace(/\s+/g, "-")
+      .trim();
     setUsername(newUsername);
     setError("");
     setUsernameAvailable(null);
