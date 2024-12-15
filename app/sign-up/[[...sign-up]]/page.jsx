@@ -23,9 +23,13 @@ export default function SignUpFlow() {
     console.log("Sign-up flow complete!");
   };
 
+  const changeUsername = () => {
+    setStep("username");
+  };
+
   return (
     <div className="container p-[20px] lg:p-[80px]">
-      <div className="max-w-2xl">
+      <div className="max-w-xl">
         {step === "username" && (
           <UsernameForm onSubmit={handleUsernameSubmit} />
         )}
@@ -33,6 +37,7 @@ export default function SignUpFlow() {
           <SignUpOptions
             username={username}
             onSignUpComplete={handleSignUpComplete}
+            changeUsername={changeUsername}
           />
         )}
         {step === "bio" && <BioForm onSubmit={handleBioSubmit} />}

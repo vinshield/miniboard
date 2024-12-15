@@ -248,10 +248,13 @@ export default function EventForm({ userId, type, event, eventId }) {
             )}
           />
 
+          <p className="text-center">or</p>
+
           <Button
+            size="lg"
             type="button"
-            variant="ghost"
-            className={`${showForm ? "hidden" : "visible"}`}
+            variant="outline"
+            className={`${showForm ? "hidden" : "visible"} h-12`}
             disabled={gettingPosterInfo}
             onClick={() => showFormAndScroll()}
           >

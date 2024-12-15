@@ -5,8 +5,9 @@ import { useSignUp } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ArrowLeft } from "lucide-react";
 
-export function SignUpOptions({ username, onSignUpComplete }) {
+export function SignUpOptions({ username, onSignUpComplete, changeUsername }) {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -51,6 +52,8 @@ export function SignUpOptions({ username, onSignUpComplete }) {
 
   return (
     <div className="space-y-4">
+      <ArrowLeft onClick={changeUsername} />
+      <p>Great! {username}.miniboard.site is yours! </p>
       <form onSubmit={handleEmailSignUp} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
