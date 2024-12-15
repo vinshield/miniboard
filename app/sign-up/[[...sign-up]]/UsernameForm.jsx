@@ -36,6 +36,7 @@ export function UsernameForm({ onSubmit }) {
       .toLowerCase()
       .replace(/[^a-z0-9\s-_]/g, "")
       .replace(/\s+/g, "-")
+      //   .slice(0, 12)
       .trim();
     setUsername(newUsername);
     setError("");
@@ -102,6 +103,7 @@ export function UsernameForm({ onSubmit }) {
         <div className="relative flex items-center justify-between overflow-hidden rounded-lg bg-secondary px-4 py-2">
           <div className="flex items-center">
             <Input
+              maxLength={21}
               ref={inputRef}
               className="input-field m-0 min-w-[20px] p-0 text-base placeholder:text-[#a8a8a8]"
               id="username"
@@ -153,7 +155,7 @@ export function UsernameForm({ onSubmit }) {
             size="lg"
             type="submit"
             variant="outline"
-            className="w-2/5 px-4"
+            className="min-w-2/5 px-6"
             disabled={!usernameAvailable || isChecking || username.length < 3}
           >
             Claim my link!
