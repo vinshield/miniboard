@@ -26,7 +26,7 @@ const Header = () => {
   console.log(pathname);
   useEffect(() => {
     setSignInVisible(true);
-    if (pathname === "/sign-up") setSignInVisible(false);
+    if (pathname === "/signup") setSignInVisible(false);
   }, [pathname]);
 
   useEffect(() => {

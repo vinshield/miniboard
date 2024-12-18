@@ -112,6 +112,7 @@ export function UsernameForm({ onSubmit }) {
               value={username}
               onChange={handleInputChange}
               autoFocus
+              autocomplete="off"
             />
             <span
               ref={measureRef}
@@ -145,7 +146,7 @@ export function UsernameForm({ onSubmit }) {
         {!error && username.length >= 3 && usernameAvailable === false && (
           <div className="inline-block rounded-sm bg-red-100 p-3">
             <p className="text-sm text-red-500">
-              It seems this username is already taken. Try another one
+              It seems this username is already taken. Please try another one
             </p>
           </div>
         )}
