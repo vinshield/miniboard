@@ -248,8 +248,6 @@ export default function EventForm({ userId, type, event, eventId }) {
             )}
           />
 
-          <p className="text-center">or</p>
-
           <Button
             size="lg"
             type="button"

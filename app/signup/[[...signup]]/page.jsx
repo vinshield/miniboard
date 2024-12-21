@@ -6,7 +6,7 @@ import { SignUpOptions } from "./SignUpOptions";
 import { BioForm } from "./BioForm";
 
 export default function SignUpFlow() {
-  const [step, setStep] = useState("username");
+  const [step, setStep] = useState("signup");
   const [username, setUsername] = useState("");
 
   const handleUsernameSubmit = (selectedUsername) => {

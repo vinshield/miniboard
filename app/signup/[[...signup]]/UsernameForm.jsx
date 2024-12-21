@@ -79,16 +79,16 @@ export function UsernameForm({ onSubmit }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (username.length < 3) {
-      setError("Username must be at least 3 characters long");
-      return;
-    }
+    // if (username.length < 3) {
+    //   setError("Username must be at least 3 characters long");
+    //   return;
+    // }
 
-    if (usernameAvailable) {
-      onSubmit(username);
-    } else {
-      setError("Please choose an available username");
-    }
+    // if (usernameAvailable) {
+    //   onSubmit(username);
+    // } else {
+    //   setError("Please choose an available username");
+    // }
   };
 
   return (
