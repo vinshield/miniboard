@@ -155,7 +155,8 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
                 type="submit"
                 disabled={!isLoaded || creatingUser}
                 size="lg"
-                className="min-w-2/5 mt-6 rounded-lg bg-sky-500 px-6 py-7"
+                variant="test"
+                className="min-w-2/5 mt-6 rounded-lg bg-sky-500 px-6 py-7 disabled:bg-sky-500"
               >
                 {creatingUser ? (
                   <LoaderCircle className="animate-spin" />
