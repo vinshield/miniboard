@@ -69,7 +69,7 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
           is yours
         </p>
       )}
-      <h2 className="leading-12 mb-16 block text-4xl font-bold tracking-tighter md:text-4xl">
+      <h2 className="leading-12 mb-16 block text-4xl font-semibold tracking-tighter md:text-4xl">
         Now, create your account
       </h2>
 
@@ -115,7 +115,7 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
 
           <form onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
-            <div className="grid gap-y-4 -space-y-px rounded-md shadow-sm">
+            <div className="grid gap-y-2 -space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="email-address" className="sr-only">
                   Email address
