@@ -80,13 +80,13 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
               variant="outline"
               type="button"
               disabled={!isLoaded}
-              onClick={() => handleOAuthSignUp("oauth_tiktok")}
+              onClick={() => handleOAuthSignUp("oauth_google")}
             >
               {isLoaded ? (
                 <div className="flex items-center gap-x-2">
-                  <i className="ci ci-tiktok ci-1x"></i>
-                  {/* <TikTokIcon className="mr-2 size-4" /> */}
-                  TikTok
+                  <i className="ci ci-google ci-1x"></i>
+                  {/* <GoogleIcon className="mr-2 size-4" /> */}
+                  Google
                 </div>
               ) : (
                 <LoaderCircle className="size-4 animate-spin" />
@@ -96,13 +96,13 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
               variant="outline"
               type="button"
               disabled={!isLoaded}
-              onClick={() => handleOAuthSignUp("oauth_google")}
+              onClick={() => handleOAuthSignUp("oauth_tiktok")}
             >
               {isLoaded ? (
                 <div className="flex items-center gap-x-2">
-                  <i className="ci ci-google ci-1x"></i>
-                  {/* <GoogleIcon className="mr-2 size-4" /> */}
-                  Google
+                  <i className="ci ci-tiktok ci-1x"></i>
+                  {/* <TikTokIcon className="mr-2 size-4" /> */}
+                  TikTok
                 </div>
               ) : (
                 <LoaderCircle className="size-4 animate-spin" />

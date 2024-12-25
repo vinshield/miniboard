@@ -27,3 +27,10 @@ export const eventDefaultValues = {
   url: "",
   isAllDay: false,
 };
+
+export const socialHandles = [
+  { name: "instagram" },
+  { name: "x" },
+  { name: "snapchat" },
+  { name: "tiktok" },
+];

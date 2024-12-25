@@ -5,8 +5,13 @@ import { UsernameForm } from "./UsernameForm";
 
 import { SignUpPage } from "./SignUpPage";
 import { BioForm } from "./BioForm";
+import { SocialLinksForm } from "./SocialLinksForm";
+
+import { useRouter } from "next/navigation";
 
 export default function SignUpFlow() {
+  const router = useRouter();
+
   const [step, setStep] = useState("username");
   const [username, setUsername] = useState("");
 
@@ -20,8 +25,13 @@ export default function SignUpFlow() {
   };
 
   const handleBioSubmit = () => {
+    setStep("socialLinks");
+  };
+
+  const handleInfoSubmit = () => {
     // Here you would typically redirect to the user's profile or dashboard
     console.log("Sign-up flow complete!");
+    router.push("/");
   };
 
   const changeUsername = () => {
@@ -41,7 +51,12 @@ export default function SignUpFlow() {
             changeUsername={changeUsername}
           />
         )}
-        {step === "bio" && <BioForm onSubmit={handleBioSubmit} />}
+        {step === "bio" && (
+          <BioForm onSubmit={handleBioSubmit} username={username} />
+        )}
+        {step === "socialLinks" && (
+          <SocialLinksForm onSubmit={handleInfoSubmit} />
+        )}
       </div>
     </div>
   );
