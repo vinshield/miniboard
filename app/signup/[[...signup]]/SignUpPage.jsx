@@ -1,255 +1,177 @@
 "use client";
-import * as Clerk from "@clerk/elements/common";
-import * as SignUp from "@clerk/elements/sign-up";
+
+import { useState } from "react";
+import { useSignUp } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Icons } from "@/components/ui/icons";
-import { cn } from "@/lib/utils";
+import { default as TikTokIcon } from "@/public/assets/icons/tiktok.svg";
+import { default as GoogleIcon } from "@/public/assets/icons/google.svg";
+import { LoaderCircle, ArrowLeft } from "lucide-react";
 
-export default function SignUpPage() {
+export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
+  const { isLoaded, signUp, setActive } = useSignUp();
+  const [email, setEmail] = useState("");
+  const [creatingUser, setCreatingUser] = useState(false);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!isLoaded) return;
+
+    try {
+      setCreatingUser(true);
+      const result = await signUp.create({
+        username,
+        emailAddress: email,
+        password,
+      });
+
+      if (result.status === "complete") {
+        await setActive({ session: result.createdSessionId });
+        onSignUpComplete();
+      } else {
+        console.error("Sign up failed", result);
+        setError("Sign up failed. Please try again.");
+        setCreatingUser(false);
+      }
+    } catch (err) {
+      console.error("Error during sign up:", err);
+      setError(err.message || "An error occurred during sign up.");
+      setCreatingUser(false);
+    }
+  };
+
+  const handleOAuthSignUp = async (strategy) => {
+    if (!isLoaded) return;
+
+    try {
+      await signUp.authenticateWithRedirect({
+        strategy,
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/complete-profile",
+      });
+    } catch (err) {
+      console.error("Error during OAuth sign up:", err);
+      setError(err.message || "An error occurred during sign up.");
+    }
+  };
+
   return (
-    <div className="grid w-full grow items-center px-4 sm:justify-center">
-      <SignUp.Root>
-        <Clerk.Loading>
-          {(isGlobalLoading) => (
-            <>
-              <SignUp.Step name="start">
-                <Card className="w-full sm:w-96">
-                  <CardHeader>
-                    <CardTitle>Create your account</CardTitle>
-                    <CardDescription>
-                      Welcome! Please fill in the details to get started.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="grid gap-y-4">
-                    <div className="grid grid-cols-2 gap-x-4">
-                      <Clerk.Connection name="github" asChild>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          type="button"
-                          disabled={isGlobalLoading}
-                        >
-                          <Clerk.Loading scope="provider:github">
-                            {(isLoading) =>
-                              isLoading ? (
-                                <Icons.spinner className="size-4 animate-spin" />
-                              ) : (
-                                <>
-                                  <Icons.gitHub className="mr-2 size-4" />
-                                  GitHub
-                                </>
-                              )
-                            }
-                          </Clerk.Loading>
-                        </Button>
-                      </Clerk.Connection>
-                      <Clerk.Connection name="google" asChild>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          type="button"
-                          disabled={isGlobalLoading}
-                        >
-                          <Clerk.Loading scope="provider:google">
-                            {(isLoading) =>
-                              isLoading ? (
-                                <Icons.spinner className="size-4 animate-spin" />
-                              ) : (
-                                <>
-                                  <Icons.google className="mr-2 size-4" />
-                                  Google
-                                </>
-                              )
-                            }
-                          </Clerk.Loading>
-                        </Button>
-                      </Clerk.Connection>
-                    </div>
-                    <p className="flex items-center gap-x-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">
-                      or
-                    </p>
-                    <Clerk.Field name="emailAddress" className="space-y-2">
-                      <Clerk.Label asChild>
-                        <Label>Email address</Label>
-                      </Clerk.Label>
-                      <Clerk.Input type="email" required asChild>
-                        <Input />
-                      </Clerk.Input>
-                      <Clerk.FieldError className="block text-sm text-destructive" />
-                    </Clerk.Field>
-                    <Clerk.Field name="password" className="space-y-2">
-                      <Clerk.Label asChild>
-                        <Label>Password</Label>
-                      </Clerk.Label>
-                      <Clerk.Input type="password" required asChild>
-                        <Input />
-                      </Clerk.Input>
-                      <Clerk.FieldError className="block text-sm text-destructive" />
-                    </Clerk.Field>
-                  </CardContent>
-                  <CardFooter>
-                    <div className="grid w-full gap-y-4">
-                      <SignUp.Captcha className="empty:hidden" />
-                      <SignUp.Action submit asChild>
-                        <Button disabled={isGlobalLoading}>
-                          <Clerk.Loading>
-                            {(isLoading) => {
-                              return isLoading ? (
-                                <Icons.spinner className="size-4 animate-spin" />
-                              ) : (
-                                "Continue"
-                              );
-                            }}
-                          </Clerk.Loading>
-                        </Button>
-                      </SignUp.Action>
-                      <Button variant="link" size="sm" asChild>
-                        <Clerk.Link navigate="sign-in">
-                          Already have an account? Sign in
-                        </Clerk.Link>
-                      </Button>
-                    </div>
-                  </CardFooter>
-                </Card>
-              </SignUp.Step>
+    <div className="flex h-[80vh] flex-col justify-center">
+      <ArrowLeft className="mb-20" onClick={changeUsername} />
+      {username && (
+        <p className="mb-2 text-grey-500">
+          Great! <span className="text-primary">{username}.miniboard.site</span>{" "}
+          is yours
+        </p>
+      )}
+      <h2 className="leading-12 mb-16 block text-3xl font-bold tracking-tighter md:text-4xl">
+        Now, create your account
+      </h2>
 
-              <SignUp.Step name="continue">
-                <Card className="w-full sm:w-96">
-                  <CardHeader>
-                    <CardTitle>Continue registration</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <Clerk.Field name="username" className="space-y-2">
-                      <Clerk.Label>
-                        <Label>Username</Label>
-                      </Clerk.Label>
-                      <Clerk.Input type="text" required asChild>
-                        <Input />
-                      </Clerk.Input>
-                      <Clerk.FieldError className="block text-sm text-destructive" />
-                    </Clerk.Field>
-                  </CardContent>
-                  <CardFooter>
-                    <div className="grid w-full gap-y-4">
-                      <SignUp.Action submit asChild>
-                        <Button disabled={isGlobalLoading}>
-                          <Clerk.Loading>
-                            {(isLoading) => {
-                              return isLoading ? (
-                                <Icons.spinner className="size-4 animate-spin" />
-                              ) : (
-                                "Continue"
-                              );
-                            }}
-                          </Clerk.Loading>
-                        </Button>
-                      </SignUp.Action>
-                    </div>
-                  </CardFooter>
-                </Card>
-              </SignUp.Step>
+      <div className="w-full max-w-md space-y-8">
+        <div className="my-4 grid gap-y-4">
+          <div className="grid grid-cols-2 gap-x-2">
+            <Button
+              variant="outline"
+              type="button"
+              disabled={!isLoaded}
+              onClick={() => handleOAuthSignUp("oauth_tiktok")}
+            >
+              {isLoaded ? (
+                <div className="flex items-center gap-x-2">
+                  <i className="ci ci-tiktok ci-1x"></i>
+                  {/* <TikTokIcon className="mr-2 size-4" /> */}
+                  TikTok
+                </div>
+              ) : (
+                <LoaderCircle className="size-4 animate-spin" />
+              )}
+            </Button>
+            <Button
+              variant="outline"
+              type="button"
+              disabled={!isLoaded}
+              onClick={() => handleOAuthSignUp("oauth_google")}
+            >
+              {isLoaded ? (
+                <div className="flex items-center gap-x-2">
+                  <i className="ci ci-google ci-1x"></i>
+                  {/* <GoogleIcon className="mr-2 size-4" /> */}
+                  Google
+                </div>
+              ) : (
+                <LoaderCircle className="size-4 animate-spin" />
+              )}
+            </Button>
+          </div>
+          <p className="flex items-center gap-x-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">
+            or
+          </p>
 
-              <SignUp.Step name="verifications">
-                <SignUp.Strategy name="email_code">
-                  <Card className="w-full sm:w-96">
-                    <CardHeader>
-                      <CardTitle>Verify your email</CardTitle>
-                      <CardDescription>
-                        Use the verification link sent to your email address
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="grid gap-y-4">
-                      <div className="grid items-center justify-center gap-y-2">
-                        <Clerk.Field name="code" className="space-y-2">
-                          <Clerk.Label className="sr-only">
-                            Email address
-                          </Clerk.Label>
-                          <div className="flex justify-center text-center">
-                            <Clerk.Input
-                              type="otp"
-                              className="flex justify-center has-[:disabled]:opacity-50"
-                              autoSubmit
-                              render={({ value, status }) => {
-                                return (
-                                  <div
-                                    data-status={status}
-                                    className={cn(
-                                      "relative flex size-10 items-center justify-center border-y border-r border-input text-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md",
-                                      {
-                                        "z-10 ring-2 ring-ring ring-offset-background":
-                                          status === "cursor" ||
-                                          status === "selected",
-                                      },
-                                    )}
-                                  >
-                                    {value}
-                                    {status === "cursor" && (
-                                      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                                        <div className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />
-                                      </div>
-                                    )}
-                                  </div>
-                                );
-                              }}
-                            />
-                          </div>
-                          <Clerk.FieldError className="block text-center text-sm text-destructive" />
-                        </Clerk.Field>
-                        <SignUp.Action
-                          asChild
-                          resend
-                          className="text-muted-foreground"
-                          fallback={({ resendableAfter }) => (
-                            <Button variant="link" size="sm" disabled>
-                              Didn&apos;t receive a code? Resend (
-                              <span className="tabular-nums">
-                                {resendableAfter}
-                              </span>
-                              )
-                            </Button>
-                          )}
-                        >
-                          <Button type="button" variant="link" size="sm">
-                            Didn&apos;t receive a code? Resend
-                          </Button>
-                        </SignUp.Action>
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <div className="grid w-full gap-y-4">
-                        <SignUp.Action submit asChild>
-                          <Button disabled={isGlobalLoading}>
-                            <Clerk.Loading>
-                              {(isLoading) => {
-                                return isLoading ? (
-                                  <Icons.spinner className="size-4 animate-spin" />
-                                ) : (
-                                  "Continue"
-                                );
-                              }}
-                            </Clerk.Loading>
-                          </Button>
-                        </SignUp.Action>
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </SignUp.Strategy>
-              </SignUp.Step>
-            </>
-          )}
-        </Clerk.Loading>
-      </SignUp.Root>
+          <form onSubmit={handleSubmit}>
+            <input type="hidden" name="remember" defaultValue="true" />
+            <div className="grid gap-y-4 -space-y-px rounded-md shadow-sm">
+              <div>
+                <label htmlFor="email-address" className="sr-only">
+                  Email address
+                </label>
+                <Input
+                  className="input-field min-w-[20px] rounded-lg px-4 py-4 text-base placeholder:text-[#a8a8a8]"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  id="email-address"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                />
+              </div>
+              <div>
+                <label htmlFor="password" className="sr-only">
+                  Password
+                </label>
+                <Input
+                  className="input-field min-w-[20px] rounded-lg px-4 py-4 text-base placeholder:text-[#a8a8a8]"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="off"
+                />
+              </div>
+            </div>
+
+            {error && <div className="mt-2 text-sm text-red-500">{error}</div>}
+
+            <div className="grid w-full gap-y-4">
+              <Button
+                type="submit"
+                disabled={!isLoaded || creatingUser}
+                size="lg"
+                className="min-w-2/5 mt-6 rounded-lg bg-sky-500 px-6 py-7"
+              >
+                {creatingUser ? (
+                  <LoaderCircle className="animate-spin" />
+                ) : (
+                  "Create Account"
+                )}
+              </Button>
+            </div>
+            <div className="flex-center mt-20">
+              <Button variant="link" size="sm" asChild>
+                <Link href="signin">Already have an account? Log in</Link>
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

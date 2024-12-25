@@ -1,6 +1,9 @@
 "use client";
 import * as Clerk from "@clerk/elements/common";
 import * as SignUp from "@clerk/elements/sign-up";
+import { useState } from "react";
+import { useSignUp } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {

@@ -1,38 +1,27 @@
-"use client";
+import { SignUp } from "@clerk/nextjs";
+import { useSearchParams } from "next/navigation";
 
-import * as Clerk from "@clerk/elements/common";
-import * as SignUp from "@clerk/elements/sign-up";
+export function SignUpPage2() {
+  const searchParams = useSearchParams();
+  const username = searchParams.get("username");
 
-export default function SignUpPage() {
   return (
-    <SignUp.Root>
-      <SignUp.Step name="start">
-        <h1>Create an account</h1>
-
-        <Clerk.Connection name="google">Sign up with Google</Clerk.Connection>
-
-        <Clerk.Field name="username">
-          <Clerk.Label>Username</Clerk.Label>
-          <Clerk.Input />
-          <Clerk.FieldError />
-        </Clerk.Field>
-
-        <Clerk.Field name="emailAddress">
-          <Clerk.Label>Email</Clerk.Label>
-          <Clerk.Input />
-          <Clerk.FieldError />
-        </Clerk.Field>
-
-        <Clerk.Field name="password">
-          <Clerk.Label>Password</Clerk.Label>
-          <Clerk.Input />
-          <Clerk.FieldError />
-        </Clerk.Field>
-
-        <SignUp.Captcha />
-
-        <SignUp.Action submit>Sign up</SignUp.Action>
-      </SignUp.Step>
-    </SignUp.Root>
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <SignUp
+        path="/signup"
+        routing="path"
+        signInUrl="/signin"
+        // redirectUrl="/complete-profile"
+        username={username}
+        appearance={{
+          elements: {
+            rootBox: "mx-auto w-full max-w-md",
+            card: " bg-transparent rounded-lg shadow-none border-none",
+            headerTitle: "hidden",
+            headerSubtitle: "hidden",
+          },
+        }}
+      />
+    </div>
   );
 }

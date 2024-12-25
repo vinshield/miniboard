@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { UsernameForm } from "./UsernameForm";
-import { SignUpOptions } from "./SignUpOptions";
+
+import { SignUpPage } from "./SignUpPage";
 import { BioForm } from "./BioForm";
 
 export default function SignUpFlow() {
-  const [step, setStep] = useState("signup");
+  const [step, setStep] = useState("username");
   const [username, setUsername] = useState("");
 
   const handleUsernameSubmit = (selectedUsername) => {
@@ -34,7 +35,7 @@ export default function SignUpFlow() {
           <UsernameForm onSubmit={handleUsernameSubmit} />
         )}
         {step === "signup" && (
-          <SignUpOptions
+          <SignUpPage
             username={username}
             onSignUpComplete={handleSignUpComplete}
             changeUsername={changeUsername}

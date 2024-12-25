@@ -42,7 +42,7 @@ export function UsernameForm({ onSubmit }) {
     setError("");
     setUsernameAvailable(null);
 
-    if (newUsername.length >= 3) {
+    if (newUsername.length >= 4) {
       debounceCheckUsername(newUsername);
     } else {
       setIsChecking(false);
@@ -50,7 +50,7 @@ export function UsernameForm({ onSubmit }) {
   };
 
   const checkUsername = useCallback(async (username) => {
-    if (username.length < 3) {
+    if (username.length < 4) {
       setUsernameAvailable(null);
       setIsChecking(false);
       return;
@@ -79,16 +79,16 @@ export function UsernameForm({ onSubmit }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (username.length < 3) {
-    //   setError("Username must be at least 3 characters long");
-    //   return;
-    // }
+    if (username.length < 3) {
+      setError("Username must be at least 3 characters long");
+      return;
+    }
 
-    // if (usernameAvailable) {
-    //   onSubmit(username);
-    // } else {
-    //   setError("Please choose an available username");
-    // }
+    if (usernameAvailable) {
+      onSubmit(username);
+    } else {
+      setError("Please choose an available username");
+    }
   };
 
   return (
@@ -112,7 +112,7 @@ export function UsernameForm({ onSubmit }) {
               value={username}
               onChange={handleInputChange}
               autoFocus
-              autocomplete="off"
+              autoComplete="off"
             />
             <span
               ref={measureRef}
