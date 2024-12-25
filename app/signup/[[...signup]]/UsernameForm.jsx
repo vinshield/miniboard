@@ -96,7 +96,7 @@ export function UsernameForm({ onSubmit }) {
       <form onSubmit={handleSubmit} className="space-y-3">
         <Label
           htmlFor="username"
-          className="leading-12 mb-20 block text-3xl font-semibold tracking-tighter md:text-4xl"
+          className="leading-12 mb-20 block text-4xl font-semibold tracking-tighter md:text-4xl"
         >
           First, create your unique link
         </Label>
