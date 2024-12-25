@@ -69,7 +69,7 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
           is yours
         </p>
       )}
-      <h2 className="leading-12 mb-16 block text-3xl font-bold tracking-tighter md:text-4xl">
+      <h2 className="leading-12 mb-16 block text-4xl font-bold tracking-tighter md:text-4xl">
         Now, create your account
       </h2>
 
@@ -121,7 +121,7 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
                   Email address
                 </label>
                 <Input
-                  className="input-field min-w-[20px] rounded-lg px-4 py-4 text-base placeholder:text-[#a8a8a8]"
+                  className="input-field min-w-[20px] rounded-lg px-4 py-6 text-base placeholder:text-[#a8a8a8]"
                   placeholder="Email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -136,7 +136,7 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
                   Password
                 </label>
                 <Input
-                  className="input-field min-w-[20px] rounded-lg px-4 py-4 text-base placeholder:text-[#a8a8a8]"
+                  className="input-field min-w-[20px] rounded-lg px-4 py-6 text-base placeholder:text-[#a8a8a8]"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
