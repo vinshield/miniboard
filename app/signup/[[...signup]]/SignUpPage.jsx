@@ -61,7 +61,7 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
   };
 
   return (
-    <div className="flex h-[100vh] flex-col justify-center">
+    <div className="mt-12 flex flex-col justify-center">
       <ArrowLeft className="mb-20" onClick={changeUsername} />
       {username && (
         <p className="mb-2 text-sm text-grey-500">
