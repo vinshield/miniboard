@@ -38,6 +38,10 @@ export default function SignUpFlow() {
     setStep("username");
   };
 
+  const changeBio = () => {
+    setStep("bio");
+  };
+
   return (
     <div className="container p-[20px] lg:p-[80px]">
       <div className="max-w-xl">
@@ -55,7 +59,7 @@ export default function SignUpFlow() {
           <BioForm onSubmit={handleBioSubmit} username={username} />
         )}
         {step === "socialLinks" && (
-          <SocialLinksForm onSubmit={handleInfoSubmit} />
+          <SocialLinksForm onSubmit={handleInfoSubmit} changeBio={changeBio} />
         )}
       </div>
     </div>

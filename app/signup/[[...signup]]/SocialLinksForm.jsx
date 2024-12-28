@@ -5,13 +5,13 @@ import { useUser } from "@clerk/clerk-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LoaderCircle, ArrowRight } from "lucide-react";
+import { LoaderCircle, ArrowRight, ArrowLeft } from "lucide-react";
 
 import { socialHandles } from "@/constants";
 
 import { updateUserProfile } from "@/lib/actions/clerk.actions";
 
-export function SocialLinksForm({ onSubmit }) {
+export function SocialLinksForm({ onSubmit, changeBio }) {
   const { user, isLoaded } = useUser();
 
   const [uploadingInfo, setUploadingInfo] = useState(false);

@@ -6,8 +6,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { default as TikTokIcon } from "@/public/assets/icons/tiktok.svg";
-import { default as GoogleIcon } from "@/public/assets/icons/google.svg";
 import { LoaderCircle, ArrowLeft } from "lucide-react";
 
 export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
@@ -52,8 +50,9 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
       await signUp.authenticateWithRedirect({
         strategy,
         redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/complete-profile",
+        redirectUrlComplete: "/signup",
       });
+      onSignUpComplete();
     } catch (err) {
       console.error("Error during OAuth sign up:", err);
       setError(err.message || "An error occurred during sign up.");
