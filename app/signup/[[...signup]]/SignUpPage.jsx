@@ -43,19 +43,25 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
     }
   };
 
+  
+  
   const handleOAuthSignUp = async (strategy) => {
     if (!isLoaded) return;
-
+  
     try {
+      // Store the username before OAuth flow
+      localStorage.setItem("pendingUsername", username);
+  
+      // Start OAuth flow directly
       await signUp.authenticateWithRedirect({
         strategy,
         redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/signup",
+        redirectUrlComplete: "/sso-callback",
       });
-      onSignUpComplete();
     } catch (err) {
-      console.error("Error during OAuth sign up:", err);
-      setError(err.message || "An error occurred during sign up.");
+      console.error("Error during OAuth signup:", err);
+      localStorage.removeItem("pendingUsername");
+      setError(err.message || "An error occurred during sign up with " + strategy);
     }
   };
 

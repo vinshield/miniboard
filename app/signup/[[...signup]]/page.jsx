@@ -1,19 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UsernameForm } from "./UsernameForm";
 
 import { SignUpPage } from "./SignUpPage";
 import { BioForm } from "./BioForm";
 import { SocialLinksForm } from "./SocialLinksForm";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SignUpFlow() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [step, setStep] = useState("username");
-  const [username, setUsername] = useState("");
+  const [step, setStep] = useState(searchParams.get("step") || "username");
+  const [username, setUsername] = useState(searchParams.get("username") || "");
+
+  useEffect(() => {
+    const urlStep = searchParams.get("step");
+    const urlUsername = searchParams.get("username");
+    
+    if (urlStep) {
+      setStep(urlStep);
+    }
+    if (urlUsername) {
+      setUsername(urlUsername);
+      // Clear the stored username from localStorage
+      localStorage.removeItem("pendingUsername");
+    }
+  }, [searchParams]);
 
   const handleUsernameSubmit = (selectedUsername) => {
     setUsername(selectedUsername);

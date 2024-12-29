@@ -23,7 +23,7 @@ const Header = () => {
   const [visible, setVisible] = useState(true);
 
   let pathname = usePathname();
-  console.log(pathname);
+  
   useEffect(() => {
     setSignInVisible(true);
     if (pathname === "/signup") setSignInVisible(false);
