@@ -6,7 +6,7 @@ import { generateClientDropzoneAccept } from "uploadthing/client";
 import { extractPosterInfo } from "@/lib/actions/event.actions";
 
 import { Button } from "@/components/ui/button";
-import { convertFiletoBase64, convertFileToUrl } from "@/lib/utils";
+import { convertFiletoBase64, convertFileToUrl } from "@/lib/utils/utils";
 import Image from "next/image";
 import { resolve } from "styled-jsx/css";
 

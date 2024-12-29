@@ -1,19 +1,15 @@
 "use client";
 
 import { useUser } from "@clerk/clerk-react";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoaderCircle, ArrowRight, ArrowLeft } from "lucide-react";
-
 import { socialHandles } from "@/constants";
-
 import { updateUserProfile } from "@/lib/actions/clerk.actions";
 
 export function SocialLinksForm({ onSubmit, changeBio }) {
   const { user, isLoaded } = useUser();
-
   const [uploadingInfo, setUploadingInfo] = useState(false);
   const [error, setError] = useState("");
 
@@ -48,9 +44,7 @@ export function SocialLinksForm({ onSubmit, changeBio }) {
       }
     } catch (error) {
       console.error("Error updating profile:", error);
-      setError(
-        error.message || "An error occurred when saving your social links.",
-      );
+      setError(error.message || "An error occurred when saving your social links.");
     } finally {
       setUploadingInfo(false);
     }

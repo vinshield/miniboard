@@ -1,12 +1,10 @@
 "use client";
 
 import { useUser } from "@clerk/clerk-react";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { LoaderCircle, ArrowRight } from "lucide-react";
-
 import { updateUserProfile } from "@/lib/actions/clerk.actions";
 
 export function BioForm({ onSubmit, username }) {
@@ -35,10 +33,6 @@ export function BioForm({ onSubmit, username }) {
       setUploadingBio(false);
     }
   };
-
-  // if (!isLoaded || !user) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <div className="mt-12 flex flex-col">
@@ -78,10 +72,10 @@ export function BioForm({ onSubmit, username }) {
             {uploadingBio ? (
               <>
                 {" "}
-                <LoaderCircle className="mr-1 animate-spin" /> Saving
+                <LoaderCircle className="mr-1 animate-spin" /> 
               </>
             ) : (
-              "Save"
+              "Continue"
             )}
           </Button>
           <Button

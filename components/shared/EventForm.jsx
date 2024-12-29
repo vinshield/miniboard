@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 
-import { formatDateFromJSDate, formatDateTime } from "@/lib/utils";
+import { formatDateFromJSDate, formatDateTime } from "@/lib/utils/utils";
 import { createEvent } from "@/lib/actions/event.actions";
 
 import { zodResolver } from "@hookform/resolvers/zod";
