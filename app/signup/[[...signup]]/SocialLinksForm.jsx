@@ -22,9 +22,11 @@ export function SocialLinksForm({ onSubmit, changeBio }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // Remove @ and spaces from the input value
+    const sanitizedValue = value.replace(/[@\s]/g, "");
     setHandles((prev) => ({
       ...prev,
-      [name]: value.replace(/@/g, ""),
+      [name]: sanitizedValue,
     }));
   };
 
