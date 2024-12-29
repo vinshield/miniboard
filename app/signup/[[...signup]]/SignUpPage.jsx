@@ -43,20 +43,18 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
     }
   };
 
-  
-  
   const handleOAuthSignUp = async (strategy) => {
     if (!isLoaded) return;
-  
+
     try {
       // Store the username before OAuth flow
       localStorage.setItem("pendingUsername", username);
-  
+
       // Start OAuth flow directly
       await signUp.authenticateWithRedirect({
         strategy,
-        redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/sso-callback",
+        redirectUrl: "/", //page to link to if user already has an account
+        redirectUrlComplete: "/sso-callback", //page to link to to create new account
       });
     } catch (err) {
       console.error("Error during OAuth signup:", err);

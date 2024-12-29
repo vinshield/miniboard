@@ -29,6 +29,7 @@ export default function SSOCallback() {
             router.push("/signup");
           }
         } else {
+          console.log("No username found in localStorage");
           router.push("/");
         }
       } catch (err) {
