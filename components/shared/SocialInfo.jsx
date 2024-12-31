@@ -179,20 +179,22 @@ export function SocialInfo() {
 
           {error && <p className="text-sm text-destructive">{error}</p>}
 
-          <Button
-            type="submit"
-            variant="test"
-            className="mt-4 w-full"
-            disabled={uploadingData}
-          >
-            {uploadingData ? (
-              <>
-                <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
-              </>
-            ) : (
-              "Save"
-            )}
-          </Button>
+          <div>
+            <Button
+              type="submit"
+              variant="test"
+              className="mt-4 w-full"
+              disabled={uploadingData}
+            >
+              {uploadingData ? (
+                <>
+                  <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                </>
+              ) : (
+                "Save"
+              )}
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
