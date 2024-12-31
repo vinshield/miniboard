@@ -107,7 +107,7 @@ export function SignInPage() {
             or
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-2">
             <div>
               <label htmlFor="email-or-username" className="sr-only">
                 Email or username
