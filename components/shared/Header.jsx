@@ -1,7 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 import { SocialInfo } from "./SocialInfo";
 import { usePathname } from "next/navigation";
 
@@ -26,7 +32,8 @@ const Header = () => {
 
   useEffect(() => {
     setSignInVisible(true);
-    if (pathname === "/signup") setSignInVisible(false);
+    if (pathname === "/signup" || pathname === "/signin")
+      setSignInVisible(false);
   }, [pathname]);
 
   useEffect(() => {

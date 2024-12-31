@@ -94,11 +94,11 @@ export function UsernameForm({ onSubmit }) {
   return (
     <div className="flex h-[60vh] flex-col justify-center">
       <form onSubmit={handleSubmit} className="space-y-3">
-        <Label
-          htmlFor="username"
-          className="leading-12 mb-20 block text-4xl font-semibold tracking-tighter md:text-4xl"
-        >
-          First, create your unique link
+        <Label htmlFor="username">
+          <p className="mb-1 text-3xl text-gray-500">Welcome to Miniboard!</p>
+          <p className="leading-12 mb-20 block text-4xl font-semibold tracking-tighter md:text-4xl">
+            First, create your unique link
+          </p>
         </Label>
         <div className="relative flex items-center justify-between overflow-hidden rounded-lg bg-secondary px-4 py-2">
           <div className="flex items-center">
