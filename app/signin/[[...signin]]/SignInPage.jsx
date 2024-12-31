@@ -158,7 +158,10 @@ export function SignInPage() {
             <div className="text-center text-sm">
               <Button variant="link" size="sm" className="mt-14" asChild>
                 <Link href="signup">
-                  Don&apos;t have an account?
+                  <span className="text-gray-500">
+                    Don&apos;t have an account?
+                  </span>
+
                   <span className="font-bold">&nbsp;Sign up</span>
                 </Link>
               </Button>

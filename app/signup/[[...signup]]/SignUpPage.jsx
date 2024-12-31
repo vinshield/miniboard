@@ -171,7 +171,12 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
             </div>
             <div className="flex-center mt-20">
               <Button variant="link" size="sm" asChild>
-                <Link href="signin">Already have an account? Log in</Link>
+                <Link href="signin">
+                  <span className="text-gray-500">
+                    Already have an account?
+                  </span>{" "}
+                  <span className="font-bold">&nbsp;Log in</span>
+                </Link>
               </Button>
             </div>
           </form>

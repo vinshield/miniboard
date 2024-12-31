@@ -167,7 +167,8 @@ export function UsernameForm({ onSubmit }) {
         <div>
           <Button variant="link" size="sm" className="mt-20" asChild>
             <Link href="signin">
-              Already have an account?
+              <span className="text-gray-500">Already have an account?</span>
+
               <span className="font-bold">&nbsp;Log in</span>
             </Link>
           </Button>
