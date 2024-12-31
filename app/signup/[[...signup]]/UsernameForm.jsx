@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { LoaderCircle, Check, X } from "lucide-react";
 
 import { checkUsernameAvailability } from "@/lib/actions/clerk.actions";
+import Link from "next/link";
 
 export function UsernameForm({ onSubmit }) {
   const [isChecking, setIsChecking] = useState(false);
@@ -160,6 +161,15 @@ export function UsernameForm({ onSubmit }) {
             disabled={!usernameAvailable || isChecking || username.length < 3}
           >
             Claim my link!
+          </Button>
+        </div>
+
+        <div>
+          <Button variant="link" size="sm" className="mt-20" asChild>
+            <Link href="signin">
+              Already have an account?
+              <span className="font-bold">&nbsp;Log in</span>
+            </Link>
           </Button>
         </div>
       </form>
