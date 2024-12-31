@@ -98,15 +98,6 @@ export function BioForm({ onSubmit, username }) {
               "Continue"
             )}
           </Button>
-          {/* <Button
-            type="button"
-            variant="outline"
-            size="lg"
-            className="w-full"
-            onClick={onSubmit}
-          >
-            Skip <ArrowRight className="ml-1 size-6" />
-          </Button> */}
         </div>
       </form>
     </div>

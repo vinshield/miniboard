@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { UserBio } from "./UserBio";
+import { SocialInfo } from "./SocialInfo";
 import { usePathname } from "next/navigation";
 
 const DotIcon = () => {
@@ -23,7 +23,7 @@ const Header = () => {
   const [visible, setVisible] = useState(true);
 
   let pathname = usePathname();
-  
+
   useEffect(() => {
     setSignInVisible(true);
     if (pathname === "/signup") setSignInVisible(false);
@@ -60,11 +60,11 @@ const Header = () => {
             <SignedIn>
               <UserButton>
                 <UserButton.UserProfilePage
-                  label="Bio"
+                  label="My Info"
                   labelIcon={<DotIcon />}
                   url="terms"
                 >
-                  <UserBio />
+                  <SocialInfo />
                 </UserButton.UserProfilePage>
               </UserButton>
             </SignedIn>
