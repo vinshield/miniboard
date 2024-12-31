@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <EventCard />
+      {/* <EventCard /> */}
     </main>
   );
 }
