@@ -122,7 +122,7 @@ export function SignInPage() {
                 autoComplete="off"
               />
             </div>
-            <div>
+            <div className="space-y-1">
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
@@ -135,6 +135,11 @@ export function SignInPage() {
                 required
                 autoComplete="off"
               />
+              {/* <div className="flex justify-end">
+                <Button variant="link" size="sm" className="text-xs" asChild>
+                  <Link href="/forgot-password">Forgot password?</Link>
+                </Button>
+              </div> */}
             </div>
             {error && <p className="text-sm text-red-500">{error}</p>}
             <Button
