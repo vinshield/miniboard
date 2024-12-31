@@ -14,7 +14,6 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
   const [creatingUser, setCreatingUser] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +58,9 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
     } catch (err) {
       console.error("Error during OAuth signup:", err);
       localStorage.removeItem("pendingUsername");
-      setError(err.message || "An error occurred during sign up with " + strategy);
+      setError(
+        err.message || "An error occurred during sign up with " + strategy,
+      );
     }
   };
 
@@ -131,7 +132,7 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
                   id="email-address"
                   name="email"
                   type="email"
-                  autoComplete="email"
+                  autoComplete="new-email"
                 />
               </div>
               <div>
@@ -146,7 +147,7 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
                   id="password"
                   name="password"
                   type="password"
-                  autoComplete="off"
+                  autoComplete="new-password"
                 />
               </div>
             </div>

@@ -51,7 +51,7 @@ export function BioForm({ onSubmit, username }) {
         <h2 className="leading-12 block text-4xl font-semibold tracking-tighter md:text-4xl">
           You&apos;re in!
         </h2>
-        <p className="mt-2 text-lg text-gray-500">
+        <p className="mt-2 text-xl text-gray-500">
           Tell us a bit about yourself or your organization
         </p>
       </div>
