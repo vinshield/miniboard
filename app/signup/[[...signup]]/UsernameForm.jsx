@@ -93,7 +93,7 @@ export function UsernameForm({ onSubmit }) {
   };
 
   return (
-    <div className="flex h-[60vh] flex-col justify-center">
+    <div className="mt-4 flex flex-col justify-center">
       <form onSubmit={handleSubmit} className="space-y-3">
         <Label htmlFor="username">
           <p className="mb-1 text-3xl text-gray-500">Welcome to Miniboard!</p>
