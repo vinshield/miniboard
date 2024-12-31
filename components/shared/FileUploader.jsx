@@ -6,7 +6,7 @@ import { generateClientDropzoneAccept } from "uploadthing/client";
 import { extractPosterInfo } from "@/lib/actions/event.actions";
 
 import { Button } from "@/components/ui/button";
-import { convertFiletoBase64, convertFileToUrl } from "@/lib/utils";
+import { convertFiletoBase64, convertFileToUrl } from "@/lib/utils/utils";
 import Image from "next/image";
 import { resolve } from "styled-jsx/css";
 
@@ -79,15 +79,22 @@ export function FileUploader({
           </div>
         )}
       </div>
-      <Button
-        size="lg"
-        className={`${showForm ? "hidden" : "block"} $ h-12 w-full shadow-md`}
-        type="button"
-        disabled={gettingPosterInfo}
-        onClick={() => document.getElementById("file-input").click()}
-      >
-        Upload your event poster
-      </Button>{" "}
+      {!showForm && (
+        <>
+          <Button
+            size="lg"
+            className="h-12 w-full shadow-md"
+            type="button"
+            disabled={gettingPosterInfo}
+            onClick={() => document.getElementById("file-input").click()}
+          >
+            Upload your event poster
+          </Button>
+          <p className="mt-4 flex items-center gap-x-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">
+            or
+          </p>
+        </>
+      )}
     </>
   );
 }

@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 
-import { formatDateFromJSDate, formatDateTime } from "@/lib/utils";
+import { formatDateFromJSDate, formatDateTime } from "@/lib/utils/utils";
 import { createEvent } from "@/lib/actions/event.actions";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -249,9 +249,10 @@ export default function EventForm({ userId, type, event, eventId }) {
           />
 
           <Button
+            size="lg"
             type="button"
-            variant="ghost"
-            className={`${showForm ? "hidden" : "visible"}`}
+            variant="outline"
+            className={`${showForm ? "hidden" : "visible"} h-12`}
             disabled={gettingPosterInfo}
             onClick={() => showFormAndScroll()}
           >
@@ -372,7 +373,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                   <FormItem>
                     <div className="flex items-center justify-between space-x-2 rounded-t-lg bg-secondary px-4 pt-4">
                       <FormLabel className="text-xs text-muted-foreground">
-                        Online event
+                        This is an online event
                       </FormLabel>
                       <FormControl>
                         <Switch
