@@ -1,17 +1,27 @@
 "use client";
 
 import { useUser } from "@clerk/clerk-react";
-import { useState } from "react";
+// import { currentUser } from "@clerk/nextjs";
+
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { LoaderCircle, ArrowRight } from "lucide-react";
 import { updateUserProfile } from "@/lib/actions/clerk.actions";
+import { Input } from "@/components/ui/input";
 
 export function BioForm({ onSubmit, username }) {
   const { user, isLoaded } = useUser();
   const [bio, setBio] = useState("");
   const [error, setError] = useState("");
   const [uploadingBio, setUploadingBio] = useState(false);
+  const [displayName, setDisplayName] = useState(username);
+
+  useEffect(() => {
+    if (user.firstName || user.lastName) {
+      setDisplayName(`${user.firstName} ${user.lastName}`);
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     setUploadingBio(true);
@@ -19,7 +29,8 @@ export function BioForm({ onSubmit, username }) {
     if (!isLoaded || !user) return;
 
     try {
-      const result = await updateUserProfile({ bio });
+      console.log(displayName);
+      const result = await updateUserProfile({ bio, displayName });
       if (result.success) {
         onSubmit();
       } else {
@@ -40,14 +51,23 @@ export function BioForm({ onSubmit, username }) {
         <h2 className="leading-12 block text-4xl font-semibold tracking-tighter md:text-4xl">
           You&apos;re in!
         </h2>
-        <p className="mt-2 text-lg">
+        <p className="mt-2 text-lg text-gray-500">
           Tell us a bit about yourself or your organization
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="">
         <div className="space-y-2">
-          <p className="font-semibold">Enter a short bio</p>
+          <div className="mb-4">
+            <p className="font-semibold">Display name</p>
+            <Input
+              id="displayName"
+              value={displayName}
+              className="input-field rounded-lg px-4 py-6 text-base placeholder:text-[#a8a8a8]"
+              onChange={(e) => setDisplayName(e.target.value)}
+            />
+          </div>
+          <p className="font-semibold">Bio</p>
           <Textarea
             id="bio"
             placeholder={`${username} is sooo cool`}
@@ -67,18 +87,18 @@ export function BioForm({ onSubmit, username }) {
             variant="test"
             size="lg"
             className="w-full font-bold"
-            disabled={!bio || uploadingBio}
+            disabled={uploadingBio}
           >
             {uploadingBio ? (
               <>
                 {" "}
-                <LoaderCircle className="mr-1 animate-spin" /> 
+                <LoaderCircle className="mr-1 animate-spin" />
               </>
             ) : (
               "Continue"
             )}
           </Button>
-          <Button
+          {/* <Button
             type="button"
             variant="outline"
             size="lg"
@@ -86,7 +106,7 @@ export function BioForm({ onSubmit, username }) {
             onClick={onSubmit}
           >
             Skip <ArrowRight className="ml-1 size-6" />
-          </Button>
+          </Button> */}
         </div>
       </form>
     </div>

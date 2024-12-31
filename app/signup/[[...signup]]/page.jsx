@@ -19,7 +19,7 @@ export default function SignUpFlow() {
   useEffect(() => {
     const urlStep = searchParams.get("step");
     const urlUsername = searchParams.get("username");
-    
+
     if (urlStep) {
       setStep(urlStep);
     }
