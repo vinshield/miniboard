@@ -95,8 +95,8 @@ export function UsernameForm({ onSubmit }) {
   return (
     <div className="mt-4 flex flex-col justify-center">
       <form onSubmit={handleSubmit} className="space-y-3">
+        <p className="mb-1 text-3xl text-gray-500">Welcome to Miniboard!</p>
         <Label htmlFor="username">
-          <p className="mb-1 text-3xl text-gray-500">Welcome to Miniboard!</p>
           <p className="leading-12 mb-20 block text-4xl font-semibold tracking-tighter md:text-4xl">
             First, create your unique link
           </p>
@@ -167,7 +167,7 @@ export function UsernameForm({ onSubmit }) {
         <div>
           <Button variant="link" size="sm" className="mt-20" asChild>
             <Link href="signin">
-              <span className="text-gray-500">Already have an account?</span>
+              <span className="text-gray-500">or</span>
 
               <span className="font-bold">&nbsp;Log in</span>
             </Link>
