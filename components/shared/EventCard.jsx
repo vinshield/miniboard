@@ -10,7 +10,7 @@ const EventCard = () => {
         <div className="flex p-4">
           <div className="mr-2 flex-1">
             <p className="mb-2 text-sm text-gray-500">THUR OCT 4 | 7:30PM</p>
-            <h2 className="mb-2 line-clamp-3 text-lg font-semibold leading-snug text-gray-800">
+            <h2 className="mb-2 line-clamp-3 font-semibold leading-snug text-gray-800">
               Hackoholics 5.0: Digitech Solutions for Africa’s Prosperity
             </h2>
             <div className="mb-6 flex items-center text-sm text-gray-600">
