@@ -4,7 +4,7 @@ import UserHeader from "@/components/shared/UserHeader";
 
 export default function Home() {
   return (
-    <main>
+    <main >
       <UserHeader />
       <EventCard />
       <EventCard />
