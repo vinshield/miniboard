@@ -61,13 +61,15 @@ const Header = () => {
     >
       <div className="container w-full py-3">
         <nav className="flex w-full items-center justify-between">
-          <Link href="/" className="text-base font-bold text-[#757b85]">
+          <Link href="/" className="text-sm font-bold text-[#757b85]">
             miniboard
           </Link>
 
           <div className={`${!signInVisible ? "hidden" : ""}`}>
             <Popover open={isOpen} onOpenChange={setIsOpen}>
-              <PopoverTrigger>{isOpen ? <X /> : <Menu />}</PopoverTrigger>
+              <PopoverTrigger>
+                {isOpen ? <X size={20} /> : <Menu size={20} />}
+              </PopoverTrigger>
               <PopoverContent>
                 <SignedOut>
                   <div className="rounded-full bg-[#7480911a] px-4 py-2 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
