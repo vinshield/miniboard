@@ -1,10 +1,17 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const BrandLogo = ({ domain, width = 100, height = 100 }) => {
+const BrandLogo = ({
+  domain,
+  type,
+  theme,
+  fallback = "lettermark",
+  width = 100,
+  height = 100,
+}) => {
   const [error, setError] = useState(false);
   const clientId = process.env.NEXT_PUBLIC_BRANDFETCH_CLIENT_ID;
-  const logoUrl = `https://cdn.brandfetch.io/${domain}?c=${clientId}&w=${width}&h=${height}`;
+  const logoUrl = `https://cdn.brandfetch.io/${domain}/${type}/${theme}/${fallback}/h/${height}/w/${width}?c=${clientId}`;
 
   const handleError = () => {
     setError(true);

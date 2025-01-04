@@ -26,7 +26,7 @@ const UserHeader = () => {
           {user?.publicMetadata?.displayName}
         </h1>
       </div>
-      <p className="text-sm leading-6 text-gray-500">
+      <p className="text-sm leading-5 text-gray-500">
         {user?.publicMetadata?.bio}
       </p>
       <div>
