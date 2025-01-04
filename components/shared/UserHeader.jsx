@@ -13,16 +13,17 @@ const UserHeader = () => {
   return (
     <div className="container mt-4 flex flex-col items-start space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
       <div className="flex flex-row items-center gap-3">
-        <div className="flex-shrink-0 rounded-[100%] bg-[#333]">
+        <div className="rounded-[100%] bg-[#333]">
           <Image
             src={user?.imageUrl}
             alt={user?.publicMetadata?.displayName}
             width={48}
             height={48}
-            className="h-14 w-14 rounded-full"
+            className="h-10 w-10 rounded-full"
+            objectFit="contain"
           />
         </div>
-        <h1 className="text-4xl font-bold tracking-tight text-black">
+        <h1 className="font-bold tracking-tight text-black">
           {user?.publicMetadata?.displayName}
         </h1>
       </div>
