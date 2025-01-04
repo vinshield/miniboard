@@ -13,20 +13,20 @@ const UserHeader = () => {
   return (
     <div className="container mt-4 flex flex-col items-start space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
       <div className="flex flex-row items-center gap-3">
-        <div className="h-12 w-12 flex-shrink-0 rounded-[100%] bg-[#333]">
+        <div className="flex-shrink-0 rounded-[100%] bg-[#333]">
           <Image
             src={user?.imageUrl}
             alt={user?.publicMetadata?.displayName}
             width={48}
             height={48}
-            className="h-12 w-12 rounded-full"
+            className="h-14 w-14 rounded-full"
           />
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-black">
           {user?.publicMetadata?.displayName}
         </h1>
       </div>
-      <p className="text-gray-600">{user?.publicMetadata?.bio}</p>
+      <p className="text-sm text-gray-600">{user?.publicMetadata?.bio}</p>
       <div>
         {socialHandles.map((handle) => {
           if (user?.publicMetadata?.socialHandles?.[handle.name]) {
