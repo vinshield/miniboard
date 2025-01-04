@@ -57,7 +57,7 @@ const Header = () => {
 
   return (
     <header
-      className={`transition-translate fixed left-0 right-0 top-0 z-10 h-16 bg-gradient-to-b from-sky-200 via-slate-50 via-90% to-white duration-300 ${visible ? "translate-y-0" : "-translate-y-full"}`}
+      className={`transition-translate fixed left-0 right-0 top-0 z-10 bg-gradient-to-b from-sky-200 via-slate-50 via-90% to-white duration-300 ${visible ? "translate-y-0" : "-translate-y-full"}`}
     >
       <div className="container w-full py-3">
         <nav className="flex w-full items-center justify-between">

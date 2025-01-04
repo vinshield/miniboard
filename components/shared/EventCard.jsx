@@ -6,7 +6,7 @@ import { default as ShareIcon } from "@/public/assets/icons/share-from-square.sv
 const EventCard = () => {
   return (
     <div className="container">
-      <div className="mx-auto my-8 max-w-sm overflow-hidden rounded-lg bg-white shadow-md">
+      <div className="mx-auto my-8 max-w-sm overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
         <div className="flex p-4">
           <div className="mr-2 flex-1">
             <p className="mb-2 text-sm text-gray-500">THUR OCT 4 | 7:30PM</p>
