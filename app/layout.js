@@ -2,7 +2,6 @@ import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import Header from "@/components/shared/Header";
-import Head from "next/head";
 
 import { ClerkProvider } from "@clerk/nextjs";
 

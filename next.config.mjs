@@ -2,6 +2,18 @@
 const nextConfig = {
   reactStrictMode: false,
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+        port: "",
+        // pathname: "/account123/**",
+        // search: "",
+      },
+    ],
+  },
+
   experimental: {
     serverActions: {
       bodySizeLimit: "2mb",
