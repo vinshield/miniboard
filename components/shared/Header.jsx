@@ -78,7 +78,7 @@ const Header = () => {
                 </SignedOut>
                 <div className="flex items-center gap-2">
                   <SignedIn>
-                    <UserButton>
+                    <UserButton showName={true}>
                       <UserButton.UserProfilePage
                         label="My Info"
                         labelIcon={<DotIcon />}
@@ -88,7 +88,6 @@ const Header = () => {
                       </UserButton.UserProfilePage>
                     </UserButton>
                   </SignedIn>
-                  <p>Profile</p>
                 </div>
               </PopoverContent>
             </Popover>

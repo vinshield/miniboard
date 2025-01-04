@@ -13,7 +13,7 @@ const UserHeader = () => {
   return (
     <div className="container mt-2 flex flex-col items-start space-y-5 md:flex-row md:items-center md:space-x-4 md:space-y-0">
       <div className="flex flex-row items-center gap-3">
-        <div className="relative h-16 w-16 rounded-[100%] bg-[#333]">
+        <div className="relative h-20 w-20 rounded-[100%] bg-[#333]">
           <Image
             src={user?.imageUrl}
             alt={user?.publicMetadata?.displayName}
@@ -22,10 +22,10 @@ const UserHeader = () => {
             objectFit="cover"
           />
         </div>
-        <h1 className="text-lg font-bold tracking-tight text-black">
-          {user?.publicMetadata?.displayName}
-        </h1>
       </div>
+      <h1 className="text-2xl font-bold tracking-tight text-black">
+        {user?.publicMetadata?.displayName}
+      </h1>
       <p className="text-sm leading-5 text-gray-500">
         {user?.publicMetadata?.bio}
       </p>
