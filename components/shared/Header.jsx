@@ -10,6 +10,12 @@ import {
 } from "@clerk/nextjs";
 import { SocialInfo } from "./SocialInfo";
 import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const DotIcon = () => {
   return (
@@ -27,6 +33,7 @@ const Header = () => {
   const [signInVisible, setSignInVisible] = useState(null);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   let pathname = usePathname();
 
@@ -59,22 +66,30 @@ const Header = () => {
           </Link>
 
           <div className={`${!signInVisible ? "hidden" : ""}`}>
-            <SignedOut>
-              <div className="rounded-full bg-[#7480911a] px-4 py-2 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
-                <SignInButton signUpUrl="/signup" />
-              </div>
-            </SignedOut>
-            <SignedIn>
-              <UserButton>
-                <UserButton.UserProfilePage
-                  label="My Info"
-                  labelIcon={<DotIcon />}
-                  url="terms"
-                >
-                  <SocialInfo />
-                </UserButton.UserProfilePage>
-              </UserButton>
-            </SignedIn>
+            <Popover open={isOpen} onOpenChange={setIsOpen}>
+              <PopoverTrigger>{isOpen ? <X /> : <Menu />}</PopoverTrigger>
+              <PopoverContent>
+                <SignedOut>
+                  <div className="rounded-full bg-[#7480911a] px-4 py-2 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
+                    <SignInButton signUpUrl="/signup" />
+                  </div>
+                </SignedOut>
+                <div className="flex items-center gap-2">
+                  <SignedIn>
+                    <UserButton>
+                      <UserButton.UserProfilePage
+                        label="My Info"
+                        labelIcon={<DotIcon />}
+                        url="terms"
+                      >
+                        <SocialInfo />
+                      </UserButton.UserProfilePage>
+                    </UserButton>
+                  </SignedIn>
+                  <p>Profile</p>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </nav>
       </div>
