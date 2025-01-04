@@ -6,14 +6,14 @@ import { default as ShareIcon } from "@/public/assets/icons/share-from-square.sv
 const EventCard = () => {
   return (
     <div className="container">
-      <div className="mx-auto my-8 max-w-sm overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-        <div className="flex p-4">
+      <div className="mx-auto my-6 max-w-sm overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+        <div className="flex p-3">
           <div className="mr-2 flex-1">
             <p className="mb-2 text-sm text-gray-500">THUR OCT 4 | 7:30PM</p>
             <h2 className="mb-2 line-clamp-3 font-semibold leading-snug text-gray-800">
               Hackoholics 5.0: Digitech Solutions for Africa’s Prosperity
             </h2>
-            <div className="mb-6 flex items-center text-sm text-gray-600">
+            <div className="mb-6 flex items-center text-xs text-gray-600">
               <MapPin className="mr-1 h-5 w-5 text-gray-700" />
               <p className="line-clamp-1">
                 Owolabi Hall or wherever you want to be
