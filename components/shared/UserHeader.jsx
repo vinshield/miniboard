@@ -11,7 +11,7 @@ const UserHeader = () => {
   const { user } = useUser();
 
   return (
-    <div className="container mt-2 flex flex-col items-start space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
+    <div className="container mt-2 flex flex-col items-start space-y-4 px-8 md:flex-row md:items-center md:space-x-4 md:space-y-0">
       <div className="flex flex-row items-center gap-3">
         <div className="relative h-16 w-16 rounded-[100%] bg-[#333]">
           <Image
@@ -22,11 +22,13 @@ const UserHeader = () => {
             objectFit="cover"
           />
         </div>
-        <h1 className="text-lg font-bold tracking-tight text-black">
+        <h1 className="text-xl font-bold tracking-tight text-black">
           {user?.publicMetadata?.displayName}
         </h1>
       </div>
-      <p className="text-sm text-gray-600">{user?.publicMetadata?.bio}</p>
+      <p className="text-sm leading-6 text-gray-600">
+        {user?.publicMetadata?.bio}
+      </p>
       <div>
         {socialHandles.map((handle) => {
           if (user?.publicMetadata?.socialHandles?.[handle.name]) {
