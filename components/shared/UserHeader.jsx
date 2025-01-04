@@ -23,7 +23,7 @@ const UserHeader = () => {
             objectFit="contain"
           />
         </div>
-        <h1 className="font-bold tracking-tight text-black">
+        <h1 className="text-lg font-bold tracking-tight text-black">
           {user?.publicMetadata?.displayName}
         </h1>
       </div>
