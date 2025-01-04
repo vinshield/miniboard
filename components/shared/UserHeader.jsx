@@ -23,7 +23,7 @@ const UserHeader = () => {
           />
         </div>
       </div>
-      <h1 className="text-3xl font-bold tracking-tight text-black">
+      <h1 className="text-2xl font-bold tracking-tight text-black">
         {user?.publicMetadata?.displayName}
       </h1>
       <p className="text-sm leading-5 text-gray-500">

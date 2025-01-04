@@ -66,24 +66,32 @@ const Header = () => {
           </Link>
 
           <div className={`${!signInVisible ? "hidden" : ""}`}>
-            <SignedOut>
-              <div className="rounded-full bg-[#7480911a] px-4 py-2 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
-                <SignInButton signUpUrl="/signup" />
-              </div>
-            </SignedOut>
-            <div className="flex items-center gap-2">
-              <SignedIn>
-                <UserButton showName={true}>
-                  <UserButton.UserProfilePage
-                    label="My Info"
-                    labelIcon={<DotIcon />}
-                    url="terms"
-                  >
-                    <SocialInfo />
-                  </UserButton.UserProfilePage>
-                </UserButton>
-              </SignedIn>
-            </div>
+            <Popover open={isOpen} onOpenChange={setIsOpen}>
+              <PopoverTrigger>
+                {isOpen ? <X size={20} /> : <Menu size={20} />}
+              </PopoverTrigger>
+              <PopoverContent>
+                <SignedOut>
+                  <div className="rounded-full bg-[#7480911a] px-4 py-2 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
+                    <SignInButton signUpUrl="/signup" />
+                  </div>
+                </SignedOut>
+                <div className="flex items-center gap-2">
+                  <SignedIn>
+                    <UserButton showName={true}>
+                      <UserButton.UserProfilePage
+                        label="My Info"
+                        labelIcon={<DotIcon />}
+                        url="terms"
+                      >
+                        <SocialInfo />
+                      </UserButton.UserProfilePage>
+                    </UserButton>
+                  </SignedIn>
+                  <p>Profile</p>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </nav>
       </div>
