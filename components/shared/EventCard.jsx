@@ -7,7 +7,7 @@ const EventCard = () => {
   return (
     <div className="container">
       <div className="mx-auto my-6 max-w-sm overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-        <div className="flex p-3">
+        <div className="flex p-4">
           <div className="mr-2 flex-1">
             <p className="mb-2 text-sm text-gray-500">THUR OCT 4 | 7:30PM</p>
             <h2 className="mb-2 line-clamp-3 font-semibold leading-snug text-gray-800">
@@ -24,7 +24,8 @@ const EventCard = () => {
                 <Share2 className="h-4 w-4 text-gray-700" />
               </div>
               <div className="mr-2 flex items-center justify-center rounded-full bg-[#f5f5f5] p-3">
-                <CalendarCheck className="h-4 w-4 text-gray-700" />
+                <CalendarCheck className="h-4 w-4 text-gray-700" />{" "}
+                <span className="ml-1 text-xs">I want to go</span>
               </div>
               {/* <p className="text-sm italic">see details</p> */}
             </div>
