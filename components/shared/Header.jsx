@@ -87,7 +87,7 @@ const Header = () => {
                 className={`absolute right-0 top-0 flex h-screen w-4/6 flex-col space-y-4 bg-white px-4 py-3 transition-transform duration-500 ease-in-out ${showMenu ? "translate-x-0" : "translate-x-full"}`}
               >
                 <X
-                  size={20}
+                  size={30}
                   className="ml-auto cursor-pointer"
                   onClick={() => setShowMenu(false)}
                 />
