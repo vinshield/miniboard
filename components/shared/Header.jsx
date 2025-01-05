@@ -7,15 +7,18 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
+  useUser,
+  useClerk,
 } from "@clerk/nextjs";
 import { SocialInfo } from "./SocialInfo";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { LogIn, Menu, X } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Button } from "../ui/button";
 
 const DotIcon = () => {
   return (
@@ -33,9 +36,23 @@ const Header = () => {
   const [signInVisible, setSignInVisible] = useState(null);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const user = useUser();
 
   let pathname = usePathname();
+
+  useEffect(() => {
+    if (showMenu) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = "auto"; // Enable scrolling
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; // Clean up on unmount
+    };
+  }, [showMenu]); // Run effect when showMenu changes
 
   useEffect(() => {
     setSignInVisible(true);
@@ -66,32 +83,56 @@ const Header = () => {
           </Link>
 
           <div className={`${!signInVisible ? "hidden" : ""}`}>
-            <Popover open={isOpen} onOpenChange={setIsOpen}>
-              <PopoverTrigger>
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
-              </PopoverTrigger>
-              <PopoverContent>
-                <SignedOut>
-                  <div className="rounded-full bg-[#7480911a] px-4 py-2 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
-                    <SignInButton signUpUrl="/signup" />
+            {/* {showMenu ? ( */}
+            <>
+              {showMenu && (
+                <div className="absolute left-0 top-0 h-screen w-[100vw] bg-gray-400/40 backdrop-blur-sm"></div>
+              )}
+              <div
+                className={`absolute right-0 top-0 flex h-screen w-[50vw] flex-col space-y-4 bg-white px-4 py-3 transition-transform duration-500 ease-in-out ${showMenu ? "translate-x-0" : "translate-x-full"}`}
+              >
+                <X
+                  size={20}
+                  className="ml-auto cursor-pointer"
+                  onClick={() => setShowMenu(false)}
+                />
+                <div className="flex h-full flex-col justify-between">
+                  <div>
+                    <div className="flex w-full items-center gap-1 rounded-sm py-1 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
+                      {!user.isSignedIn && <LogIn size={16} />}
+                      <SignedOut>
+                        <SignInButton signUpUrl="/signup" />
+                      </SignedOut>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <SignedIn>
+                        <UserButton showName="true">
+                          <UserButton.UserProfilePage
+                            label="My Info"
+                            labelIcon={<DotIcon />}
+                            url="terms"
+                          >
+                            <SocialInfo />
+                          </UserButton.UserProfilePage>
+                        </UserButton>
+                      </SignedIn>
+                    </div>
                   </div>
-                </SignedOut>
-                <div className="flex items-center gap-2">
-                  <SignedIn>
-                    <UserButton showName={true}>
-                      <UserButton.UserProfilePage
-                        label="My Info"
-                        labelIcon={<DotIcon />}
-                        url="terms"
-                      >
-                        <SocialInfo />
-                      </UserButton.UserProfilePage>
-                    </UserButton>
-                  </SignedIn>
-                  <p>Profile</p>
+                  <div>
+                    <Button
+                      variant="outline"
+                      className="mb-28 border border-sky-400 py-6 text-sm text-[#5b6169] shadow-md"
+                    >
+                      <Link href="/signup">
+                        Create your{" "}
+                        <span className="font-bold"> &nbsp;miniboard</span>
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
-              </PopoverContent>
-            </Popover>
+              </div>
+            </>
+            {!showMenu && <Menu size={20} onClick={() => setShowMenu(true)} />}
           </div>
         </nav>
       </div>
