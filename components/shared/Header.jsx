@@ -120,7 +120,7 @@ const Header = () => {
                     >
                       <Link href="/signup">
                         Create your{" "}
-                        <span className="font-bold"> &nbsp;miniboard</span>
+                        <span className="font-bold">&nbsp;miniboard</span>
                       </Link>
                     </Button>
                   </div>
