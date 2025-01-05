@@ -119,8 +119,7 @@ const Header = () => {
                       className="mb-28 border border-sky-400 py-6 text-sm text-[#5b6169] shadow-md"
                     >
                       <Link href="/signup">
-                        Create your{" "}
-                        <span className="font-bold">&nbsp;miniboard</span>
+                        Create your <span className="font-bold">miniboard</span>
                       </Link>
                     </Button>
                   </div>
