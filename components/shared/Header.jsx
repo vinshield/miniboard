@@ -8,16 +8,11 @@ import {
   SignedOut,
   UserButton,
   useUser,
-  useClerk,
 } from "@clerk/nextjs";
 import { SocialInfo } from "./SocialInfo";
 import { usePathname } from "next/navigation";
 import { LogIn, Menu, X } from "lucide-react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
 import { Button } from "../ui/button";
 
 const DotIcon = () => {
@@ -89,7 +84,7 @@ const Header = () => {
                 <div className="absolute left-0 top-0 h-screen w-[100vw] bg-gray-400/40 backdrop-blur-sm"></div>
               )}
               <div
-                className={`absolute right-0 top-0 flex h-screen w-[50vw] flex-col space-y-4 bg-white px-4 py-3 transition-transform duration-500 ease-in-out ${showMenu ? "translate-x-0" : "translate-x-full"}`}
+                className={`absolute right-0 top-0 flex h-screen w-4/6 flex-col space-y-4 bg-white px-4 py-3 transition-transform duration-500 ease-in-out ${showMenu ? "translate-x-0" : "translate-x-full"}`}
               >
                 <X
                   size={20}
@@ -118,7 +113,7 @@ const Header = () => {
                       </SignedIn>
                     </div>
                   </div>
-                  <div>
+                  <div className="flex w-full justify-center">
                     <Button
                       variant="outline"
                       className="mb-28 border border-sky-400 py-6 text-sm text-[#5b6169] shadow-md"
