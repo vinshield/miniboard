@@ -114,14 +114,17 @@ const Header = () => {
                     </div>
                   </div>
                   <div className="flex w-full justify-center">
-                    <Button
-                      variant="outline"
-                      className="mb-28 border border-sky-400 py-6 text-sm text-[#5b6169] shadow-md"
-                    >
-                      <Link href="/signup">
-                        Create your <span className="font-bold">miniboard</span>
-                      </Link>
-                    </Button>
+                    {!user.isSignedIn && (
+                      <Button
+                        variant="outline"
+                        className="mb-28 border border-sky-400 py-6 text-sm text-[#5b6169] shadow-md"
+                      >
+                        <Link href="/signup">
+                          Create your{" "}
+                          <span className="font-bold">miniboard</span>
+                        </Link>
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
