@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 
-import { formatDateFromJSDate, formatDateTime } from "@/lib/utils/utils";
+import { formatDateFromJSDate, formatDateTime } from "@/lib/utils";
 import { createEvent } from "@/lib/actions/event.actions";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +13,8 @@ import { z } from "zod";
 import TextareaAutosize from "react-textarea-autosize";
 
 import { eventDefaultValues } from "@/constants";
+
+import { useAuth } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -36,13 +38,14 @@ import { eventFormSchema } from "@/lib/validator";
 import { text } from "body-parser";
 import { Captions } from "lucide-react";
 import { CaptionSkeleton } from "../ui/skeletons";
+import { useUploadThing } from "@/lib/uploadthing";
 
 // TO-DO:
 // Create caption
 // Create form validation flow on front
 // Save posts
 
-export default function EventForm({ userId, type, event, eventId }) {
+export default function EventForm({ type, event, eventId }) {
   const [files, setFiles] = useState([]);
   const [extractedDetails, setExtractedDetails] = useState(null);
   const [isOnline, setisOnline] = useState(false);
@@ -55,6 +58,8 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   const captionRef = useRef(null);
 
+  const { userId } = useAuth();
+
   let initialValues =
     event && type === "Update"
       ? {
@@ -63,6 +68,8 @@ export default function EventForm({ userId, type, event, eventId }) {
           endDateTime: new Date(event.endDateTime),
         }
       : eventDefaultValues;
+
+  const { startUpload } = useUploadThing("imageUploader");
 
   // 1. Define your form.
   const form = useForm({
@@ -79,11 +86,26 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
+    let uploadedImageUrl = values.imageUrl;
+
+    if (files.length > 0) {
+      const uploadedImages = await startUpload(files);
+
+      if (!uploadedImages) {
+        return;
+      }
+
+      uploadedImageUrl = uploadedImages[0].url;
+    }
+
     try {
       const newEvent = await createEvent({
-        event: { ...values },
+        event: { ...values, imageUrl: uploadedImageUrl },
+        userId,
         path: "/profile",
       });
+
+      console.log(newEvent);
 
       if (newEvent) {
         const { publicId: eventId } = newEvent;

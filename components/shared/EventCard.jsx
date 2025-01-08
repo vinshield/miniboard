@@ -3,7 +3,7 @@ import { Share2, CalendarCheck, MapPin } from "lucide-react";
 import { default as ShareIcon2 } from "@/public/assets/icons/share.svg";
 import { default as ShareIcon } from "@/public/assets/icons/share-from-square.svg";
 
-const EventCard = () => {
+const EventCard = ({ event }) => {
   return (
     <div className="container">
       <div className="mx-auto my-6 max-w-sm overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
@@ -89,5 +89,3 @@ const EventCard2 = () => {
 };
 
 export default EventCard;
-
-// export default EventCard;

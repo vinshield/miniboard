@@ -7,4 +7,6 @@ Create individual event UI (1 day)
 Delete for events
 Update for events.
 
-Projected finish time: Sun, Dec 1
+Create new mongoDB database for miniboard
+
+ngrok forwarding url polished-tick-content.ngrok-free.app

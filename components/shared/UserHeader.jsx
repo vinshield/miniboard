@@ -55,7 +55,7 @@ const UserHeader = () => {
         })}
       </div>
       {/* <div class="h-px w-full bg-gray-200 shadow-sm"></div> */}
-      <div class="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent shadow-sm"></div>
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent shadow-sm"></div>
       {/* <div class="relative w-full">
         <hr class="border-t border-gray-300" />
         <div class="absolute inset-x-0 -bottom-1 h-2 bg-gradient-to-b from-gray-300 to-transparent opacity-50 blur-sm"></div>
