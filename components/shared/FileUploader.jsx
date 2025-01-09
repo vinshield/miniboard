@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, Dispatch, SetStateAction, useState } from "react";
-import { useDropzone } from "@uploadthing/react/hooks";
+import { useDropzone } from "@uploadthing/react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { extractPosterInfo } from "@/lib/actions/event.actions";
 
