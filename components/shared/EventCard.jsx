@@ -32,20 +32,24 @@ const EventCard = ({ event }) => {
   };
   return (
     <div className="container">
-      <div className="mx-auto my-6 max-w-sm overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-        <div className="flex p-4">
-          <div className="mr-2 flex-1 overflow-hidden">
+      <div className="mx-auto my-6 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+        <div className="relative flex gap-2 p-4">
+          <div className="flex-1 overflow-hidden">
             <p className="mb-2 text-sm uppercase text-gray-500">
               {formatDateTime(event.startDateTime).dateTime}
             </p>
             <h2 className="mb-2 line-clamp-3 font-semibold leading-snug text-gray-800">
               {event.title}
             </h2>
-            <div className="mb-6 flex items-center text-xs text-gray-600">
-              <MapPin className="mr-1 h-5 w-5 text-gray-700" />
-              <p className="line-clamp-1">{event.location}</p>
+            <div className="mb-6 flex items-center">
+              <div>
+                <MapPin className="mr-1 text-gray-700" size={16} />
+              </div>
+              <p className="line-clamp-1 overflow-ellipsis text-xs text-gray-600">
+                {event.location}
+              </p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center pt-5">
               <div
                 className="mr-2 flex items-center justify-center rounded-full bg-[#f5f5f5] p-3"
                 onClick={() => handleShare()}
@@ -95,7 +99,7 @@ const EventCard2 = () => {
             Hackoholics 5.0: Digitech Solutions for Africa’s Prosperity
           </h2>
           <div className="mb-4 flex items-center">
-            <MapPin className="mr-2 text-black opacity-60" size={14} />
+            <MapPin className="mr-2 text-black opacity-60" size={16} />
             <span className="text-sm text-black opacity-60">Owolabi Hall</span>
           </div>
           <div className="flex items-center">

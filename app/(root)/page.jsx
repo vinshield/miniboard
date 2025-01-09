@@ -11,7 +11,7 @@ export default function Home() {
         <UserHeader />
       </div>
       <div className="md:w-3/5">
-        <EventForm />
+        {/* <EventForm /> */}
         <EventList />
       </div>
 
