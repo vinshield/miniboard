@@ -84,7 +84,7 @@ const Header = () => {
                 <div className="absolute left-0 top-0 h-screen w-[100vw] bg-gray-400/40 backdrop-blur-sm"></div>
               )}
               <div
-                className={`absolute right-0 top-0 flex h-screen w-4/6 flex-col space-y-4 bg-white px-4 py-3 transition-transform duration-500 ease-in-out ${showMenu ? "translate-x-0" : "translate-x-full"}`}
+                className={`absolute right-0 top-0 flex h-screen w-4/6 flex-col space-y-4 bg-white px-4 py-3 transition-transform duration-300 ease-out ${showMenu ? "translate-x-0" : "translate-x-full"}`}
               >
                 <X
                   size={30}

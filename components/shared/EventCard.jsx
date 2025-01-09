@@ -6,6 +6,7 @@ import { default as ShareIcon } from "@/public/assets/icons/share-from-square.sv
 import { formatDateTime } from "@/lib/utils";
 
 import Image from "next/image";
+import { WantToGo } from "./WantToGo";
 
 const EventCard = ({ event }) => {
   const handleShare = () => {
@@ -14,7 +15,7 @@ const EventCard = ({ event }) => {
       navigator
         .share({
           title: event.title,
-          text: `Check out this event: ${event.title} at ${event.location}.`,
+          text: `${event.title} at ${event.location}.`,
           url: window.location.href, // You can customize this URL as needed
         })
         .then(() => console.log("Share successful"))
@@ -54,6 +55,7 @@ const EventCard = ({ event }) => {
               <div className="mr-2 flex items-center justify-center rounded-full bg-[#f5f5f5] p-3">
                 <CalendarCheck className="h-4 w-4 text-gray-700" />{" "}
                 <span className="ml-1 text-xs">I want to go</span>
+                {/* <WantToGo eventData={event} /> */}
               </div>
               {/* <p className="text-sm italic">see details</p> */}
             </div>
