@@ -39,6 +39,7 @@ import { text } from "body-parser";
 import { Captions } from "lucide-react";
 import { CaptionSkeleton } from "../ui/skeletons";
 import { useUploadThing } from "@/lib/uploadthing";
+import { useUser } from "@clerk/nextjs";
 
 // TO-DO:
 // Create caption
@@ -58,7 +59,9 @@ export default function EventForm({ type, event, eventId }) {
 
   const captionRef = useRef(null);
 
-  const { userId } = useAuth();
+  const { user } = useUser();
+
+  const userId = user?.publicMetadata?.userId;
 
   let initialValues =
     event && type === "Update"
@@ -104,8 +107,6 @@ export default function EventForm({ type, event, eventId }) {
         userId,
         path: "/profile",
       });
-
-      console.log(newEvent);
 
       if (newEvent) {
         const { publicId: eventId } = newEvent;

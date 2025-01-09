@@ -1,10 +1,12 @@
+"use server";
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs/server";
 import { createUntrackedSearchParams } from "next/dist/client/components/search-params";
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
 import { NextResponse } from "next/server";
-import { New_Rocker } from "next/font/google";
+
+const clerk = await clerkClient();
 
 export async function POST(req) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -77,7 +79,7 @@ export async function POST(req) {
     const newUser = await createUser(user);
 
     if (newUser) {
-      await clerkClient.users.updateUserMetadata(id, {
+      await clerk.users.updateUserMetadata(id, {
         publicMetadata: {
           userId: newUser._id,
         },
@@ -102,13 +104,13 @@ export async function POST(req) {
     return NextResponse.json({ message: "OK", user: updatedUser });
   }
 
-  if (eventType === "user.deleted") {
-    const { id } = evt.data;
+  // if (eventType === "user.deleted") {
+  //   const { id } = evt.data;
 
-    const deletedUser = await deleteUser(id);
+  //   const deletedUser = await deleteUser(id);
 
-    return NextResponse.json({ message: "OK", user: deletedUser });
-  }
+  //   return NextResponse.json({ message: "OK", user: deletedUser });
+  // }
 
   // return Response.json({ message: "Received" });
   return new Response("", { status: 200 });

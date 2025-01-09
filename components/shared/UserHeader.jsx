@@ -11,7 +11,7 @@ const UserHeader = () => {
   const { user } = useUser();
 
   return (
-    <div className="container mt-2 flex flex-col items-start space-y-5 md:flex-row md:items-center md:space-x-4 md:space-y-0">
+    <div className="container mt-2 flex flex-col items-start space-y-5">
       <div className="flex flex-row items-center gap-3">
         <div className="relative h-16 w-16 rounded-[100%] bg-[#333]">
           <Image
