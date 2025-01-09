@@ -34,7 +34,7 @@ const EventCard = ({ event }) => {
     <div className="container">
       <div className="mx-auto my-6 max-w-sm overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
         <div className="flex p-4">
-          <div className="mr-2 flex-1">
+          <div className="mr-2 flex-1 overflow-hidden">
             <p className="mb-2 text-sm uppercase text-gray-500">
               {formatDateTime(event.startDateTime).dateTime}
             </p>
@@ -60,7 +60,7 @@ const EventCard = ({ event }) => {
               {/* <p className="text-sm italic">see details</p> */}
             </div>
           </div>
-          <div className="">
+          <div className="h-40 w-24">
             <Image
               src={event.imageUrl}
               alt={event.title}
