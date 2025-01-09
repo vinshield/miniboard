@@ -52,7 +52,7 @@ importers:
         version: 8.1.0(typescript@5.6.2)
       '@uploadthing/react':
         specifier: ^7.1.5
-        version: 7.1.5(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(uploadthing@6.13.3(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.13))
+        version: 7.1.5(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(uploadthing@7.4.4(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.13))
       '@vercel/analytics':
         specifier: ^1.3.1
         version: 1.3.1(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -132,8 +132,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.13)
       uploadthing:
-        specifier: ^6.13.3
-        version: 6.13.3(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.13)
+        specifier: ^7.4.4
+        version: 7.4.4(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.13)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -765,10 +765,10 @@ packages:
     resolution: {integrity: sha512-qBtCyTM6oHiFbAGo5hUUvl6INZJeX5ZKRWkIz3v3dNWYFp096nYWPjqv2RmoQCLkYJM7m5dnGWgBUa33xOVD3A==}
     engines: {node: '>=18.17.0'}
 
-  '@effect/schema@0.68.18':
-    resolution: {integrity: sha512-+knLs36muKsyqIvQTB0itGp5Lwy+5jgEC0G5P8wSsrB6EWGFirS87QjbaFYGbg32l/P51RM+9cPMiAEyICwN6g==}
+  '@effect/platform@0.70.7':
+    resolution: {integrity: sha512-TbNwj/mOJhycPygbmicGBS7CNtv5Z8WVheRbLUdP3oPAe/nbSOJVLc8ZPvOejhquF/1vJMKuqY5MWfkcBpvi/g==}
     peerDependencies:
-      effect: ^3.4.8
+      effect: ^3.11.5
 
   '@emnapi/runtime@1.2.0':
     resolution: {integrity: sha512-bV21/9LQmcQeCPEg3BDFtvwL6cwiTMksYNWQQ4KOxCZikEGalWtenoZ0wCiukJINlGCIi2KXx01g4FoH/LxpzQ==}
@@ -1557,6 +1557,9 @@ packages:
   '@stablelib/base64@1.0.1':
     resolution: {integrity: sha512-1bnPQqSxSuc3Ii6MhBysoWCg58j97aUjuCSZrGSmDxNqtytIi0k8utUenAwTZN4V5mXXYGsVUI9zeBqy+jBOSQ==}
 
+  '@standard-schema/spec@1.0.0-beta.3':
+    resolution: {integrity: sha512-0ifF3BjA1E8SY9C+nUew8RefNOIq0cDlYALPty4rhUm8Rrl6tCM8hBT4bhGhx7I7iXD0uAgt50lgo8dD73ACMw==}
+
   '@svgr/babel-plugin-add-jsx-attribute@8.0.0':
     resolution: {integrity: sha512-b9MIk7yhdS1pMCZM8VeNfUlSKVRhsHZNMl5O9SfaX0l0t5wjdgu4IDzGB8bpnGBBOjGST3rRFVsaaEtI4W6f7g==}
     engines: {node: '>=14'}
@@ -1709,9 +1712,6 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  '@uploadthing/mime-types@0.2.10':
-    resolution: {integrity: sha512-kz3F0oEgAyts25NAGXlUBCWh3mXonbSOQJFGFMawHuIgbUbnzXbe4w5WI+0XdneCbjNmikfWrdWrs8m/7HATfQ==}
-
   '@uploadthing/mime-types@0.3.4':
     resolution: {integrity: sha512-EB0o0a4y++UJFMLqS8LDVhSQgXUllG6t5fwl5cbmOM0Uay8YY5Nc/JjFwzJ8wccdIKz4oYwQW7EOSfUyaMPbfw==}
 
@@ -1724,9 +1724,6 @@ packages:
     peerDependenciesMeta:
       next:
         optional: true
-
-  '@uploadthing/shared@6.7.9':
-    resolution: {integrity: sha512-EsHkD31HLBHYB59ZbUVQg1pADtMNf+qjlKwniq+gxXsOOe5heD/zunJStjYWLhwB+C8+SaCPXvM7LiDmv5s/Vw==}
 
   '@uploadthing/shared@7.1.5':
     resolution: {integrity: sha512-5ePSiR2CPA5a8gfPqsHpE/uPwGG9iPqhxcFpeLGnEuExPqIi5ZY7upZgpc+6T1gMxwfbP0O5X4043TTNk3q/pA==}
@@ -2015,10 +2012,6 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  consola@3.2.3:
-    resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
-    engines: {node: ^14.18.0 || >=16.10.0}
-
   content-type@1.0.5:
     resolution: {integrity: sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA==}
     engines: {node: '>= 0.6'}
@@ -2206,9 +2199,6 @@ packages:
 
   effect@3.11.5:
     resolution: {integrity: sha512-oSzaR/S/2A/qDTnDqMWxQUNSjCG2sRLB4NEvTu+l9RqE122MTgKXOWzw0x4MHsdovRTzAihfkpgBj2aLFnH2+w==}
-
-  effect@3.4.8:
-    resolution: {integrity: sha512-qOQNrSSN3ITuAtARtN2Ldq6E5f42splY9VV18LqpKOXMwQCCEWkXdns4by3D2CJnDXQD2KCE0iGcRR2KowiQIA==}
 
   electron-to-chromium@1.5.71:
     resolution: {integrity: sha512-dB68l59BI75W1BUGVTAEJy45CEVuEGy9qPVVQ8pnHyHMn36PLPPoE1mjLH+lo9rKulO3HC2OhbACI/8tCqJBcA==}
@@ -2427,6 +2417,9 @@ packages:
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
+
+  find-my-way-ts@0.1.5:
+    resolution: {integrity: sha512-4GOTMrpGQVzsCH2ruUn2vmwzV/02zF4q+ybhCIrw/Rkt3L8KWcycdC6aJMctJzwN4fXD4SD5F/4B9Sksh5rE0A==}
 
   find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
@@ -3006,6 +2999,9 @@ packages:
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+
+  multipasta@0.2.5:
+    resolution: {integrity: sha512-c8eMDb1WwZcE02WVjHoOmUVk7fnKU/RmUcosHACglrWAuPQsEJv+E8430sXj6jNc1jHw0zrS16aCjQh4BcEb4A==}
 
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
@@ -3841,19 +3837,16 @@ packages:
     peerDependencies:
       browserslist: '>= 4.21.0'
 
-  uploadthing@6.13.3:
-    resolution: {integrity: sha512-MkwKeuo0cVSJ9XHZgEW67qzCmk8QF1mDNf3cDnDC4v0g7o7mnCWgATyYsKSFURQPLnRvysddDxmsaekDOomXvw==}
+  uploadthing@7.4.4:
+    resolution: {integrity: sha512-dgV8LqaKrXSnpDkqzzLbVEmIubMPi8a5bRtIzM+rG5EbZpIZyOG0bByLxdSlkSbK5L6F+HbIGX5eDkLPFNL8dg==}
     engines: {node: '>=18.13.0'}
     peerDependencies:
-      '@effect/platform': '*'
       express: '*'
       fastify: '*'
       h3: '*'
       next: '*'
-      tailwindcss: '*'
+      tailwindcss: ^3.0.0 || ^4.0.0-beta.0
     peerDependenciesMeta:
-      '@effect/platform':
-        optional: true
       express:
         optional: true
       fastify:
@@ -4807,10 +4800,11 @@ snapshots:
     dependencies:
       csstype: 3.1.1
 
-  '@effect/schema@0.68.18(effect@3.4.8)':
+  '@effect/platform@0.70.7(effect@3.11.5)':
     dependencies:
-      effect: 3.4.8
-      fast-check: 3.22.0
+      effect: 3.11.5
+      find-my-way-ts: 0.1.5
+      multipasta: 0.2.5
 
   '@emnapi/runtime@1.2.0':
     dependencies:
@@ -5552,6 +5546,8 @@ snapshots:
 
   '@stablelib/base64@1.0.1': {}
 
+  '@standard-schema/spec@1.0.0-beta.3': {}
+
   '@svgr/babel-plugin-add-jsx-attribute@8.0.0(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -5728,24 +5724,16 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@uploadthing/mime-types@0.2.10': {}
-
   '@uploadthing/mime-types@0.3.4': {}
 
-  '@uploadthing/react@7.1.5(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(uploadthing@6.13.3(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.13))':
+  '@uploadthing/react@7.1.5(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(uploadthing@7.4.4(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.13))':
     dependencies:
       '@uploadthing/shared': 7.1.5
       file-selector: 0.6.0
       react: 18.3.1
-      uploadthing: 6.13.3(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.13)
+      uploadthing: 7.4.4(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.13)
     optionalDependencies:
       next: 14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
-  '@uploadthing/shared@6.7.9':
-    dependencies:
-      '@uploadthing/mime-types': 0.2.10
-      effect: 3.4.8
-      std-env: 3.7.0
 
   '@uploadthing/shared@7.1.5':
     dependencies:
@@ -6063,8 +6051,6 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  consola@3.2.3: {}
-
   content-type@1.0.5: {}
 
   convert-source-map@2.0.0: {}
@@ -6251,8 +6237,6 @@ snapshots:
   effect@3.11.5:
     dependencies:
       fast-check: 3.22.0
-
-  effect@3.4.8: {}
 
   electron-to-chromium@1.5.71: {}
 
@@ -6625,6 +6609,8 @@ snapshots:
   fill-range@7.1.1:
     dependencies:
       to-regex-range: 5.0.1
+
+  find-my-way-ts@0.1.5: {}
 
   find-up@5.0.0:
     dependencies:
@@ -7192,6 +7178,8 @@ snapshots:
   ms@2.0.0: {}
 
   ms@2.1.3: {}
+
+  multipasta@0.2.5: {}
 
   mz@2.7.0:
     dependencies:
@@ -8046,14 +8034,13 @@ snapshots:
       escalade: 3.2.0
       picocolors: 1.1.0
 
-  uploadthing@6.13.3(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.13):
+  uploadthing@7.4.4(next@14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.13):
     dependencies:
-      '@effect/schema': 0.68.18(effect@3.4.8)
-      '@uploadthing/mime-types': 0.2.10
-      '@uploadthing/shared': 6.7.9
-      consola: 3.2.3
-      effect: 3.4.8
-      std-env: 3.7.0
+      '@effect/platform': 0.70.7(effect@3.11.5)
+      '@standard-schema/spec': 1.0.0-beta.3
+      '@uploadthing/mime-types': 0.3.4
+      '@uploadthing/shared': 7.1.5
+      effect: 3.11.5
     optionalDependencies:
       next: 14.2.7(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwindcss: 3.4.13
