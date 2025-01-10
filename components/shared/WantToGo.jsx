@@ -1,61 +1,84 @@
-import {
-  MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContent,
-  MorphingDialogTitle,
-  MorphingDialogImage,
-  MorphingDialogSubtitle,
-  MorphingDialogClose,
-  MorphingDialogContainer,
-} from "@/components/ui/morphing-dialog";
-// import { ScrollArea } from "@/components/website/scroll-area";
+"use client";
+import useClickOutside from "@/hooks/useClickOutside";
+import { AnimatePresence, MotionConfig, motion } from "motion/react";
+import { useRef, useState, useEffect, useId } from "react";
 import AddToCalendar from "./AddToCalendar";
+import { ArrowBigLeft, ArrowLeft, CalendarCheck } from "lucide-react";
 
-export function WantToGo({ eventData }) {
+const TRANSITION = {
+  type: "spring",
+  bounce: 0.05,
+  duration: 0.3,
+};
+
+export default function WantToGo({ event }) {
+  const uniqueId = useId();
+  const formContainerRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [note, setNote] = useState(null);
+
+  const openMenu = () => {
+    setIsOpen(true);
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+    setNote(null);
+  };
+
+  useClickOutside(formContainerRef, () => {
+    closeMenu();
+  });
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
-    <MorphingDialog
-      transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 24,
-      }}
-    >
-      <MorphingDialogTrigger
-        style={{
-          borderRadius: "4px",
-        }}
-        className="border border-gray-200/60 bg-white"
-      >
-        <div className="flex items-center space-x-3 p-3">
-          <MorphingDialogImage
-            src="https://m.media-amazon.com/images/I/71skAxiMC2L._AC_UF1000,1000_QL80_.jpg"
-            alt="What I Talk About When I Talk About Running - book cover"
-            className="h-8 w-8 object-cover object-top"
-            style={{
-              borderRadius: "4px",
-            }}
-          />
-          <div className="flex flex-col items-start justify-center space-y-0">
-            <MorphingDialogTitle className="text-[10px] font-medium text-black sm:text-xs">
-              What I Talk About When I Talk About Running
-            </MorphingDialogTitle>
-            <MorphingDialogSubtitle className="text-[10px] text-gray-600 sm:text-xs">
-              Haruki Murakami
-            </MorphingDialogSubtitle>
-          </div>
-        </div>
-      </MorphingDialogTrigger>
-      <MorphingDialogContainer>
-        <MorphingDialogContent
-          style={{
-            borderRadius: "12px",
-          }}
-          className="relative h-auto w-[500px] border border-gray-100 bg-white"
+    <MotionConfig transition={TRANSITION}>
+      <div className="flex items-center justify-center">
+        <motion.button
+          key="button"
+          layoutId={`popover-${uniqueId}`}
+          onClick={openMenu}
         >
-          <AddToCalendar eventData={eventData} />
-          <MorphingDialogClose className="text-zinc-500" />
-        </MorphingDialogContent>
-      </MorphingDialogContainer>
-    </MorphingDialog>
+          <motion.span layoutId={`popover-label-${uniqueId}`}>
+            <div className="mr-2 flex items-center justify-center rounded-full bg-[#f5f5f5] p-3">
+              <CalendarCheck className="h-4 w-4 text-gray-700" />{" "}
+              <span className="ml-1 text-xs">I want to go</span>
+            </div>
+          </motion.span>
+        </motion.button>
+
+        <AnimatePresence>
+          {isOpen && (
+            <div className="flex-center">
+              <motion.div
+                ref={formContainerRef}
+                layoutId={`popover-${uniqueId}`}
+                className="absolute bottom-0 left-0 right-0 top-0 m-0.5 overflow-hidden rounded-lg border border-zinc-950/10 bg-white outline-none dark:bg-zinc-700 sm:mx-3 sm:my-3"
+              >
+                <ArrowLeft
+                  size={16}
+                  className="absolute left-4 top-4 text-zinc-900 dark:text-zinc-100"
+                  onClick={closeMenu}
+                />
+                <AddToCalendar eventData={event} />
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+      </div>
+    </MotionConfig>
   );
 }

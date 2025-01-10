@@ -14,7 +14,7 @@ import Link from "next/link";
 
 export default function AddToCalendar({ eventData }) {
   const [event, setEvent] = useState(null);
-  console.log(eventData);
+  // console.log(eventData);
 
   useEffect(() => {
     if (eventData) {
@@ -34,23 +34,24 @@ export default function AddToCalendar({ eventData }) {
   }, [eventData]);
 
   const CalendarButton = (data) => {
-    if (event.isAllDay) {
+    if (data.isAllDay) {
       return (
         <AddToCalendarButton
           name={event.title}
-          options={["Apple", "Google", "iCal", "Microsoft365"]}
+          options={["Apple", "Google", "Microsoft365"]}
           location={event.location}
           startDate={event.startDate}
           description={`${event.description}\n\nVisit [url]https://miniboard-flax.vercel.app[/url] for more information.`}
           timeZone="Africa/Lagos"
           buttonsList
+          size="3"
         />
       );
     }
     return (
       <AddToCalendarButton
         name={event.title}
-        options={["Apple", "Google", "iCal", "Microsoft365"]}
+        options={["Apple", "Google", "Microsoft365"]}
         location={event.location}
         startDate={event.startDate}
         startTime={event.startTime}
@@ -58,48 +59,41 @@ export default function AddToCalendar({ eventData }) {
         description={`${event.description}\n\nVisit [url]https://miniboard-flax.vercel.app[/url] for more information.`}
         timeZone="Africa/Lagos"
         buttonsList
+        size="3"
       />
     );
   };
 
   return (
-    <>
-      <div className="h-screen overflow-hidden">
-        <div className="mb-[2.5rem] mt-36 flex flex-col items-center px-10 lg:container">
-          <h1
-            className={`leading-12 text-center text-3xl font-bold tracking-tighter md:text-7xl ${!event || event.numOfSaves < 4 ? "mb-6" : ""}`}
+    <div className="flex flex-col items-center justify-center px-3 py-3 lg:container">
+      <h1
+        className={`leading-12 text-center text-lg font-bold tracking-tighter sm:text-xl ${!event || event.numOfSaves < 4 ? "mb-6" : ""}`}
+      >
+        Add to your calendar
+      </h1>
+      <div className="flex-center">
+        {!event ? (
+          <AddToCalendarSkeleton />
+        ) : (
+          <div
+            className="flex flex-col justify-center"
+            onClick={() => updateNumOfSaves(event._id)}
           >
-            Choose your calendar
-          </h1>
-          <div className="flex-center relative">
-            {!event ? (
-              <AddToCalendarSkeleton />
-            ) : (
-              <div
-                className="flex flex-col justify-center"
-                onClick={() => updateNumOfSaves(event._id)}
-              >
-                {event.numOfSaves > 4 && (
-                  <p className="mb-10 text-center text-sm text-muted-foreground">
-                    <strong className="text-primary">{event.numOfSaves}</strong>{" "}
-                    people have set a reminder for this event
-                  </p>
-                )}
+            {/* {event.numOfSaves > 4 && (
+                    <p className="mb-10 text-center text-sm text-muted-foreground">
+                      <strong className="text-primary">
+                        {event.numOfSaves}
+                      </strong>{" "}
+                      people have set a reminder for this event
+                    </p>
+                  )} */}
 
-                <div className="mb-20">
-                  <CalendarButton data={event} />
-                </div>
-
-                <Button className="mx-auto shadow-md">
-                  <Link href="https://miniboard-flax.vercel.app/">
-                    Visit the homepage 🚀
-                  </Link>
-                </Button>
-              </div>
-            )}
+            <div>
+              <CalendarButton data={event} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }
