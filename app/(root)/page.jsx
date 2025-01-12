@@ -7,11 +7,9 @@ import EventList from "@/components/shared/EventList";
 export default function Home() {
   return (
     <main className="flex flex-col md:flex-row">
-      <div className="md:w-2/5">
-        <UserHeader />
-      </div>
+      <div className="md:w-2/5">{/* <UserHeader /> */}</div>
       <div className="md:w-3/5">
-        <EventList />
+        {/* <EventList /> */}
 
         {/* <EventForm /> */}
       </div>
