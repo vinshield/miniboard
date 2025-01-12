@@ -6,12 +6,16 @@ import { getEventsByUser } from "@/lib/actions/event.actions";
 import UserHeader from "@/components/shared/UserHeader";
 import EventList from "@/components/shared/EventList";
 
-const page = async ({ params }) => {
+const Page = async ({ params }) => {
   const { username } = params;
 
   let userInfo = await getUserByUserNameForClient(username);
   const userId = userInfo.publicMetadata.userId;
   let organizersEvents = await getEventsByUser({ userId, page: 1 });
+
+  if (!params) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -21,4 +25,4 @@ const page = async ({ params }) => {
   );
 };
 
-export default page;
+export default Page;
