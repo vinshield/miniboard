@@ -2,6 +2,12 @@
 const nextConfig = {
   reactStrictMode: false,
 
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
+  },
+
   images: {
     domains: ["utfs.io"],
 
@@ -19,12 +25,6 @@ const nextConfig = {
         port: "",
       },
     ],
-  },
-
-  experimental: {
-    serverActions: {
-      bodySizeLimit: "2mb",
-    },
   },
 
   webpack(config) {
