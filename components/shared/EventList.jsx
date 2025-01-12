@@ -1,14 +1,8 @@
 import React from "react";
 import EventCard from "./EventCard";
 import { getEventsByUser } from "@/lib/actions/event.actions";
-import { auth } from "@clerk/nextjs/server";
 
-const EventList = async () => {
-  const { sessionClaims } = await auth();
-  const userId = sessionClaims?.mongoDbId;
-
-  const organizersEvents = await getEventsByUser({ userId, page: 1 });
-
+const EventList = async ({ organizersEvents }) => {
   return (
     <div>
       {organizersEvents.data.map((event) => (

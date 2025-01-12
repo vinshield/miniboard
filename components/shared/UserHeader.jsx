@@ -1,15 +1,19 @@
 "use client";
 
 import React from "react";
-import { useUser } from "@clerk/clerk-react";
+import { useState, useEffect } from "react";
+import { useUser, useClerk } from "@clerk/clerk-react";
 import Image from "next/image";
 
 import { socialHandles } from "@/constants";
 import Link from "next/link";
 
-const UserHeader = () => {
-  const { user } = useUser();
+//Get username from URL (frontend)
+//Get userId and bio info from username (backend)
+//Get events from userId
 
+const UserHeader = ({ user }) => {
+  // const { user: loggedInUser } = useUser();
   return (
     <div className="container mt-2 flex flex-col items-start space-y-5">
       <div className="flex flex-row items-center gap-3">
