@@ -2,6 +2,16 @@
 const nextConfig = {
   reactStrictMode: false,
 
+  async rewrites() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "*.miniboard.site" }],
+        destination: "/u/:path*",
+      },
+    ];
+  },
+
   images: {
     remotePatterns: [
       {
@@ -10,6 +20,11 @@ const nextConfig = {
         // port: "",
         // pathname: "/account123/**",
         // search: "",
+      },
+      {
+        protocol: "https",
+        hostname: "via.placeholder.com",
+        port: "",
       },
       {
         protocol: "https",

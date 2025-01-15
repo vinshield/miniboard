@@ -33,7 +33,10 @@ const EventList = ({ organizersEvents, creatorId }) => {
     <UserProvider>
       <div>
         {isOwner && (
-          <div className="container" onClick={() => router.push("/e/create")}>
+          <div
+            className="container my-6"
+            onClick={() => router.push("/e/create")}
+          >
             <div className="flex-center aspect-[8/3] w-full cursor-pointer overflow-hidden rounded-lg border-2 border-dashed active:bg-gray-200">
               <CalendarPlus
                 className="mr-2 -rotate-2 text-gray-400"

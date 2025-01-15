@@ -46,7 +46,7 @@ import { useUser } from "@clerk/nextjs";
 // Create form validation flow on front
 // Save posts
 
-export default function EventForm({ type, event, eventId }) {
+export default function EventForm({ type, event, eventId, onSuccess }) {
   const [files, setFiles] = useState([]);
   const [savingEvent, setSavingEvent] = useState(false);
   const [extractedDetails, setExtractedDetails] = useState(null);
@@ -90,6 +90,8 @@ export default function EventForm({ type, event, eventId }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
+    setSavingEvent(true);
+
     let uploadedImageUrl = values.imageUrl;
 
     if (files.length > 0) {
@@ -103,7 +105,6 @@ export default function EventForm({ type, event, eventId }) {
     }
 
     try {
-      setSavingEvent(true);
       const newEvent = await createEvent({
         event: { ...values, imageUrl: uploadedImageUrl },
         userId,
@@ -113,7 +114,7 @@ export default function EventForm({ type, event, eventId }) {
       if (newEvent) {
         const { publicId: eventId } = newEvent;
         const { isAllDay: allDay } = values;
-        const caption = extractedDetails.caption;
+        const caption = extractedDetails?.caption;
         const { startDateTime, endDateTime, location } = values;
         const captionDate = formatDateTime(startDateTime).dateOnly;
 
@@ -127,6 +128,7 @@ export default function EventForm({ type, event, eventId }) {
 
         setValue("caption", newCaption);
         setShowCaptionField(true);
+        onSuccess(newEvent);
       }
     } catch (error) {
       console.log(error);
@@ -536,16 +538,6 @@ export default function EventForm({ type, event, eventId }) {
               className={`w-full ${!showCaptionField ? "hidden" : ""}`}
             >
               {copied ? "Copied!" : "Copy caption"}
-            </Button>
-
-            <Button
-              type="button"
-              variant="ghost"
-              size="lg"
-              onClick={resetForm}
-              className={`w-full shadow-lg ${!showCaptionField ? "hidden" : ""}`}
-            >
-              Create new event 📆
             </Button>
           </div>
         </form>

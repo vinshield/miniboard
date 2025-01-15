@@ -11,6 +11,8 @@ Finish share button
 Add to calendar feature
 Create event UI
 Create individual creator pages
+Add back to your miniboard button on event creation success page
+Make share link username.miniboard.site/link/add
 
 Create new mongoDB database for miniboard
 
