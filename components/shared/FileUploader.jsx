@@ -1,12 +1,12 @@
 "use client";
 
 import { useCallback, Dispatch, SetStateAction, useState } from "react";
-import { useDropzone } from "@uploadthing/react/hooks";
+import { useDropzone } from "@uploadthing/react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { extractPosterInfo } from "@/lib/actions/event.actions";
 
 import { Button } from "@/components/ui/button";
-import { convertFiletoBase64, convertFileToUrl } from "@/lib/utils/utils";
+import { convertFiletoBase64, convertFileToUrl } from "@/lib/utils";
 import Image from "next/image";
 import { resolve } from "styled-jsx/css";
 
@@ -83,9 +83,10 @@ export function FileUploader({
         <>
           <Button
             size="lg"
-            className="h-12 w-full shadow-md"
+            className="h-16 w-full shadow-md"
             type="button"
             disabled={gettingPosterInfo}
+            variant="test"
             onClick={() => document.getElementById("file-input").click()}
           >
             Upload your event poster

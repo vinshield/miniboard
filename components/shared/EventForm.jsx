@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 
-import { formatDateFromJSDate, formatDateTime } from "@/lib/utils/utils";
+import { formatDateFromJSDate, formatDateTime } from "@/lib/utils";
 import { createEvent } from "@/lib/actions/event.actions";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +13,8 @@ import { z } from "zod";
 import TextareaAutosize from "react-textarea-autosize";
 
 import { eventDefaultValues } from "@/constants";
+
+import { useAuth } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,16 +36,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { eventFormSchema } from "@/lib/validator";
 import { text } from "body-parser";
-import { Captions } from "lucide-react";
+import { Captions, LoaderCircle } from "lucide-react";
 import { CaptionSkeleton } from "../ui/skeletons";
+import { useUploadThing } from "@/lib/uploadthing";
+import { useUser } from "@clerk/nextjs";
 
 // TO-DO:
 // Create caption
 // Create form validation flow on front
 // Save posts
 
-export default function EventForm({ userId, type, event, eventId }) {
+export default function EventForm({ type, event, eventId, onSuccess }) {
   const [files, setFiles] = useState([]);
+  const [savingEvent, setSavingEvent] = useState(false);
   const [extractedDetails, setExtractedDetails] = useState(null);
   const [isOnline, setisOnline] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -55,6 +60,10 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   const captionRef = useRef(null);
 
+  const { user } = useUser();
+
+  const userId = user?.publicMetadata?.userId;
+
   let initialValues =
     event && type === "Update"
       ? {
@@ -63,6 +72,8 @@ export default function EventForm({ userId, type, event, eventId }) {
           endDateTime: new Date(event.endDateTime),
         }
       : eventDefaultValues;
+
+  const { startUpload } = useUploadThing("imageUploader");
 
   // 1. Define your form.
   const form = useForm({
@@ -79,16 +90,31 @@ export default function EventForm({ userId, type, event, eventId }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
+    setSavingEvent(true);
+
+    let uploadedImageUrl = values.imageUrl;
+
+    if (files.length > 0) {
+      const uploadedImages = await startUpload(files);
+
+      if (!uploadedImages) {
+        return;
+      }
+
+      uploadedImageUrl = uploadedImages[0].url;
+    }
+
     try {
       const newEvent = await createEvent({
-        event: { ...values },
+        event: { ...values, imageUrl: uploadedImageUrl },
+        userId,
         path: "/profile",
       });
 
       if (newEvent) {
         const { publicId: eventId } = newEvent;
         const { isAllDay: allDay } = values;
-        const caption = extractedDetails.caption;
+        const caption = extractedDetails?.caption;
         const { startDateTime, endDateTime, location } = values;
         const captionDate = formatDateTime(startDateTime).dateOnly;
 
@@ -102,9 +128,12 @@ export default function EventForm({ userId, type, event, eventId }) {
 
         setValue("caption", newCaption);
         setShowCaptionField(true);
+        onSuccess(newEvent);
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setSavingEvent(false);
     }
   };
 
@@ -273,6 +302,7 @@ export default function EventForm({ userId, type, event, eventId }) {
                       {...field}
                       placeholder="Event Name"
                       className="mt-2 w-full border-none bg-transparent p-0 text-3xl font-semibold shadow-none focus-visible:outline-none focus-visible:ring-0"
+                      autoFocus
                     />
                   </FormControl>
                   <FormMessage />
@@ -482,9 +512,13 @@ export default function EventForm({ userId, type, event, eventId }) {
             <Button
               size="lg"
               type="submit"
-              className={`w-full ${showCaptionField ? "hidden" : ""}`}
+              variant="test"
+              className={`h-16 w-full ${showCaptionField ? "hidden" : ""}`}
             >
-              Create caption
+              {savingEvent && (
+                <LoaderCircle className="mr-2 h-6 w-6 animate-spin" />
+              )}
+              {type}
             </Button>
 
             <Button
@@ -504,16 +538,6 @@ export default function EventForm({ userId, type, event, eventId }) {
               className={`w-full ${!showCaptionField ? "hidden" : ""}`}
             >
               {copied ? "Copied!" : "Copy caption"}
-            </Button>
-
-            <Button
-              type="button"
-              variant="ghost"
-              size="lg"
-              onClick={resetForm}
-              className={`w-full shadow-lg ${!showCaptionField ? "hidden" : ""}`}
-            >
-              Create new event 📆
             </Button>
           </div>
         </form>
