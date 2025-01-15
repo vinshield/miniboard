@@ -83,9 +83,10 @@ export function FileUploader({
         <>
           <Button
             size="lg"
-            className="h-12 w-full shadow-md"
+            className="h-16 w-full shadow-md"
             type="button"
             disabled={gettingPosterInfo}
+            variant="test"
             onClick={() => document.getElementById("file-input").click()}
           >
             Upload your event poster

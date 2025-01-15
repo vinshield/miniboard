@@ -36,7 +36,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { eventFormSchema } from "@/lib/validator";
 import { text } from "body-parser";
-import { Captions } from "lucide-react";
+import { Captions, LoaderCircle } from "lucide-react";
 import { CaptionSkeleton } from "../ui/skeletons";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useUser } from "@clerk/nextjs";
@@ -48,6 +48,7 @@ import { useUser } from "@clerk/nextjs";
 
 export default function EventForm({ type, event, eventId }) {
   const [files, setFiles] = useState([]);
+  const [savingEvent, setSavingEvent] = useState(false);
   const [extractedDetails, setExtractedDetails] = useState(null);
   const [isOnline, setisOnline] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -102,6 +103,7 @@ export default function EventForm({ type, event, eventId }) {
     }
 
     try {
+      setSavingEvent(true);
       const newEvent = await createEvent({
         event: { ...values, imageUrl: uploadedImageUrl },
         userId,
@@ -128,6 +130,8 @@ export default function EventForm({ type, event, eventId }) {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setSavingEvent(false);
     }
   };
 
@@ -296,6 +300,7 @@ export default function EventForm({ type, event, eventId }) {
                       {...field}
                       placeholder="Event Name"
                       className="mt-2 w-full border-none bg-transparent p-0 text-3xl font-semibold shadow-none focus-visible:outline-none focus-visible:ring-0"
+                      autoFocus
                     />
                   </FormControl>
                   <FormMessage />
@@ -505,9 +510,13 @@ export default function EventForm({ type, event, eventId }) {
             <Button
               size="lg"
               type="submit"
-              className={`w-full ${showCaptionField ? "hidden" : ""}`}
+              variant="test"
+              className={`h-16 w-full ${showCaptionField ? "hidden" : ""}`}
             >
-              Create caption
+              {savingEvent && (
+                <LoaderCircle className="mr-2 h-6 w-6 animate-spin" />
+              )}
+              {type}
             </Button>
 
             <Button

@@ -10,8 +10,8 @@ const Page = async ({ params }) => {
   const { username } = params;
 
   let userInfo = await getUserByUserNameForClient(username);
-  const userId = userInfo.publicMetadata.userId;
-  let organizersEvents = await getEventsByUser({ userId, page: 1 });
+  const creatorId = userInfo.publicMetadata.userId;
+  let organizersEvents = await getEventsByUser({ userId: creatorId, page: 1 });
 
   if (!params) {
     return <div>Loading...</div>;
@@ -20,7 +20,7 @@ const Page = async ({ params }) => {
   return (
     <div>
       <UserHeader user={userInfo} />
-      <EventList organizersEvents={organizersEvents} />
+      <EventList organizersEvents={organizersEvents} creatorId={creatorId} />
     </div>
   );
 };
