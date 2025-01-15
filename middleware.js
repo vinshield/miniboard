@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 
 export default clerkMiddleware();
 
-import { NextResponse } from "next/server";
-
 // List of paths that should always go to the main domain
 const authRoutes = ["/signin", "/signup", "/reset-password"];
 
