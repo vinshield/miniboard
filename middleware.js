@@ -3,11 +3,19 @@ import { NextResponse } from "next/server";
 
 export default clerkMiddleware();
 
+import { NextResponse } from "next/server";
+
+// List of paths that should always go to the main domain
+const authRoutes = ["/signin", "/signup", "/reset-password"];
+
+// List of paths that should be protected/redirected
+const protectedRoutes = ["/dashboard", "/settings", "/account"];
+
 export function middleware(request) {
   const url = request.nextUrl;
   const hostname = request.headers.get("host") || "";
 
-  // Exclude static files, api routes, etc.
+  // Exclude static files, api routes, etc
   if (
     url.pathname.startsWith("/_next") ||
     url.pathname.startsWith("/api") ||
@@ -16,17 +24,25 @@ export function middleware(request) {
     return NextResponse.next();
   }
 
-  // Handle main domain
-  if (hostname === "miniboard.site" || hostname === "www.miniboard.site") {
-    return NextResponse.next();
+  // Check if it's a subdomain
+  const isSubdomain =
+    hostname !== "miniboard.site" && hostname !== "www.miniboard.site";
+
+  // If it's a subdomain and trying to access auth routes, redirect to main domain
+  if (
+    isSubdomain &&
+    authRoutes.some((route) => url.pathname.startsWith(route))
+  ) {
+    return NextResponse.redirect(
+      new URL(url.pathname, "https://miniboard.site"),
+    );
   }
 
-  // Handle subdomains
-  const subdomain = hostname.split(".miniboard.site")[0];
-  if (subdomain) {
-    // Rewrite to the /profile/[username] page while preserving the URL
+  // Handle subdomains for non-auth routes
+  if (isSubdomain) {
+    const subdomain = hostname.split(".miniboard.site")[0];
     return NextResponse.rewrite(
-      new URL(`/profile/${subdomain}${url.pathname}`, request.url),
+      new URL(`/u/${subdomain}${url.pathname}`, request.url),
     );
   }
 
