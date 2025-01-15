@@ -515,10 +515,11 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
               variant="test"
               className={`h-16 w-full ${showCaptionField ? "hidden" : ""}`}
             >
-              {savingEvent && (
+              {savingEvent ? (
                 <LoaderCircle className="mr-2 h-6 w-6 animate-spin" />
+              ) : (
+                { type }
               )}
-              {type}
             </Button>
 
             <Button
@@ -529,15 +530,6 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
               className={`w-full ${showCaptionField ? "hidden" : ""}`}
             >
               Start over 🔃
-            </Button>
-
-            <Button
-              type="button"
-              onClick={copyToClipboard}
-              size="lg"
-              className={`w-full ${!showCaptionField ? "hidden" : ""}`}
-            >
-              {copied ? "Copied!" : "Copy caption"}
             </Button>
           </div>
         </form>

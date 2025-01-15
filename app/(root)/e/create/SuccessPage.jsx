@@ -3,29 +3,32 @@
 import React, { useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import EventCard from "@/components/shared/EventCard";
-import { formatDateTime } from "@/lib/utils";
+import { formatDateTimeForSharing } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { default as WhatsappIcon } from "@/public/assets/icons/whatsapp.svg";
 import { Copy, Check, CalendarCheck2 } from "lucide-react";
 
 export const SuccessPage = ({ event }) => {
+  console.log(event);
   const { user } = useUser();
   const [copied, setCopied] = useState(false);
   const { title, startDateTime, endDateTime, location, allDay, publicId } =
     event;
   const handleWhatsappShare = () => {
     const text =
-      `*${event.title}*\n\n` +
-      `📅 _${formatDateTime(startDateTime).dateOnly}_\n` +
+      `*${title}*\n\n` +
+      `📅 _${formatDateTimeForSharing(startDateTime).dateOnly}_\n` +
       `🕑 _${
         allDay
           ? "All day"
-          : `${formatDateTime(startDateTime).timeOnly}${
-              endDateTime ? ` - ${formatDateTime(endDateTime).timeOnly}` : ""
+          : `${formatDateTimeForSharing(startDateTime).timeOnly}${
+              endDateTime
+                ? ` - ${formatDateTimeForSharing(endDateTime).timeOnly}`
+                : ""
             }`
       }_\n` +
       `📍 _${location}_ \n\n` +
-      `_Add to your calendar:_ https://miniboard.site/${publicId}/add`;
+      `_Add to your calendar:_ https://miniboard.site/e/${publicId}/add`;
 
     const encodedText = encodeURIComponent(text);
     console.log({ text, encodedText });
@@ -35,7 +38,7 @@ export const SuccessPage = ({ event }) => {
   };
 
   const copyToClipboard = () => {
-    const text = `https://miniboard.site/${publicId}/add`;
+    const text = `https://miniboard.site/e/${publicId}/add`;
     navigator.clipboard.writeText(text);
     setCopied(true);
 
@@ -53,7 +56,7 @@ export const SuccessPage = ({ event }) => {
       <EventCard event={event} />
       <div className="container flex items-center justify-between">
         <div>
-          <p className="text-lg font-bold text-gray-500">Share:</p>
+          <p className="text-sm font-bold text-gray-500">Share:</p>
         </div>
         <div className="flex">
           <Button
@@ -66,7 +69,7 @@ export const SuccessPage = ({ event }) => {
             ) : (
               <Copy className="size-5" />
             )}
-            <p>{copied ? "Copied!" : "Copy link"} </p>
+            <p className="text-sm">{copied ? "Copied!" : "Copy link"} </p>
           </Button>
 
           <Button
@@ -75,7 +78,7 @@ export const SuccessPage = ({ event }) => {
             onClick={() => handleWhatsappShare()}
           >
             <WhatsappIcon className="size-5 fill-green-500" />
-            <p>Whatsapp</p>
+            <p className="text-sm">Whatsapp</p>
           </Button>
         </div>
       </div>
