@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LoaderCircle, Check, X } from "lucide-react";
 
+import { unavailableUsernames } from "@/constants";
+
 import { checkUsernameAvailability } from "@/lib/actions/clerk.actions";
 import Link from "next/link";
 
@@ -54,6 +56,12 @@ export function UsernameForm({ onSubmit }) {
     if (username.length < 4) {
       setUsernameAvailable(null);
       setIsChecking(false);
+      return;
+    }
+
+    if (unavailableUsernames.includes(username)) {
+      setUsernameAvailable(null);
+      setError("This username is not available, please choose another");
       return;
     }
 

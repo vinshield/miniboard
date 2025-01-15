@@ -28,6 +28,17 @@ export const eventDefaultValues = {
   isAllDay: false,
 };
 
+export const unavailableUsernames = [
+  "signin",
+  "signup",
+  "jesse",
+  "jesseogunlela",
+  "jesselela",
+  "jeslela",
+  "abuad",
+  "creator",
+];
+
 export const socialHandles = [
   {
     name: "instagram",
