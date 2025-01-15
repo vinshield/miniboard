@@ -518,7 +518,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
               {savingEvent ? (
                 <LoaderCircle className="mr-2 h-6 w-6 animate-spin" />
               ) : (
-                { type }
+                `${type}`
               )}
             </Button>
 
