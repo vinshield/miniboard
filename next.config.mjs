@@ -2,12 +2,16 @@
 const nextConfig = {
   reactStrictMode: false,
 
-  async rewrites() {
+  async headers() {
     return [
       {
-        source: "/",
-        has: [{ type: "host", value: "*.miniboard.site" }],
-        destination: "/u/:path*",
+        source: "/:path*",
+        headers: [
+          {
+            key: "x-dns-prefetch-control",
+            value: "on",
+          },
+        ],
       },
     ];
   },
