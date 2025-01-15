@@ -37,12 +37,12 @@ const EventList = ({ organizersEvents, creatorId }) => {
             className="container my-6"
             onClick={() => router.push("/e/create")}
           >
-            <div className="flex-center aspect-[8/3] w-full cursor-pointer overflow-hidden rounded-lg border-2 border-dashed active:bg-gray-200">
+            <div className="flex-center pon aspect-[8/3] w-full cursor-pointer overflow-hidden rounded-lg border-2 border-dashed focus:bg-gray-200 active:bg-gray-200">
               <CalendarPlus
                 className="mr-2 -rotate-2 text-gray-400"
                 size={36}
               />
-              <p className="leading-12 text-xl font-semibold tracking-tighter text-gray-400">
+              <p className="leading-12 select-none text-xl font-semibold tracking-tighter text-gray-400">
                 Create {!organizersEvents ? "your first" : "an"} event
               </p>
             </div>

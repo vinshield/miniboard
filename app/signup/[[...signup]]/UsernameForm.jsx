@@ -111,7 +111,7 @@ export function UsernameForm({ onSubmit }) {
         </Label>
         <div className="relative flex items-center justify-between overflow-hidden">
           <div className="flex items-center">
-            <p className="ml-1 text-[#6b6b6b]">miniboard.site/</p>
+            <p className="ml-1">miniboard.site/</p>
             <div className="rounded-lg bg-secondary px-4 py-2 pl-1">
               <Input
                 maxLength={21}
