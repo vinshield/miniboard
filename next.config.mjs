@@ -2,20 +2,6 @@
 const nextConfig = {
   reactStrictMode: false,
 
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "x-dns-prefetch-control",
-            value: "on",
-          },
-        ],
-      },
-    ];
-  },
-
   images: {
     remotePatterns: [
       {

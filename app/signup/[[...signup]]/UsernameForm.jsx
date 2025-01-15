@@ -101,28 +101,30 @@ export function UsernameForm({ onSubmit }) {
             First, create your unique link
           </p>
         </Label>
-        <div className="relative flex items-center justify-between overflow-hidden rounded-lg bg-secondary px-4 py-2">
+        <div className="relative flex items-center justify-between overflow-hidden">
           <div className="flex items-center">
-            <Input
-              maxLength={21}
-              ref={inputRef}
-              className="input-field m-0 min-w-[20px] p-0 text-base placeholder:text-[#a8a8a8]"
-              id="username"
-              type="text"
-              placeholder={placeholder}
-              value={username}
-              onChange={handleInputChange}
-              autoFocus
-              autoComplete="off"
-            />
-            <span
-              ref={measureRef}
-              className="pointer-events-none absolute left-4 inline-block text-base opacity-0"
-              aria-hidden="true"
-            >
-              {username || placeholder}
-            </span>
-            <p className="ml-1 text-[#6b6b6b]">.miniboard.site</p>
+            <p className="ml-1 text-[#6b6b6b]">miniboard.site/</p>
+            <div className="rounded-lg bg-secondary px-4 py-2 pl-1">
+              <Input
+                maxLength={21}
+                ref={inputRef}
+                className="input-field m-0 min-w-[20px] p-0 text-base placeholder:text-[#a8a8a8]"
+                id="username"
+                type="text"
+                placeholder={placeholder}
+                value={username}
+                onChange={handleInputChange}
+                autoFocus
+                autoComplete="off"
+              />
+              <span
+                ref={measureRef}
+                className="pointer-events-none absolute left-4 inline-block text-base opacity-0"
+                aria-hidden="true"
+              >
+                {username || placeholder}
+              </span>
+            </div>
           </div>
           {isChecking && (
             <LoaderCircle className="animate-spin text-blue-500" />
