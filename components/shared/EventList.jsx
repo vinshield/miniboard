@@ -32,7 +32,7 @@ const EventList = ({ organizersEvents, creatorId }) => {
   return (
     <UserProvider>
       <div>
-        <h2 className="container my-4 -mb-4 text-lg">Events</h2>
+        {/* <h2 className="container my-4 -mb-4 text-lg">Events</h2> */}
 
         {isOwner && (
           <div
