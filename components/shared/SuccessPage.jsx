@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { default as WhatsappIcon } from "@/public/assets/icons/whatsapp.svg";
 import { Copy, Check, CalendarCheck2 } from "lucide-react";
 
-export const SuccessPage = ({ event }) => {
+export const SuccessPage = ({ event, type }) => {
   const { user } = useUser();
   const [copied, setCopied] = useState(false);
   const { title, startDateTime, endDateTime, location, allDay, publicId } =
@@ -48,8 +48,7 @@ export const SuccessPage = ({ event }) => {
   return (
     <div>
       <h2 className="container my-12 flex items-center gap-2 text-3xl font-semibold text-slate-500">
-        {/* <CalendarCheck2 className="size-24 sm:size-8" /> */}
-        Event created successfully!
+        Event {`${type}`}d successfully!
       </h2>
       <EventCard event={event} />
       <div className="container flex items-center justify-between">

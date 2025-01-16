@@ -3,9 +3,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
+import { useRouter } from "next/navigation";
 
 import { formatDateFromJSDate, formatDateTime } from "@/lib/utils";
-import { createEvent } from "@/lib/actions/event.actions";
+import { createEvent, updateEvent } from "@/lib/actions/event.actions";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -14,7 +15,6 @@ import TextareaAutosize from "react-textarea-autosize";
 
 import { eventDefaultValues } from "@/constants";
 
-import { useAuth } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
@@ -37,8 +37,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { eventFormSchema } from "@/lib/validator";
 import { text } from "body-parser";
-import { Captions, LoaderCircle } from "lucide-react";
-import { CaptionSkeleton } from "../ui/skeletons";
+import { LoaderCircle } from "lucide-react";
 import { useUploadThing } from "@/lib/uploadthing";
 
 // TO-DO:
@@ -53,13 +52,10 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
   const [showForm, setShowForm] = useState(false);
   const [allDayEvent, setAllDayEvent] = useState(false);
   const [endDateTimeProvided, setEndDateTimeProvided] = useState();
-  const [showCaptionField, setShowCaptionField] = useState(false);
-  const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
   const [gettingPosterInfo, setGettingPosterInfo] = useState(false);
 
-  const captionRef = useRef(null);
-
+  const router = useRouter();
   const { user } = useUser();
 
   const userId = user?.publicMetadata?.userId,
@@ -103,35 +99,40 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
       uploadedImageUrl = uploadedImages[0].url;
     }
 
-    try {
-      const newEvent = await createEvent({
-        event: { ...values, imageUrl: uploadedImageUrl },
-        userId,
-        path: `/${username}`,
-      });
+    if (type === "create") {
+      try {
+        const newEvent = await createEvent({
+          event: { ...values, imageUrl: uploadedImageUrl },
+          userId,
+          path: `/${username}`,
+        });
 
-      if (newEvent) {
-        const { publicId: eventId } = newEvent;
-        const { isAllDay: allDay } = values;
-        const caption = extractedDetails?.caption;
-        const { startDateTime, endDateTime, location } = values;
-        const captionDate = formatDateTime(startDateTime).dateOnly;
-
-        const newCaption = `${caption}\n\n*_Add to your calendar app_* 👇🏽\nhttps://miniboard-flax.vercel.app/e/${eventId}/add\n\n📅 _${captionDate}_\n🕑 _${
-          allDay
-            ? "All day"
-            : `${formatDateTime(startDateTime).timeOnly}${
-                endDateTime ? ` - ${formatDateTime(endDateTime).timeOnly}` : ""
-              }`
-        }_\n📍 _${location}_`;
-
-        setValue("caption", newCaption);
-        setShowCaptionField(true);
-        onSuccess(newEvent);
+        if (newEvent) {
+          onSuccess(newEvent);
+        }
+      } catch (error) {
+        setError(true);
+        console.log(error);
       }
-    } catch (error) {
-      setError(true);
-      console.log(error);
+    }
+
+    if (type === "update") {
+      if (!eventId) {
+        router.back();
+        return;
+      }
+      try {
+        const updatedEvent = await updateEvent({
+          userId,
+          event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
+          path: `/e/${event.publicId}`,
+        });
+        if (updatedEvent) {
+          onSuccess(updatedEvent);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -172,20 +173,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
     }, 700);
 
     setShowForm(false);
-    setShowCaptionField(false);
     setAllDayEvent(false);
-  };
-
-  const copyToClipboard = () => {
-    if (captionRef.current) {
-      const text = captionRef.current.value;
-      navigator.clipboard.writeText(text);
-      setCopied(true);
-    }
-
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
   };
 
   useEffect(() => {
@@ -476,38 +464,6 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
               )}
             />
 
-            {showCaptionField && (
-              <div>
-                {isSubmitting ? (
-                  <CaptionSkeleton />
-                ) : (
-                  <FormField
-                    control={form.control}
-                    name="caption"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Caption</FormLabel>
-                        <FormControl ref={captionRef}>
-                          <TextareaAutosize
-                            className="input-field flex min-h-[60px] w-full rounded-lg border border-none border-input bg-transparent p-4 px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          Share this caption on WhatsApp along with your poster
-                          to boost your event’s visibility. It includes a link
-                          that lets users easily add the event to their
-                          calendar, with a reminder automatically set for 30
-                          minutes before it begins.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                )}
-              </div>
-            )}
-
             {error && (
               <p className="my-2 text-sm font-semibold text-red-500">
                 {`Sorry, we were unable to ${type} this event. Please try again.`}
@@ -518,7 +474,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
               size="lg"
               type="submit"
               variant="test"
-              className={`h-16 w-full capitalize ${showCaptionField ? "hidden" : ""}`}
+              className="h-16 w-full capitalize"
             >
               {isSubmitting ? (
                 <LoaderCircle className="mr-2 h-6 w-6 animate-spin" />
@@ -532,7 +488,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
               variant="ghost"
               size="lg"
               onClick={resetForm}
-              className={`w-full ${showCaptionField ? "hidden" : ""}`}
+              className="w-full"
             >
               Start over 🔃
             </Button>

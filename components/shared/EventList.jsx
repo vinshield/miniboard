@@ -44,7 +44,7 @@ const EventList = ({ organizersEvents, creatorId }) => {
                 className="mr-2 -rotate-2 text-gray-400"
                 size={36}
               />
-              <p className="leading-12 select-none text-xl font-semibold tracking-tighter text-gray-400">
+              <p className="select-none text-xl font-medium tracking-tighter text-gray-400">
                 Create {organizersEvents.data.length < 1 ? "your first" : "new"}{" "}
                 event
               </p>

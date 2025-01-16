@@ -1,12 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import EventForm from "@/components/shared/EventForm";
 
 import { CalendarPlus } from "lucide-react";
 import SuccessPage from "@/components/shared/SuccessPage";
+import { getEventByPublicId } from "@/lib/actions/event.actions";
 
-const CreateEvent = () => {
+const UpdateEvent = ({ params: { id } }) => {
+  const [status, setStatus] = useState("begin");
+  const [event, setEvent] = useState(null);
+
+  useEffect(() => {
+    const getEvent = async () => {
+      const fetchedEvent = await getEventByPublicId(id);
+      setEvent(fetchedEvent);
+    };
+
+    getEvent();
+  }, []);
+
+  const showSuccessMessage = (event) => {
+    setEvent(event);
+    setStatus("success");
+  };
+
   const testEvent = {
     title: "Ball Up 4.0 After Party",
     description:
@@ -24,33 +42,30 @@ const CreateEvent = () => {
     createdAt: "2025-01-15T18:32:49.228Z",
     __v: 0,
   };
-  const [status, setStatus] = useState("begin");
-  const [event, setEvent] = useState(null);
-  const showSuccessMessage = (event) => {
-    setEvent(event);
-    setStatus("success");
-  };
+
   return (
     <>
       {status === "begin" && (
         <div className="pb-24">
           <div className="container flex items-center justify-center">
             <CalendarPlus size={40} className="mr-1 text-gray-400" />
-            <h1 className="my-12 text-3xl font-semibold text-gray-400">
-              Create
-            </h1>
+            <h1 className="my-12 text-3xl font-semibold text-gray-400">Edit</h1>
           </div>
 
-          <EventForm type="create" onSuccess={showSuccessMessage} />
+          <EventForm
+            type="update"
+            onSuccess={showSuccessMessage}
+            eventId={event._id}
+          />
         </div>
       )}
       {status === "success" && (
         <div className="flex h-[60vh] flex-col justify-center">
-          <SuccessPage event={event} type="create" />
+          <SuccessPage event={event} type="update" />
         </div>
       )}
     </>
   );
 };
 
-export default CreateEvent;
+export default UpdateEvent;
