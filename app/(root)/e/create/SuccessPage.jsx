@@ -9,7 +9,6 @@ import { default as WhatsappIcon } from "@/public/assets/icons/whatsapp.svg";
 import { Copy, Check, CalendarCheck2 } from "lucide-react";
 
 export const SuccessPage = ({ event }) => {
-  console.log(event);
   const { user } = useUser();
   const [copied, setCopied] = useState(false);
   const { title, startDateTime, endDateTime, location, allDay, publicId } =
@@ -31,7 +30,6 @@ export const SuccessPage = ({ event }) => {
       `_Add to your calendar:_ https://miniboard.site/e/${publicId}/add`;
 
     const encodedText = encodeURIComponent(text);
-    console.log({ text, encodedText });
 
     const whatsappURL = `whatsapp://send/?text=${encodedText}`;
     window.open(whatsappURL, "_blank");
@@ -58,26 +56,26 @@ export const SuccessPage = ({ event }) => {
         <div>
           <p className="text-sm font-bold text-gray-500">Share:</p>
         </div>
-        <div className="flex">
+        <div className="flex gap-2">
           <Button
             onClick={() => copyToClipboard()}
             variant="ghost"
-            className="m-0 flex cursor-pointer gap-1"
+            className="m-0 flex cursor-pointer gap-0.5 px-1"
           >
             {copied ? (
               <Check className="-mr-1 size-6" />
             ) : (
-              <Copy className="size-5" />
+              <Copy className="size-4" />
             )}
             <p className="text-sm">{copied ? "Copied!" : "Copy link"} </p>
           </Button>
 
           <Button
             variant="ghost"
-            className="m-0 flex cursor-pointer gap-1"
+            className="m-0 flex cursor-pointer gap-0.5 px-2"
             onClick={() => handleWhatsappShare()}
           >
-            <WhatsappIcon className="size-5 fill-green-500" />
+            <WhatsappIcon className="size-4 fill-green-500" />
             <p className="text-sm">Whatsapp</p>
           </Button>
         </div>

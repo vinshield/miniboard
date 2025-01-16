@@ -15,6 +15,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { eventDefaultValues } from "@/constants";
 
 import { useAuth } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -39,7 +40,6 @@ import { text } from "body-parser";
 import { Captions, LoaderCircle } from "lucide-react";
 import { CaptionSkeleton } from "../ui/skeletons";
 import { useUploadThing } from "@/lib/uploadthing";
-import { useUser } from "@clerk/nextjs";
 
 // TO-DO:
 // Create caption
@@ -48,7 +48,6 @@ import { useUser } from "@clerk/nextjs";
 
 export default function EventForm({ type, event, eventId, onSuccess }) {
   const [files, setFiles] = useState([]);
-  const [savingEvent, setSavingEvent] = useState(false);
   const [extractedDetails, setExtractedDetails] = useState(null);
   const [isOnline, setisOnline] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -63,7 +62,8 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
 
   const { user } = useUser();
 
-  const userId = user?.publicMetadata?.userId;
+  const userId = user?.publicMetadata?.userId,
+    username = user.username;
 
   let initialValues =
     event && type === "Update"
@@ -91,8 +91,6 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
-    setSavingEvent(true);
-
     let uploadedImageUrl = values.imageUrl;
 
     if (files.length > 0) {
@@ -109,7 +107,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
       const newEvent = await createEvent({
         event: { ...values, imageUrl: uploadedImageUrl },
         userId,
-        path: "/profile",
+        path: `/${username}`,
       });
 
       if (newEvent) {
@@ -134,8 +132,6 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
     } catch (error) {
       setError(true);
       console.log(error);
-    } finally {
-      setSavingEvent(false);
     }
   };
 
@@ -414,6 +410,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
                             setisOnline(checked);
                             field.onChange(checked);
                           }}
+                          {...field}
                         />
                       </FormControl>
                     </div>
@@ -523,7 +520,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
               variant="test"
               className={`h-16 w-full capitalize ${showCaptionField ? "hidden" : ""}`}
             >
-              {savingEvent ? (
+              {isSubmitting ? (
                 <LoaderCircle className="mr-2 h-6 w-6 animate-spin" />
               ) : (
                 `${type} Event`

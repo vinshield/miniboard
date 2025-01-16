@@ -26,6 +26,7 @@ export const eventDefaultValues = {
   isFree: false,
   url: "",
   isAllDay: false,
+  isOnline: false,
 };
 
 export const unavailableUsernames = [
