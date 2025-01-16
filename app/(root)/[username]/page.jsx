@@ -5,6 +5,7 @@ import { getEventsByUser } from "@/lib/actions/event.actions";
 
 import UserHeader from "@/components/shared/UserHeader";
 import EventList from "@/components/shared/EventList";
+import { TabsDemo } from "./TabsDemo";
 
 const Page = async ({ params }) => {
   const { username } = params;

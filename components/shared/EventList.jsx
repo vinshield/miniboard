@@ -32,6 +32,8 @@ const EventList = ({ organizersEvents, creatorId }) => {
   return (
     <UserProvider>
       <div>
+        <h2 className="container my-4 -mb-4 text-lg">Events</h2>
+
         {isOwner && (
           <div
             className="container my-6"
@@ -43,7 +45,7 @@ const EventList = ({ organizersEvents, creatorId }) => {
                 size={36}
               />
               <p className="leading-12 select-none text-xl font-semibold tracking-tighter text-gray-400">
-                Create {!organizersEvents ? "your first" : "an"} event
+                Create {!organizersEvents ? "your first" : "new"} event
               </p>
             </div>
           </div>

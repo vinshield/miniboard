@@ -29,21 +29,20 @@ const CreateEvent = () => {
   const showSuccessMessage = (event) => {
     setEvent(event);
     setStatus("success");
-    console.log(event);
   };
   return (
     <>
       {status === "begin" && (
-        <>
+        <div className="pb-24">
           <div className="container flex items-center justify-center">
             <CalendarPlus size={40} className="mr-1 text-gray-400" />
             <h1 className="my-12 text-3xl font-semibold text-gray-400">
-              Create Event
+              Create
             </h1>
           </div>
 
-          <EventForm type={"Create"} onSuccess={showSuccessMessage} />
-        </>
+          <EventForm type={"create"} onSuccess={showSuccessMessage} />
+        </div>
       )}
       {status === "success" && (
         <div className="flex h-[60vh] flex-col justify-center">

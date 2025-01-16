@@ -56,6 +56,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
   const [endDateTimeProvided, setEndDateTimeProvided] = useState();
   const [showCaptionField, setShowCaptionField] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState(false);
   const [gettingPosterInfo, setGettingPosterInfo] = useState(false);
 
   const captionRef = useRef(null);
@@ -131,6 +132,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
         onSuccess(newEvent);
       }
     } catch (error) {
+      setError(true);
       console.log(error);
     } finally {
       setSavingEvent(false);
@@ -509,16 +511,22 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
               </div>
             )}
 
+            {error && (
+              <p className="my-2 text-sm font-semibold text-red-500">
+                {`Sorry, we were unable to ${type} this event. Please try again.`}
+              </p>
+            )}
+
             <Button
               size="lg"
               type="submit"
               variant="test"
-              className={`h-16 w-full ${showCaptionField ? "hidden" : ""}`}
+              className={`h-16 w-full capitalize ${showCaptionField ? "hidden" : ""}`}
             >
               {savingEvent ? (
                 <LoaderCircle className="mr-2 h-6 w-6 animate-spin" />
               ) : (
-                `${type}`
+                `${type} Event`
               )}
             </Button>
 
