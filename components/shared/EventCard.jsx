@@ -48,7 +48,7 @@ const EventCard = ({ event }) => {
             <div className="mb-6 flex items-center">
               {event.isOnline ? (
                 <div>
-                  <Video className="mr-1 -rotate-3 text-gray-700" size={16} />{" "}
+                  <Video className="mr-1 text-gray-700" size={16} />{" "}
                 </div>
               ) : (
                 <div>

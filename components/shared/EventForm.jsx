@@ -63,7 +63,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
   const { user } = useUser();
 
   const userId = user?.publicMetadata?.userId,
-    username = user.username;
+    username = user?.username;
 
   let initialValues =
     event && type === "Update"
