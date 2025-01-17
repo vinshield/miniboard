@@ -29,7 +29,7 @@ const NoEvents = ({ isOwner, creatorName }) => {
           <Button
             onClick={() => (window.location.href = "/e/create")}
             variant="outline"
-            className="mt-6 flex gap-1 border border-black bg-[#e7e7e7] px-4 py-6 text-[#7d7c7c] active:opacity-50"
+            className="mt-8 flex gap-1 border bg-[#e7e7e7] text-sm text-[#7d7c7c] shadow-lg active:opacity-50"
           >
             <CalendarPlus />
             Create New Event
