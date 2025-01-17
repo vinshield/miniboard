@@ -78,7 +78,6 @@ const Header = () => {
           </Link>
 
           <div className={`${!signInVisible ? "hidden" : ""}`}>
-            {/* {showMenu ? ( */}
             <>
               {showMenu && (
                 <div className="absolute left-0 top-0 h-screen w-[100vw] bg-gray-400/40 backdrop-blur-sm"></div>
@@ -116,13 +115,11 @@ const Header = () => {
                   <div className="flex w-full justify-center">
                     {!user.isSignedIn && (
                       <Button
+                        onClick={() => (window.location.href = "/signup")}
                         variant="outline"
                         className="mb-28 border border-sky-400 py-6 text-sm text-[#5b6169] shadow-md"
                       >
-                        <Link href="/signup">
-                          Create your{" "}
-                          <span className="font-bold">miniboard</span>
-                        </Link>
+                        Create your <span className="font-bold">miniboard</span>
                       </Button>
                     )}
                   </div>

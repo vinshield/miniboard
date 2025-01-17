@@ -1,4 +1,5 @@
 import React from "react";
+import { auth } from "@clerk/nextjs/server";
 
 import { getUserByUserNameForClient } from "@/lib/actions/clerk.actions";
 import { getEventsByUser } from "@/lib/actions/event.actions";
@@ -6,13 +7,21 @@ import { getEventsByUser } from "@/lib/actions/event.actions";
 import UserHeader from "@/components/shared/UserHeader";
 import EventList from "@/components/shared/EventList";
 import { TabsDemo } from "./TabsDemo";
+import NoEvents from "./NoEvents";
 
 const Page = async ({ params }) => {
   const { username } = params;
+  const { sessionClaims } = await auth();
+  const loggedInUserId = sessionClaims?.mongoDbId;
 
   let userInfo = await getUserByUserNameForClient(username);
   const creatorId = userInfo.publicMetadata.userId;
+  const creatorName = userInfo.publicMetadata.displayName;
+
+  const isOwner = loggedInUserId === creatorId;
+
   let organizersEvents = await getEventsByUser({ userId: creatorId, page: 1 });
+  organizersEvents = organizersEvents.data;
 
   if (!params) {
     return <div>Loading...</div>;
@@ -21,7 +30,11 @@ const Page = async ({ params }) => {
   return (
     <div>
       <UserHeader user={userInfo} />
-      <EventList organizersEvents={organizersEvents} creatorId={creatorId} />
+      {organizersEvents.length > 0 ? (
+        <EventList organizersEvents={organizersEvents} creatorId={creatorId} />
+      ) : (
+        <NoEvents isOwner={isOwner} creatorName={creatorName} />
+      )}
     </div>
   );
 };

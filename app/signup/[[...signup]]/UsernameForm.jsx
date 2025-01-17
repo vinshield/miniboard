@@ -137,6 +137,7 @@ export function UsernameForm({ onSubmit }) {
           {isChecking && (
             <LoaderCircle className="animate-spin text-blue-500" />
           )}
+
           {!isChecking &&
             username.length >= 3 &&
             usernameAvailable === true && <Check className="text-green-400" />}

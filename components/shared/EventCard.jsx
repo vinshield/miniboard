@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import { useState } from "react";
+import { useUser } from "@clerk/clerk-react";
 import { Share2, CalendarCheck, MapPin, Video } from "lucide-react";
 import { default as ShareIcon2 } from "@/public/assets/icons/share.svg";
 import { default as ShareIcon } from "@/public/assets/icons/share-from-square.svg";
@@ -8,8 +9,11 @@ import { formatDateTime } from "@/lib/utils";
 
 import Image from "next/image";
 import WantToGo from "./WantToGo";
+import { deleteEvent } from "@/lib/actions/event.actions";
 
 const EventCard = ({ event }) => {
+  const { user } = useUser();
+  console.log(user);
   const wantToGoRef = useRef();
 
   const handleShare = () => {
@@ -69,6 +73,13 @@ const EventCard = ({ event }) => {
 
               <WantToGo event={event} />
             </div>
+            <button
+              onClick={() =>
+                deleteEvent({ eventId: event._id, path: `/${event.publicId}` })
+              }
+            >
+              delete
+            </button>
           </div>
 
           <div className="h-40 w-24">

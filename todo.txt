@@ -9,10 +9,9 @@ Delete for events
 Update for events.
 Finish share button 
 Add to calendar feature
-Create event UI
 Create individual creator pages ✅
 Add back to your miniboard button on event creation success page
-Error states for uploading events 
+Error states for uploading events ✅
 Error states for openai
 
 Create new mongoDB database for miniboard

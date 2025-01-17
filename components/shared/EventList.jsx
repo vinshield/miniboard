@@ -45,13 +45,13 @@ const EventList = ({ organizersEvents, creatorId }) => {
                 size={36}
               />
               <p className="select-none text-xl font-medium tracking-tighter text-gray-400">
-                Create {organizersEvents.data.length < 1 ? "your first" : "new"}{" "}
+                Create {organizersEvents.length < 1 ? "your first" : "new"}{" "}
                 event
               </p>
             </div>
           </div>
         )}
-        {organizersEvents.data.map((event) => (
+        {organizersEvents.map((event) => (
           <EventCard key={event._id} event={event} />
         ))}
       </div>
