@@ -12,15 +12,15 @@ const NoEvents = ({ isOwner, creatorName }) => {
   return (
     <div className="flex-center h-[50vh]">
       <div className="flex-center container flex-col">
-        <CalendarOff
+        <Binoculars
           strokeWidth={1.5}
           absoluteStrokeWidth={true}
           className="text size-2/5 text-[#a8a8a8]"
         />
-        <p className="text-base font-semibold text-[#6b7280]">
+        <p className="mt-2 text-base font-semibold text-[#6b7280]">
           Nothing to see here{" "}
         </p>
-        <p className="mt-1 text-center text-sm text-[#a8a8a8]">
+        <p className="mt-2 text-center text-sm text-[#a8a8a8]">
           {isOwner
             ? "You have no upcoming events"
             : `${creatorName} has no upcoming events`}
