@@ -13,7 +13,6 @@ import { deleteEvent } from "@/lib/actions/event.actions";
 
 const EventCard = ({ event }) => {
   const { user } = useUser();
-  console.log(user);
   const wantToGoRef = useRef();
 
   const handleShare = () => {
@@ -22,7 +21,7 @@ const EventCard = ({ event }) => {
       navigator
         .share({
           title: event.title,
-          text: `${event.title} on ${formatDateTimeForSharing(event.startDate).dateWithoutYear} at ${event.location}.`,
+          text: `${event.title} on ${formatDateTimeForSharing(event.startDateTime).dateWithoutYear} at ${event.location}.`,
           url: `https://miniboard.site/e/${event.publicId}`,
         })
         .then(() => console.log("Share successful"))
@@ -31,7 +30,7 @@ const EventCard = ({ event }) => {
       // Fallback: Copy to clipboard or alert the user
       navigator.clipboard
         .writeText(
-          `Check out this event: ${event.title} at ${event.location}. ${window.location.href}`,
+          `Check out this event: ${event.title} on ${formatDateTimeForSharing(event.startDateTime).dateWithoutYear} at ${event.location}.\n\nSet a reminder stress-free https://miniboard.site/e/${event.publicId}`,
         )
         .then(() => alert("Link copied to clipboard!"))
         .catch((error) => console.error("Error copying to clipboard:", error));

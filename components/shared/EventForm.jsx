@@ -99,6 +99,14 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
       uploadedImageUrl = uploadedImages[0].url;
     }
 
+    // Add automatic end date if not provided
+    if (!values.endDateTime) {
+      const startDate = new Date(values.startDateTime);
+      values.endDateTime = new Date(
+        startDate.setHours(startDate.getHours() + 1),
+      );
+    }
+
     if (type === "create") {
       try {
         const newEvent = await createEvent({
