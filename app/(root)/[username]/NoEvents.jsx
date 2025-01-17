@@ -12,7 +12,7 @@ const NoEvents = ({ isOwner, creatorName }) => {
   return (
     <div className="flex-center h-[50vh]">
       <div className="flex-center container flex-col">
-        <Binoculars
+        <CalendarOff
           strokeWidth={1.5}
           absoluteStrokeWidth={true}
           className="text size-2/5 text-[#a8a8a8]"

@@ -5,7 +5,7 @@ import { useUser } from "@clerk/clerk-react";
 import { Share2, CalendarCheck, MapPin, Video } from "lucide-react";
 import { default as ShareIcon2 } from "@/public/assets/icons/share.svg";
 import { default as ShareIcon } from "@/public/assets/icons/share-from-square.svg";
-import { formatDateTime } from "@/lib/utils";
+import { formatDateTime, formatDateTimeForSharing } from "@/lib/utils";
 
 import Image from "next/image";
 import WantToGo from "./WantToGo";
@@ -22,8 +22,8 @@ const EventCard = ({ event }) => {
       navigator
         .share({
           title: event.title,
-          text: `${event.title} at ${event.location}.`,
-          url: window.location.href, // You can customize this URL as needed
+          text: `${event.title} on ${formatDateTimeForSharing(event.startDate).dateWithoutYear} at ${event.location}.`,
+          url: `https://miniboard.site/e/${event.publicId}`,
         })
         .then(() => console.log("Share successful"))
         .catch((error) => console.error("Error sharing:", error));
