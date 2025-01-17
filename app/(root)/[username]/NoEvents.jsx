@@ -11,7 +11,7 @@ const NoEvents = ({ isOwner, creatorName }) => {
         <p className="text-lg font-semibold text-[#6b7280]">
           Nothing to see here{" "}
         </p>
-        <p className="mt-1 text-[#a8a8a8]">
+        <p className="mt-1 text-center text-[#a8a8a8]">
           {isOwner
             ? "You have no upcoming events"
             : `${creatorName} has no upcoming events`}
