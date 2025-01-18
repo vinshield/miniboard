@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, Dispatch, SetStateAction, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "@uploadthing/react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { extractPosterInfo } from "@/lib/actions/event.actions";
@@ -20,6 +20,8 @@ export function FileUploader({
   showForm,
   gettingPosterInfo,
   setGettingPosterInfo,
+  openAIError,
+  setOpenAIError,
 }) {
   const onDrop = useCallback(async (acceptedFiles) => {
     setFiles(acceptedFiles);
@@ -29,11 +31,17 @@ export function FileUploader({
       setGettingPosterInfo(true);
 
       // convert file to base64 in order to send it to server function
-      const posterInfo = await convertFiletoBase64(acceptedFiles[0]).then(
-        (val) => extractPosterInfo(val),
-      );
-      setExtractedDetails(posterInfo);
-      setGettingPosterInfo(false);
+      try {
+        const posterInfo = await convertFiletoBase64(acceptedFiles[0]).then(
+          (val) => extractPosterInfo(val),
+        );
+        setExtractedDetails({ ...posterInfo, success: true });
+      } catch {
+        setOpenAIError(true);
+        setExtractedDetails({ success: false });
+      } finally {
+        setGettingPosterInfo(false);
+      }
     }
   }, []);
 
@@ -51,7 +59,6 @@ export function FileUploader({
         id="file-input"
       >
         {gettingPosterInfo && <PosterSkeleton />}
-        {/* <PosterSkeleton/> */}
         <input {...getInputProps()} className="cursor-pointer" />
 
         {imageUrl ? (
@@ -79,6 +86,12 @@ export function FileUploader({
           </div>
         )}
       </div>
+      {openAIError && (
+        <p className="mt-4 rounded-sm bg-red-500 bg-opacity-25 p-2 text-sm font-medium text-red-500">
+          Sorry, we were unable to get your event details. Please enter details
+          manually.
+        </p>
+      )}
       {!showForm && (
         <>
           <Button

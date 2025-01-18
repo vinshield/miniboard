@@ -47,6 +47,7 @@ import { useUploadThing } from "@/lib/uploadthing";
 
 export default function EventForm({ type, event, eventId, onSuccess }) {
   const [files, setFiles] = useState([]);
+  const [openAIError, setOpenAIError] = useState(false);
   const [extractedDetails, setExtractedDetails] = useState(null);
   const [isOnline, setisOnline] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -185,8 +186,12 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
   };
 
   useEffect(() => {
+    console.log(extractedDetails);
+
     // Put the details extracted from the poster into the input fields
-    if (extractedDetails) {
+    if (extractedDetails && !extractedDetails?.success) {
+      showFormAndScroll();
+    } else if (extractedDetails?.success) {
       // Set endDateTime to startDateTime if full day event
       if (extractedDetails.isAllDay) {
         extractedDetails.endDateTime = extractedDetails.startDateTime;
@@ -254,6 +259,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
                 <div
                   onClick={() => {
                     field.value && resetForm();
+                    setOpenAIError(false);
                   }}
                 >
                   <FileUploader
@@ -264,6 +270,8 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
                     showForm={showForm}
                     gettingPosterInfo={gettingPosterInfo}
                     setGettingPosterInfo={setGettingPosterInfo}
+                    openAIError={openAIError}
+                    setOpenAIError={setOpenAIError}
                   />
                   <FormMessage />
                 </div>
@@ -495,7 +503,10 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
               type="button"
               variant="ghost"
               size="lg"
-              onClick={resetForm}
+              onClick={() => {
+                setOpenAIError(false);
+                resetForm();
+              }}
               className="w-full"
             >
               Start over 🔃
