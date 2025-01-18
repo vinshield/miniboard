@@ -119,7 +119,8 @@ const Header = () => {
                         variant="outline"
                         className="mb-28 border border-sky-400 py-6 text-sm text-[#5b6169] shadow-md"
                       >
-                        Create your <span className="font-bold">miniboard</span>
+                        Create your
+                        <span className="font-bold">&nbsp;miniboard</span>
                       </Button>
                     )}
                   </div>
