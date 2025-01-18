@@ -22,7 +22,7 @@ const NoEvents = ({ isOwner, creatorName }) => {
         </p>
         <p className="mt-2 text-center text-sm text-[#a8a8a8]">
           {isOwner
-            ? "You have no upcoming events"
+            ? "You have no upcoming events. Why not create one?"
             : `${creatorName} has no upcoming events`}
         </p>
         {isOwner && (
