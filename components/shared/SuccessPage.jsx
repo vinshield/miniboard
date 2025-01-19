@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/clerk-react";
 import EventCard from "@/components/shared/EventCard";
 import { formatDateTimeForSharing } from "@/lib/utils";
@@ -9,7 +10,9 @@ import { default as WhatsappIcon } from "@/public/assets/icons/whatsapp.svg";
 import { Copy, Check, CalendarCheck2 } from "lucide-react";
 
 export const SuccessPage = ({ event, type }) => {
+  const router = useRouter();
   const { user } = useUser();
+  const username = user?.username;
   const [copied, setCopied] = useState(false);
   const { title, startDateTime, endDateTime, location, allDay, publicId } =
     event;
@@ -78,6 +81,15 @@ export const SuccessPage = ({ event, type }) => {
             <p className="text-sm">Whatsapp</p>
           </Button>
         </div>
+      </div>
+      <div className="container">
+        <Button
+          onClick={() => router.push(`/${username}`)}
+          variant="test"
+          className="ml-auto mt-12 flex w-2/5 gap-1 border shadow-md active:opacity-50"
+        >
+          Done
+        </Button>
       </div>
     </div>
   );

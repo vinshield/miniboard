@@ -7,13 +7,16 @@ Create individual event UI (1 day)
 Create for events ✅
 Delete for events
 Update for events.
-Finish share button 
+Finish share button ✅
 Add to calendar feature
 Create individual creator pages ✅
-Add back to your miniboard button on event creation success page
+Add back to your miniboard button on event creation success page ✅
 Error states for uploading events ✅
 Error states for openai ✅
 Create Footer
+Create logo 
+Create layout for home page
+Create layout for individual events
 
 Create new mongoDB database for miniboard
 
