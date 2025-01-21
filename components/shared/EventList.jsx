@@ -7,7 +7,7 @@ import { useUser as clerkUser } from "@clerk/clerk-react";
 import EventCard from "./EventCard";
 import { CalendarPlus } from "lucide-react";
 
-const EventList = ({ organizersEvents, creatorId }) => {
+const EventList = ({ organizersEvents, creator }) => {
   const router = useRouter();
   const UserContext = createContext();
 
@@ -16,7 +16,7 @@ const EventList = ({ organizersEvents, creatorId }) => {
   const UserProvider = ({ children }) => {
     const { user } = clerkUser();
 
-    if (user?.publicMetadata.userId === creatorId) {
+    if (user?.publicMetadata.userId === creator.publicMetadata.userId) {
       setIsOwner(true);
     }
 
@@ -52,7 +52,12 @@ const EventList = ({ organizersEvents, creatorId }) => {
           </div>
         )}
         {organizersEvents.map((event) => (
-          <EventCard key={event._id} event={event} />
+          <EventCard
+            key={event._id}
+            isOwner={isOwner}
+            event={event}
+            creator={creator}
+          />
         ))}
       </div>
     </UserProvider>

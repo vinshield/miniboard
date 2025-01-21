@@ -73,7 +73,14 @@ export default function WantToGo({ event }) {
                   className="absolute left-4 top-4 text-zinc-900 dark:text-zinc-100"
                   onClick={closeMenu}
                 />
-                <AddToCalendar eventData={event} />
+                <div className="p-3">
+                  <h3
+                    className={`leading-12 text-center text-lg font-bold tracking-tighter sm:text-xl ${!event || event.numOfSaves < 4 ? "mb-6" : ""}`}
+                  >
+                    Add to your calendar
+                  </h3>
+                  <AddToCalendar eventData={event} size={3} />
+                </div>
               </motion.div>
             </div>
           )}

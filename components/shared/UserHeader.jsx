@@ -13,7 +13,6 @@ import Link from "next/link";
 //Get events from userId
 
 const UserHeader = ({ user }) => {
-  // const { user: loggedInUser } = useUser();
   return (
     <div className="container mt-2 flex flex-col items-start space-y-5">
       <div className="flex flex-row items-center gap-3">
