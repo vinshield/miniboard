@@ -6,7 +6,7 @@ import EventForm from "@/components/shared/EventForm";
 import { CalendarPlus } from "lucide-react";
 import SuccessPage from "@/components/shared/SuccessPage";
 
-const UpdateEvent = () => {
+const UpdateEvent = ({ params }) => {
   const testEvent = {
     title: "Ball Up 4.0 After Party",
     description:
@@ -28,10 +28,18 @@ const UpdateEvent = () => {
   const [event, setEvent] = useState(null);
 
   useEffect(() => {
-    if (router.query.event) {
-      setEvent(JSON.parse(router.query.event));
-    }
-  }, []);
+    const getEvent = async () => {
+      try {
+        const eventData = await getEventByPublicId(params.id);
+        console.log(eventData);
+
+        setEvent(eventData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getEvent();
+  }, [params.id]);
 
   const showSuccessMessage = (event) => {
     setEvent(event);
@@ -44,11 +52,15 @@ const UpdateEvent = () => {
           <div className="container flex items-center justify-center">
             <CalendarPlus size={40} className="mr-1 text-gray-400" />
             <h1 className="my-12 text-3xl font-semibold text-gray-400">
-              Create
+              Update
             </h1>
           </div>
 
-          <EventForm type="update" onSuccess={showSuccessMessage} />
+          <EventForm
+            type="update"
+            event={event}
+            onSuccess={showSuccessMessage}
+          />
         </div>
       )}
       {status === "success" && (

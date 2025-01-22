@@ -32,31 +32,33 @@ const UserHeader = ({ user }) => {
       <p className="text-sm leading-5 text-gray-500">
         {user?.publicMetadata?.bio}
       </p>
-      <div>
-        {socialHandles.map((handle) => {
-          if (user?.publicMetadata?.socialHandles?.[handle.name]) {
-            let profileUrl;
+      {socialHandles && (
+        <div>
+          {socialHandles.map((handle) => {
+            if (user?.publicMetadata?.socialHandles?.[handle.name]) {
+              let profileUrl;
 
-            switch (handle.name) {
-              case "tiktok":
-                profileUrl = `https://www.tiktok.com/@${user.publicMetadata?.socialHandles?.[handle.name]}`;
-                break;
-              case "snapchat":
-                profileUrl = `https://www.snapchat.com/add/${user.publicMetadata?.socialHandles?.[handle.name]}`;
-                break;
-              default:
-                profileUrl = `https://www.${handle.name}.com/${user.publicMetadata?.socialHandles?.[handle.name]}`;
-                break;
+              switch (handle.name) {
+                case "tiktok":
+                  profileUrl = `https://www.tiktok.com/@${user.publicMetadata?.socialHandles?.[handle.name]}`;
+                  break;
+                case "snapchat":
+                  profileUrl = `https://www.snapchat.com/add/${user.publicMetadata?.socialHandles?.[handle.name]}`;
+                  break;
+                default:
+                  profileUrl = `https://www.${handle.name}.com/${user.publicMetadata?.socialHandles?.[handle.name]}`;
+                  break;
+              }
+
+              return (
+                <Link href={profileUrl} target="_blank" key={handle.name}>
+                  <i className={`ci ci-${handle.name} mr-3`}></i>
+                </Link>
+              );
             }
-
-            return (
-              <Link href={profileUrl} target="_blank" key={handle.name}>
-                <i className={`ci ci-${handle.name} mr-3`}></i>
-              </Link>
-            );
-          }
-        })}
-      </div>
+          })}
+        </div>
+      )}
       {/* <div class="h-px w-full bg-gray-200 shadow-sm"></div> */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent shadow-sm"></div>
       {/* <div class="relative w-full">

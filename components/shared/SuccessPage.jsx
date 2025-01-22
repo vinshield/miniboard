@@ -16,7 +16,7 @@ export const SuccessPage = ({ event, type }) => {
       <h2 className="container my-12 flex items-center gap-2 text-3xl font-semibold text-slate-500">
         Event {`${type}`}d successfully!
       </h2>
-      <EventCard event={event} />
+      <EventCard event={event} creator={user} />
       <ReusableShare />
     </div>
   );

@@ -1,6 +1,5 @@
 "use client";
-import React, { useRef } from "react";
-import { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -36,12 +35,24 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import AddToCalendar from "./AddToCalendar";
 import ReusableShare from "./ReusableShare";
 import { Button } from "../ui/button";
+import { getUserById } from "@/lib/actions/user.actions";
 
-const EventCard = ({ event, creator, isOwner }) => {
+const EventCard = ({ event, isOwner }) => {
+  const [creator, setCreator] = useState(null);
   const router = useRouter();
 
+  const { organizer } = event;
+
   const { user } = useUser();
-  const wantToGoRef = useRef();
+
+  useEffect(() => {
+    const getCreator = async () => {
+      const creatorDetails = getUserById(organizer);
+      setCreator(creatorDetails);
+    };
+
+    getCreator();
+  }, [organizer]);
 
   const handleShare = () => {
     if (navigator.share) {
@@ -121,18 +132,15 @@ const EventCard = ({ event, creator, isOwner }) => {
                 delete
               </button>
             </div>
-
-            <Link href={`/e/${event.publicId}`}>
-              <div className="h-40 w-24">
-                <MorphingDialogImage
-                  src={event.imageUrl}
-                  alt={event.title}
-                  width={100}
-                  height={100}
-                  className="h-40 w-24 rounded-lg bg-gray-800 object-cover"
-                />
-              </div>{" "}
-            </Link>
+            <div className="h-40 w-24">
+              <MorphingDialogImage
+                src={event.imageUrl}
+                alt={event.title}
+                width={100}
+                height={100}
+                className="h-40 w-24 rounded-lg bg-gray-800 object-cover"
+              />
+            </div>{" "}
           </div>
         </div>
       </div>
@@ -144,7 +152,7 @@ const EventCard = ({ event, creator, isOwner }) => {
           className="relative h-auto w-[500px] border border-gray-100 bg-white"
         >
           <ScrollArea className="h-[90vh]" type="scroll">
-            <div className="relative p-6">
+            <div className="relative p-6 pb-10">
               <div className="flex justify-center py-10">
                 <MorphingDialogImage
                   className="h-auto w-[200px] rounded-lg"
@@ -161,18 +169,20 @@ const EventCard = ({ event, creator, isOwner }) => {
                     <MorphingDialogTitle className="text-2xl font-bold">
                       {event.title}
                     </MorphingDialogTitle>
-                    <MorphingDialogSubtitle className="my-2 flex gap-1 font-light text-gray-600">
-                      <div className="relative h-6 w-6">
-                        <Image
-                          src={creator.imageUrl}
-                          alt={creator.publicMetadata?.displayName}
-                          className="rounded-sm"
-                          layout="fill"
-                          objectFit="cover"
-                        />
-                      </div>
-                      {creator.publicMetadata.displayName}
-                    </MorphingDialogSubtitle>
+                    {/* {creator && (
+                      <MorphingDialogSubtitle className="my-2 flex gap-1 font-light text-gray-600">
+                        <div className="relative h-6 w-6">
+                          <Image
+                            src={creator.imageUrl}
+                            alt={creator.publicMetadata?.displayName}
+                            className="rounded-sm"
+                            layout="fill"
+                            objectFit="cover"
+                          />
+                        </div>
+                        {creator.publicMetadata.displayName}
+                      </MorphingDialogSubtitle>
+                    )} */}
                   </div>
                   <div className="flex flex-col gap-1">
                     <div className="flex gap-2">
@@ -222,8 +232,8 @@ const EventCard = ({ event, creator, isOwner }) => {
                         Add to your calendar
                       </h3>
                       <p className="text-xs text-gray-500">
-                        We&apos;ll send you a reminder 30 mins before the event
-                        starts
+                        We&apos;ll send you a reminder 30 minutes before the
+                        event starts.
                       </p>
                     </div>
                     <AddToCalendar eventData={event} size={2} />
@@ -233,7 +243,7 @@ const EventCard = ({ event, creator, isOwner }) => {
                       <strong className="text-gray-600">
                         {event.numOfSaves}
                       </strong>{" "}
-                      people have set a reminder for this event
+                      people have set a reminder for this event.
                     </p>
                   )}
                   <div className="w-full bg-slate-50">
@@ -243,11 +253,7 @@ const EventCard = ({ event, creator, isOwner }) => {
                   </div>
                   {isOwner && (
                     <Button
-                      onClick={() =>
-                        router.push(
-                          `/e/${event.publicId}/update/event?${JSON.stringify(event)}`,
-                        )
-                      }
+                      onClick={() => router.push(`/e/${event.publicId}/update`)}
                       className="my-4 w-full rounded-lg text-sm"
                     >
                       <PencilLine className="mr-1" />

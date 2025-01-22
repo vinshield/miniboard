@@ -5,26 +5,10 @@ import EventForm from "@/components/shared/EventForm";
 
 import { CalendarPlus } from "lucide-react";
 import SuccessPage from "@/components/shared/SuccessPage";
+
 import { getEventByPublicId } from "@/lib/actions/event.actions";
 
-const UpdateEvent = ({ params: { id } }) => {
-  const [status, setStatus] = useState("begin");
-  const [event, setEvent] = useState(null);
-
-  useEffect(() => {
-    const getEvent = async () => {
-      const fetchedEvent = await getEventByPublicId(id);
-      setEvent(fetchedEvent);
-    };
-
-    getEvent();
-  }, []);
-
-  const showSuccessMessage = (event) => {
-    setEvent(event);
-    setStatus("success");
-  };
-
+const UpdateEvent = ({ params }) => {
   const testEvent = {
     title: "Ball Up 4.0 After Party",
     description:
@@ -42,7 +26,25 @@ const UpdateEvent = ({ params: { id } }) => {
     createdAt: "2025-01-15T18:32:49.228Z",
     __v: 0,
   };
+  const [status, setStatus] = useState("begin");
+  const [event, setEvent] = useState(null);
 
+  useEffect(() => {
+    const getEvent = async () => {
+      try {
+        const eventData = await getEventByPublicId(params.id);
+        setEvent(eventData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getEvent();
+  }, [params.id]);
+
+  const showSuccessMessage = (event) => {
+    setEvent(event);
+    setStatus("success");
+  };
   return (
     <>
       {status === "begin" && (
@@ -52,11 +54,13 @@ const UpdateEvent = ({ params: { id } }) => {
             <h1 className="my-12 text-3xl font-semibold text-gray-400">Edit</h1>
           </div>
 
-          <EventForm
-            type="update"
-            onSuccess={showSuccessMessage}
-            eventId={event._id}
-          />
+          {event && (
+            <EventForm
+              type="update"
+              event={event}
+              onSuccess={showSuccessMessage}
+            />
+          )}
         </div>
       )}
       {status === "success" && (

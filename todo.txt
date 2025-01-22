@@ -17,6 +17,7 @@ Create Footer
 Create logo 
 Create layout page for home page
 Create layout page for individual events
+Update webhooks
 
 Create new mongoDB database for miniboard
 

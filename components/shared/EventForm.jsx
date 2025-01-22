@@ -45,7 +45,7 @@ import { useUploadThing } from "@/lib/uploadthing";
 // Create form validation flow on front
 // Save posts
 
-export default function EventForm({ type, event, eventId, onSuccess }) {
+export default function EventForm({ type, event, onSuccess }) {
   const [files, setFiles] = useState([]);
   const [openAIError, setOpenAIError] = useState(false);
   const [extractedDetails, setExtractedDetails] = useState(null);
@@ -56,6 +56,8 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
   const [error, setError] = useState(false);
   const [gettingPosterInfo, setGettingPosterInfo] = useState(false);
 
+  const eventId = event?._id;
+
   const router = useRouter();
   const { user } = useUser();
 
@@ -63,13 +65,17 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
     username = user?.username;
 
   let initialValues =
-    event && type === "Update"
+    event && type === "update"
       ? {
           ...event,
           startDateTime: new Date(event.startDateTime),
           endDateTime: new Date(event.endDateTime),
         }
       : eventDefaultValues;
+
+  useEffect(() => {
+    if (type === "update") displayForm();
+  }, [type, event]);
 
   const { startUpload } = useUploadThing("imageUploader");
 
@@ -88,6 +94,7 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
+    console.log("working");
     let uploadedImageUrl = values.imageUrl;
 
     if (files.length > 0) {
@@ -123,9 +130,8 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
         setError(true);
         console.log(error);
       }
-    }
-
-    if (type === "update") {
+    } else if (type === "update") {
+      console.log(eventId);
       if (!eventId) {
         router.back();
         return;
@@ -134,15 +140,24 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
         const updatedEvent = await updateEvent({
           userId,
           event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
-          path: `/e/${event.publicId}`,
         });
         if (updatedEvent) {
           onSuccess(updatedEvent);
         }
       } catch (error) {
+        setError(true);
         console.log(error);
       }
     }
+  };
+
+  const displayForm = () => {
+    setShowForm(true);
+
+    const formText = document.getElementById("form-text");
+
+    formText.classList.remove("h-0", "hidden", "opacity-0");
+    formText.classList.add("h-full", "opacity-100");
   };
 
   const showFormAndScroll = () => {
@@ -186,8 +201,6 @@ export default function EventForm({ type, event, eventId, onSuccess }) {
   };
 
   useEffect(() => {
-    console.log(extractedDetails);
-
     // Put the details extracted from the poster into the input fields
     if (extractedDetails && !extractedDetails?.success) {
       showFormAndScroll();
