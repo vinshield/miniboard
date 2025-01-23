@@ -16,20 +16,21 @@ export const headerLinks = [
 export const eventDefaultValues = {
   title: "",
   description: "",
-  caption: "",
+  // caption: "",
   location: "",
   imageUrl: "",
   startDateTime: new Date(),
   endDateTime: "",
-  categoryId: "",
-  price: "",
-  isFree: false,
-  url: "",
+  // categoryId: "",
+  // price: "",
+  // isFree: false,
+  // url: "",
   isAllDay: false,
   isOnline: false,
 };
 
 export const unavailableUsernames = [
+  "ogunlela",
   "signin",
   "signup",
   "jesse",

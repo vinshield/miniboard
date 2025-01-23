@@ -6,7 +6,11 @@ import { createRoot } from "react-dom/client";
 import { useRouter } from "next/navigation";
 
 import { formatDateFromJSDate, formatDateTime } from "@/lib/utils";
-import { createEvent, updateEvent } from "@/lib/actions/event.actions";
+import {
+  createEvent,
+  deleteEvent,
+  updateEvent,
+} from "@/lib/actions/event.actions";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -37,8 +41,17 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { eventFormSchema } from "@/lib/validator";
 import { text } from "body-parser";
-import { LoaderCircle } from "lucide-react";
+import { CalendarMinus, LoaderCircle } from "lucide-react";
 import { useUploadThing } from "@/lib/uploadthing";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 
 // TO-DO:
 // Create caption
@@ -55,6 +68,7 @@ export default function EventForm({ type, event, onSuccess }) {
   const [endDateTimeProvided, setEndDateTimeProvided] = useState();
   const [error, setError] = useState(false);
   const [gettingPosterInfo, setGettingPosterInfo] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const eventId = event?._id;
 
@@ -65,7 +79,7 @@ export default function EventForm({ type, event, onSuccess }) {
     username = user?.username,
     clerkUserId = user?.id;
 
-  let initialValues =
+  const initialValues =
     event && type === "update"
       ? {
           ...event,
@@ -95,6 +109,7 @@ export default function EventForm({ type, event, onSuccess }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
+    console.log("here");
     console.log("values", values);
     let uploadedImageUrl = values.imageUrl;
 
@@ -144,6 +159,7 @@ export default function EventForm({ type, event, onSuccess }) {
         const updatedEvent = await updateEvent({
           userId,
           event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
+          path: `/${username}`,
         });
         if (updatedEvent) {
           onSuccess(updatedEvent);
@@ -534,6 +550,59 @@ export default function EventForm({ type, event, onSuccess }) {
           </div>
         </form>
       </Form>
+      {type === "update" && (
+        <div className="mt-20">
+          <p className="-mb-3 line-clamp-3 font-semibold leading-snug text-gray-800">
+            Danger zone
+          </p>
+          <div class="relative my-4 w-full">
+            <hr class="border-t border-gray-300" />
+            <div class="absolute inset-x-0 -bottom-1 h-2 bg-gradient-to-b from-gray-300 to-transparent opacity-50 blur-sm"></div>
+          </div>{" "}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button type="button" variant="" className="w-3/5 bg-[#282222]">
+                Delete Event
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogDescription>
+                  This action cannot be undone. Are you sure you want to
+                  permanently delete this event?
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button
+                  type="button"
+                  onClick={async () => {
+                    setIsDeleting(true);
+                    await deleteEvent({
+                      eventId: event._id,
+                      path: `/${username}`,
+                    });
+                    router.push(`/${username}`);
+                  }}
+                  className="flex-center mx-auto flex w-3/5 gap-2 bg-[#282222]"
+                >
+                  {isDeleting ? (
+                    <>
+                      <LoaderCircle size={22} className="animate-spin" />{" "}
+                      Deleting...{" "}
+                    </>
+                  ) : (
+                    <>
+                      <CalendarMinus size={22} className="-rotate-2" />
+                      Delete
+                    </>
+                  )}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+      )}
     </div>
   );
 }

@@ -31,7 +31,7 @@ const Page = async ({ params }) => {
   return (
     <div>
       <UserHeader user={creatorInfo} />
-      <MorphingDialogBasicTwo />
+      {/* <MorphingDialogBasicTwo /> */}
       {organizersEvents.length > 0 ? (
         <EventList organizersEvents={organizersEvents} creator={creatorInfo} />
       ) : (

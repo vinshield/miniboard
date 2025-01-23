@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/clerk-react";
 import EventCard from "@/components/shared/EventCard";
 import ReusableShare from "./ReusableShare";
+import { Button } from "../ui/button";
 
 export const SuccessPage = ({ event, type }) => {
   const router = useRouter();
@@ -17,7 +18,18 @@ export const SuccessPage = ({ event, type }) => {
         Event {`${type}`}d successfully!
       </h2>
       <EventCard event={event} creator={user} />
-      <ReusableShare event={event} />
+      <div className="container">
+        <ReusableShare event={event} />
+      </div>
+      <div className="container mt-8 text-right">
+        <Button
+          onClick={() => router.push(`/${username}`)}
+          variant="test"
+          className="w-2/5"
+        >
+          Done
+        </Button>
+      </div>
     </div>
   );
 };
