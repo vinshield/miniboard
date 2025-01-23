@@ -16,7 +16,7 @@ const Page = async ({ params }) => {
   const loggedInUserId = sessionClaims?.mongoDbId;
 
   let creatorInfo = await getUserByUserNameForClient(username);
-  const creatorId = creatorInfo.publicMetadata.userId;
+  const creatorId = creatorInfo.publicMetadata.userMongoDbId;
   const creatorName = creatorInfo.publicMetadata.displayName;
 
   const isOwner = loggedInUserId === creatorId;

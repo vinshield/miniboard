@@ -17,7 +17,7 @@ export const SuccessPage = ({ event, type }) => {
         Event {`${type}`}d successfully!
       </h2>
       <EventCard event={event} creator={user} />
-      <ReusableShare />
+      <ReusableShare event={event} />
     </div>
   );
 };

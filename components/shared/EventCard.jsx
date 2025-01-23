@@ -36,23 +36,24 @@ import AddToCalendar from "./AddToCalendar";
 import ReusableShare from "./ReusableShare";
 import { Button } from "../ui/button";
 import { getUserById } from "@/lib/actions/user.actions";
+import { getUserByClerkId } from "@/lib/actions/clerk.actions";
 
 const EventCard = ({ event, isOwner }) => {
   const [creator, setCreator] = useState(null);
   const router = useRouter();
 
-  const { organizer } = event;
+  const { organizerClerkId } = event;
 
   const { user } = useUser();
 
   useEffect(() => {
     const getCreator = async () => {
-      const creatorDetails = getUserById(organizer);
+      const creatorDetails = await getUserByClerkId(organizerClerkId);
       setCreator(creatorDetails);
     };
 
     getCreator();
-  }, [organizer]);
+  }, [organizerClerkId]);
 
   const handleShare = () => {
     if (navigator.share) {
@@ -169,20 +170,20 @@ const EventCard = ({ event, isOwner }) => {
                     <MorphingDialogTitle className="text-2xl font-bold">
                       {event.title}
                     </MorphingDialogTitle>
-                    {/* {creator && (
+                    {creator && (
                       <MorphingDialogSubtitle className="my-2 flex gap-1 font-light text-gray-600">
                         <div className="relative h-6 w-6">
                           <Image
-                            src={creator.imageUrl}
-                            alt={creator.publicMetadata?.displayName}
+                            src={creator?.imageUrl}
+                            alt={creator?.publicMetadata?.displayName}
                             className="rounded-sm"
                             layout="fill"
                             objectFit="cover"
                           />
                         </div>
-                        {creator.publicMetadata.displayName}
+                        {creator?.publicMetadata?.displayName}
                       </MorphingDialogSubtitle>
-                    )} */}
+                    )}
                   </div>
                   <div className="flex flex-col gap-1">
                     <div className="flex gap-2">

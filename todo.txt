@@ -17,7 +17,8 @@ Create Footer
 Create logo 
 Create layout page for home page
 Create layout page for individual events
-Update webhooks
+Update webhooks ✅
+Clean up order deletion when user is deleted
 
 Create new mongoDB database for miniboard
 

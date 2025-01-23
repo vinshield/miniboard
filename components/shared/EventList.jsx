@@ -16,7 +16,10 @@ const EventList = ({ organizersEvents, creator }) => {
   const UserProvider = ({ children }) => {
     const { user } = clerkUser();
 
-    if (user?.publicMetadata.userId === creator.publicMetadata.userId) {
+    if (
+      user?.publicMetadata.mongoDbUserId ===
+      creator.publicMetadata.mongoDbUserId
+    ) {
       setIsOwner(true);
     }
 

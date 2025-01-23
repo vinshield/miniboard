@@ -69,7 +69,7 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
       <ArrowLeft className="mb-20" onClick={changeUsername} />
       {username && (
         <p className="mb-2 text-sm text-grey-500">
-          Great! <span className="text-primary">{username}.miniboard.site</span>{" "}
+          Great! <span className="text-primary">miniboard.site/{username}</span>{" "}
           is yours
         </p>
       )}

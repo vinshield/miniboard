@@ -65,8 +65,6 @@ export default function EventForm({ type, event, onSuccess }) {
     username = user?.username,
     clerkUserId = user?.id;
 
-  console.log("userId", userId);
-
   let initialValues =
     event && type === "update"
       ? {
@@ -97,7 +95,7 @@ export default function EventForm({ type, event, onSuccess }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
-    console.log("working");
+    console.log("values", values);
     let uploadedImageUrl = values.imageUrl;
 
     if (files.length > 0) {
@@ -134,8 +132,10 @@ export default function EventForm({ type, event, onSuccess }) {
         setError(true);
         console.log(error);
       }
-    } else if (type === "update") {
-      console.log(eventId);
+    }
+
+    if (type === "update") {
+      console.log("updating...");
       if (!eventId) {
         router.back();
         return;
@@ -508,6 +508,7 @@ export default function EventForm({ type, event, onSuccess }) {
               type="submit"
               variant="test"
               className="h-16 w-full capitalize"
+              disabled={isSubmitting}
             >
               {isSubmitting ? (
                 <LoaderCircle className="mr-2 h-6 w-6 animate-spin" />
@@ -516,18 +517,20 @@ export default function EventForm({ type, event, onSuccess }) {
               )}
             </Button>
 
-            <Button
-              type="button"
-              variant="ghost"
-              size="lg"
-              onClick={() => {
-                setOpenAIError(false);
-                resetForm();
-              }}
-              className="w-full"
-            >
-              Start over 🔃
-            </Button>
+            {!(type === "update") && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="lg"
+                onClick={() => {
+                  setOpenAIError(false);
+                  resetForm();
+                }}
+                className="w-full"
+              >
+                Start over 🔃
+              </Button>
+            )}
           </div>
         </form>
       </Form>
