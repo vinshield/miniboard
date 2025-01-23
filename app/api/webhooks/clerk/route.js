@@ -91,7 +91,7 @@ export async function POST(req) {
     if (newUser) {
       await clerk.users.updateUserMetadata(id, {
         publicMetadata: {
-          userId: newUser._id,
+          userMongoDbId: newUser._id,
         },
       });
     }
@@ -119,15 +119,15 @@ export async function POST(req) {
     return NextResponse.json({ message: "OK", user: updatedUser });
   }
 
-  // if (eventType === "user.deleted") {
-  //   const { id } = evt.data;
+  if (eventType === "user.deleted") {
+    const { id } = evt.data;
 
-  //   const deletedUser = await deleteUser(id);
+    const deletedUser = await deleteUser(id);
 
-  //   return NextResponse.json({ message: "OK", user: deletedUser });
-  // }
+    return NextResponse.json({ message: "OK", user: deletedUser });
+  }
 
-  // return Response.json({ message: "Received" });
+  return Response.json({ message: "Received" });
   return new Response("", { status: 200 });
 }
 

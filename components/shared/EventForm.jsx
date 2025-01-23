@@ -61,8 +61,11 @@ export default function EventForm({ type, event, onSuccess }) {
   const router = useRouter();
   const { user } = useUser();
 
-  const userId = user?.publicMetadata?.userId,
-    username = user?.username;
+  const userId = user?.publicMetadata?.userMongoDbId,
+    username = user?.username,
+    clerkUserId = user?.id;
+
+  console.log("userId", userId);
 
   let initialValues =
     event && type === "update"
@@ -120,6 +123,7 @@ export default function EventForm({ type, event, onSuccess }) {
         const newEvent = await createEvent({
           event: { ...values, imageUrl: uploadedImageUrl },
           userId,
+
           path: `/${username}`,
         });
 
