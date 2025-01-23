@@ -552,7 +552,7 @@ export default function EventForm({ type, event, onSuccess }) {
       </Form>
       {type === "update" && (
         <div className="mt-20">
-          <p className="-mb-3 line-clamp-3 font-semibold leading-snug text-gray-800">
+          <p className="line-clamp-3 text-sm font-semibold leading-snug text-gray-800">
             Danger zone
           </p>
           <div class="relative my-4 w-full">
@@ -580,6 +580,8 @@ export default function EventForm({ type, event, onSuccess }) {
                     setIsDeleting(true);
                     await deleteEvent({
                       eventId: event._id,
+                      organizer: event.organizer,
+                      userId,
                       path: `/${username}`,
                     });
                     router.push(`/${username}`);

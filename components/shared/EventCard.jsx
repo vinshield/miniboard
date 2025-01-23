@@ -121,17 +121,6 @@ const EventCard = ({ event, isOwner }) => {
 
                 <WantToGo event={event} />
               </div>
-
-              <button
-                onClick={() =>
-                  deleteEvent({
-                    eventId: event._id,
-                    path: `/${event.publicId}`,
-                  })
-                }
-              >
-                delete
-              </button>
             </div>
             <div className="h-40 w-24">
               <MorphingDialogImage
