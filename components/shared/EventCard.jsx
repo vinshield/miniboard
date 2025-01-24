@@ -85,7 +85,7 @@ const EventCard = ({ event, isOwner }) => {
       }}
     >
       <div className="container relative">
-        <div className="mx-auto my-6 overflow-hidden rounded-lg border border-gray-100 bg-[#fdfdfd] shadow-md">
+        <div className="mx-auto my-6 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
           <div className="relative flex gap-2 p-4">
             <div className="flex-1 overflow-hidden">
               <MorphingDialogTrigger>
