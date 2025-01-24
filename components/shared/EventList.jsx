@@ -3,23 +3,18 @@ import React, { createContext, useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 
 import { useUser as clerkUser } from "@clerk/clerk-react";
-
 import EventCard from "./EventCard";
 import { CalendarPlus } from "lucide-react";
 
 const EventList = ({ organizersEvents, creator }) => {
   const router = useRouter();
   const UserContext = createContext();
+  const { user } = clerkUser();
 
   const [isOwner, setIsOwner] = useState();
 
   const UserProvider = ({ children }) => {
-    const { user } = clerkUser();
-
-    if (
-      user?.publicMetadata.mongoDbUserId ===
-      creator.publicMetadata.mongoDbUserId
-    ) {
+    if (user?.id === creator.id) {
       setIsOwner(true);
     }
 

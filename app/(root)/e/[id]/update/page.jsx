@@ -31,7 +31,7 @@ const UpdateEvent = ({ params }) => {
   };
   const [status, setStatus] = useState("begin");
   const [event, setEvent] = useState(null);
-  const [isOwner, setIsOwner] = useState(true);
+  const [isOwner, setIsOwner] = useState(null);
   const { user } = useUser();
   const router = useRouter();
 
@@ -42,7 +42,7 @@ const UpdateEvent = ({ params }) => {
         setEvent(eventData);
         console.log(eventData.organizerClerkId, user.id);
         if (eventData.organizerClerkId === user.id) {
-          // setIsOwner(true);
+          setIsOwner(true);
         }
       } catch (err) {
         console.log(err);

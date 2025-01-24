@@ -128,7 +128,7 @@ const EventCard = ({ event, isOwner }) => {
                 alt={event.title}
                 width={100}
                 height={100}
-                className="h-40 w-24 rounded-lg bg-gray-800 object-cover"
+                className="aspect-square w-24 rounded-lg bg-gray-800 object-cover"
               />
             </div>{" "}
           </div>

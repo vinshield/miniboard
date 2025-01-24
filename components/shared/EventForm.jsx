@@ -109,8 +109,6 @@ export default function EventForm({ type, event, onSuccess }) {
 
   // 2. Define a submit handler.
   const onSubmit = async (values) => {
-    console.log("here");
-    console.log("values", values);
     let uploadedImageUrl = values.imageUrl;
 
     if (files.length > 0) {
