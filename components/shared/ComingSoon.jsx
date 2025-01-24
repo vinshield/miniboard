@@ -3,10 +3,10 @@ import React from "react";
 import { Hammer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const ComingSoon = ({ isOwner, creatorName }) => {
+const ComingSoon = () => {
   return (
-    <div className="flex-center h-[50vh]">
-      <div className="flex-center container flex-col">
+    <div className="flex-center">
+      <div className="flex-center container my-20 flex-col">
         <Hammer
           strokeWidth={1.5}
           absoluteStrokeWidth={true}
