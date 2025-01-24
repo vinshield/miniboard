@@ -93,7 +93,7 @@ const EventCard = ({ event, isOwner }) => {
                   {formatDateTime(event.startDateTime).dateOnly} |{" "}
                   {formatDateTime(event.startDateTime).timeOnly}
                 </p>
-                <h2 className="mb-1 line-clamp-3 text-xl font-semibold leading-snug text-gray-800">
+                <h2 className="mb-1 line-clamp-3 text-lg font-semibold leading-snug text-gray-800">
                   {event.title}
                 </h2>
                 <div className="mb-8 flex items-center">
