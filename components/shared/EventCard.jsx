@@ -89,7 +89,7 @@ const EventCard = ({ event, isOwner }) => {
           <div className="relative flex gap-2 p-4">
             <div className="flex-1 overflow-hidden">
               <MorphingDialogTrigger>
-                <p className="mb-2 text-sm uppercase text-gray-500">
+                <p className="mb-2 text-xs uppercase text-gray-500">
                   {formatDateTime(event.startDateTime).dateOnly} |{" "}
                   {formatDateTime(event.startDateTime).timeOnly}
                 </p>
@@ -111,18 +111,18 @@ const EventCard = ({ event, isOwner }) => {
                   </p>
                 </div>
               </MorphingDialogTrigger>
-              <div className="flex items-center pt-5">
+              <div className="flex items-center">
                 <div
-                  className="mr-2 flex items-center justify-center rounded-full bg-[#f5f5f5] p-3"
+                  className="mr-2 flex items-center justify-center rounded-lg bg-[#f5f5f5] p-2"
                   onClick={() => handleShare()}
                 >
-                  <Share2 className="h-4 w-4 text-gray-700" />
+                  <Share2 className="h-[14px] w-[14px] text-gray-700" />
                 </div>
 
                 <WantToGo event={event} />
               </div>
             </div>
-            <div className="h-40 w-24">
+            <div className="w-24">
               <MorphingDialogImage
                 src={event.imageUrl}
                 alt={event.title}

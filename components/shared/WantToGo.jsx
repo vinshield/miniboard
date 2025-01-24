@@ -53,8 +53,8 @@ export default function WantToGo({ event }) {
           onClick={openMenu}
         >
           <motion.span layoutId={`popover-label-${uniqueId}`}>
-            <div className="mr-2 flex items-center justify-center rounded-full bg-[#f5f5f5] p-3">
-              <CalendarCheck className="h-4 w-4 text-gray-700" />{" "}
+            <div className="mr-2 flex items-center justify-center rounded-lg bg-[#f5f5f5] p-2">
+              <CalendarCheck className="h-[14px] w-[14px] text-gray-700" />{" "}
               <span className="ml-1 text-xs">I want to go</span>
             </div>
           </motion.span>
@@ -75,11 +75,11 @@ export default function WantToGo({ event }) {
                 />
                 <div className="p-3">
                   <h3
-                    className={`leading-12 text-center text-lg font-bold tracking-tighter sm:text-xl ${!event || event.numOfSaves < 4 ? "mb-6" : ""}`}
+                    className={`text-center text-lg font-semibold tracking-tighter sm:text-xl ${!event || event.numOfSaves < 4 ? "mb-2" : ""}`}
                   >
                     Add to your calendar
                   </h3>
-                  <AddToCalendar eventData={event} size={3} />
+                  <AddToCalendar eventData={event} size={2} />
                 </div>
               </motion.div>
             </div>
