@@ -9,6 +9,8 @@ import { MorphingDialogBasicTwo } from "@/components/shared/MorphingDialogBasicT
 import EventList from "@/components/shared/EventList";
 import { TabsDemo } from "./TabsDemo";
 import NoEvents from "./NoEvents";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ComingSoon from "@/components/shared/ComingSoon";
 
 const Page = async ({ params }) => {
   const { username } = params;
@@ -31,12 +33,27 @@ const Page = async ({ params }) => {
   return (
     <div>
       <UserHeader user={creatorInfo} />
-      {/* <MorphingDialogBasicTwo /> */}
-      {organizersEvents.length > 0 ? (
-        <EventList organizersEvents={organizersEvents} creator={creatorInfo} />
-      ) : (
-        <NoEvents isOwner={isOwner} creatorName={creatorName} />
-      )}
+      <Tabs defaultValue="events">
+        <div className="container">
+          <TabsList className="grid grid-cols-2">
+            <TabsTrigger value="events">Events</TabsTrigger>
+            <TabsTrigger value="blogs">Blogs</TabsTrigger>
+          </TabsList>
+        </div>
+        <TabsContent value="events">
+          {organizersEvents.length > 0 ? (
+            <EventList
+              organizersEvents={organizersEvents}
+              creator={creatorInfo}
+            />
+          ) : (
+            <NoEvents isOwner={isOwner} creatorName={creatorName} />
+          )}
+        </TabsContent>
+        <TabsContent value="blogs">
+          <ComingSoon />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

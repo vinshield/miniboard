@@ -34,12 +34,12 @@ const EventList = ({ organizersEvents, creator }) => {
           Upcoming Events
         </h2> */}
 
-        <div className="container">
+        {/* <div className="container">
           <div className="flex overflow-hidden rounded-md border border-secondary text-center">
             <div className="w-1/2 rounded-md bg-primary text-white">Events</div>
             <div className="w-1/2 bg-white">Blogs</div>
           </div>
-        </div>
+        </div> */}
 
         {isOwner && (
           <div
