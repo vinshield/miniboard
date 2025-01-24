@@ -33,6 +33,13 @@ const Page = async ({ params }) => {
 
   return (
     <div>
+      {!sessionClaims && (
+        <div className="bg-primary p-4 text-center text-primary-foreground">
+          This is a demo account. You can sign in with username{" "}
+          <strong>"mini"</strong> and password <strong>"board"</strong> to view
+          the full functionality.
+        </div>
+      )}
       <UserHeader user={creatorInfo} />
       <Tabs defaultValue="events">
         <div className="container">

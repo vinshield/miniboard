@@ -9,15 +9,20 @@ const Footer = () => {
   const { user } = useUser();
   return (
     <div
-      className={`flex-center container mt-16 flex flex-col bg-slate-100 ${!user ? "pt-12" : ""} pb-12`}
+      className={`flex-center container mt-16 flex flex-col bg-slate-100 ${!user ? "pt-16" : "pt-2"} pb-12`}
     >
       {!user && (
         <Link href="/signup">
           <Button
-            variant="outline"
-            className="border border-sky-400 py-5 text-sm shadow-md"
+            variant="test"
+            className="border border-sky-400 text-sm shadow-md"
           >
-            <TextShimmer duration={2}>Create your miniboard</TextShimmer>
+            <TextShimmer
+              className="font-bold [--base-color:#fafafa] [--base-gradient-color:#38bdf8]"
+              duration={1.1}
+            >
+              Create your miniboard
+            </TextShimmer>
           </Button>
         </Link>
       )}
