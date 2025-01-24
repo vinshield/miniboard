@@ -93,27 +93,27 @@ const EventCard = ({ event, isOwner }) => {
                   {formatDateTime(event.startDateTime).dateOnly} |{" "}
                   {formatDateTime(event.startDateTime).timeOnly}
                 </p>
-                <h2 className="mb-1 line-clamp-3 text-lg font-semibold leading-snug text-gray-800">
+                <h2 className="mb-1 line-clamp-3 text-xl font-semibold leading-snug text-gray-800">
                   {event.title}
                 </h2>
-                <div className="mb-6 flex items-center">
+                <div className="mb-8 flex items-center">
                   {event.isOnline ? (
                     <div>
-                      <Video className="mr-1 text-gray-700" size={14} />{" "}
+                      <Video className="mr-1 text-gray-500" size={14} />{" "}
                     </div>
                   ) : (
                     <div>
-                      <MapPin className="mr-1 text-gray-700" size={14} />
+                      <MapPin className="mr-1 text-gray-500" size={14} />
                     </div>
                   )}
-                  <p className="line-clamp-1 overflow-ellipsis text-xs text-gray-600">
+                  <p className="line-clamp-1 overflow-ellipsis text-xs text-gray-500">
                     {event.isOnline ? "Online" : event.location}
                   </p>
                 </div>
               </MorphingDialogTrigger>
               <div className="flex items-center">
                 <div
-                  className="mr-2 flex items-center justify-center rounded-lg bg-[#f5f5f5] p-1 px-2"
+                  className="mr-2 flex items-center justify-center rounded-full bg-[#f5f5f5] p-2"
                   onClick={() => handleShare()}
                 >
                   <Share2 className="h-[14px] w-[14px] text-gray-700" />

@@ -53,7 +53,7 @@ export default function WantToGo({ event }) {
           onClick={openMenu}
         >
           <motion.span layoutId={`popover-label-${uniqueId}`}>
-            <div className="mr-2 flex items-center justify-center rounded-lg bg-[#f5f5f5] p-1 px-2">
+            <div className="mr-2 flex items-center justify-center rounded-full bg-[#f5f5f5] p-2">
               <CalendarCheck className="h-[14px] w-[14px] text-gray-700" />{" "}
               <span className="ml-1 text-xs">I want to go</span>
             </div>
