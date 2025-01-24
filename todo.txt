@@ -2,7 +2,6 @@ Link to clerk, create bio entry point (1 day) ✅
 Create card UI (1 day) ✅
 Create sign up and login page (1 day)  ✅
 Add login/sign up feature to home page (1 day) ✅
-Logic for loading events from database (1 day)
 Create individual event UI (1 day) ✅
 Create for events ✅
 Delete for events ✅
@@ -14,12 +13,13 @@ Add back to your miniboard button on event creation success page ✅
 Error states for uploading events ✅
 Error states for openai ✅
 Create Footer ✅
-Create logo 
-Create layout page for home page
-Create layout page for individual events
 Update webhooks ✅
 Clean up order deletion when user is deleted
 Route to /username after sign in and sign up
+Create logo 
+Create layout page for home page
+Create layout page for individual events
+Logic for loading events from database (1 day)
 
 Create new mongoDB database for miniboard
 
