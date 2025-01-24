@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
             href="https://cdn.jsdelivr.net/gh/dheereshagrwal/colored-icons@1.7.8/src/app/ci.min.css"
           />
         </head>
-        <body className={`bg-slate-50 ${inter.className} `}>
+        <body className={`bg-[#f4f5f6] ${inter.className} `}>
           <Header />
           <main className="relative min-h-screen pt-16">{children}</main>
 
