@@ -14,9 +14,9 @@ import Link from "next/link";
 
 const UserHeader = ({ user }) => {
   return (
-    <div className="container mt-2 flex flex-col items-start space-y-5">
-      <div className="flex flex-row items-center gap-3">
-        <div className="relative h-16 w-16 rounded-[100%] bg-[#333]">
+    <div className="container mt-2 flex flex-col items-start space-y-4">
+      <div className="flex flex-col gap-4">
+        <div className="relative h-24 w-24 rounded-[100%] bg-[#333]">
           <Image
             src={user?.imageUrl}
             alt={user?.publicMetadata?.displayName}
@@ -25,7 +25,7 @@ const UserHeader = ({ user }) => {
             objectFit="cover"
           />
         </div>
-        <h1 className="text-lg font-bold tracking-tight text-black">
+        <h1 className="text-2xl font-bold tracking-tight text-black">
           {user?.publicMetadata?.displayName}
         </h1>
       </div>

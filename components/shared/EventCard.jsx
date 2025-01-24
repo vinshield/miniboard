@@ -122,13 +122,13 @@ const EventCard = ({ event, isOwner }) => {
                 <WantToGo event={event} />
               </div>
             </div>
-            <div className="w-28">
+            <div className="w-24">
               <MorphingDialogImage
                 src={event.imageUrl}
                 alt={event.title}
                 width={100}
                 height={100}
-                className="aspect-square w-28 rounded-lg bg-gray-800 object-cover"
+                className="aspect-square w-24 rounded-lg bg-gray-800 object-cover"
               />
             </div>{" "}
           </div>
