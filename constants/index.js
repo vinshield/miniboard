@@ -30,6 +30,7 @@ export const eventDefaultValues = {
 };
 
 export const unavailableUsernames = [
+  "demo",
   "ogunlela",
   "signin",
   "signup",

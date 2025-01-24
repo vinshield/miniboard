@@ -11,6 +11,7 @@ import { TabsDemo } from "./TabsDemo";
 import NoEvents from "./NoEvents";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ComingSoon from "@/components/shared/ComingSoon";
+import Footer from "@/components/shared/Footer";
 
 const Page = async ({ params }) => {
   const { username } = params;
@@ -54,6 +55,7 @@ const Page = async ({ params }) => {
           <ComingSoon />
         </TabsContent>
       </Tabs>
+      <Footer />
     </div>
   );
 };
