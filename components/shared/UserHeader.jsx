@@ -16,7 +16,7 @@ const UserHeader = ({ user }) => {
   return (
     <div className="container my-5 flex flex-col items-start space-y-5">
       <div className="flex flex-col gap-5">
-        <div className="relative h-28 w-28 rounded-[100%] bg-[#333]">
+        <div className="relative h-24 w-24 rounded-[100%] bg-[#333]">
           <Image
             src={user?.imageUrl}
             alt={user?.publicMetadata?.displayName}
