@@ -8,12 +8,12 @@ Create for events ✅
 Delete for events ✅
 Update for events ✅
 Finish share button ✅
-Add to calendar feature
+Add to calendar feature ✅
 Create individual creator pages ✅
 Add back to your miniboard button on event creation success page ✅
 Error states for uploading events ✅
 Error states for openai ✅
-Create Footer
+Create Footer ✅
 Create logo 
 Create layout page for home page
 Create layout page for individual events
