@@ -89,11 +89,11 @@ const EventCard = ({ event, isOwner }) => {
           <div className="relative flex gap-2 p-4">
             <div className="flex-1 overflow-hidden">
               <MorphingDialogTrigger>
-                <p className="mb-2 text-xs uppercase text-gray-500">
+                <p className="mb-1 text-xs uppercase text-gray-500">
                   {formatDateTime(event.startDateTime).dateOnly} |{" "}
                   {formatDateTime(event.startDateTime).timeOnly}
                 </p>
-                <h2 className="mb-2 line-clamp-3 text-lg font-semibold leading-snug text-gray-800">
+                <h2 className="mb-1 line-clamp-3 text-lg font-semibold leading-snug text-gray-800">
                   {event.title}
                 </h2>
                 <div className="mb-6 flex items-center">
@@ -113,7 +113,7 @@ const EventCard = ({ event, isOwner }) => {
               </MorphingDialogTrigger>
               <div className="flex items-center">
                 <div
-                  className="mr-2 flex items-center justify-center rounded-lg bg-[#f5f5f5] p-2"
+                  className="mr-2 flex items-center justify-center rounded-lg bg-[#f5f5f5] p-1 px-2"
                   onClick={() => handleShare()}
                 >
                   <Share2 className="h-[14px] w-[14px] text-gray-700" />
