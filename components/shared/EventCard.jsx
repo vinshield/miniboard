@@ -93,17 +93,17 @@ const EventCard = ({ event, isOwner }) => {
                   {formatDateTime(event.startDateTime).dateOnly} |{" "}
                   {formatDateTime(event.startDateTime).timeOnly}
                 </p>
-                <h2 className="mb-2 line-clamp-3 font-semibold leading-snug text-gray-800">
+                <h2 className="mb-2 line-clamp-3 text-lg font-semibold leading-snug text-gray-800">
                   {event.title}
                 </h2>
                 <div className="mb-6 flex items-center">
                   {event.isOnline ? (
                     <div>
-                      <Video className="mr-1 text-gray-700" size={16} />{" "}
+                      <Video className="mr-1 text-gray-700" size={14} />{" "}
                     </div>
                   ) : (
                     <div>
-                      <MapPin className="mr-1 text-gray-700" size={16} />
+                      <MapPin className="mr-1 text-gray-700" size={14} />
                     </div>
                   )}
                   <p className="line-clamp-1 overflow-ellipsis text-xs text-gray-600">
