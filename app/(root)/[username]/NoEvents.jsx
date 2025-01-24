@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 
 const NoEvents = ({ isOwner, creatorName }) => {
   return (
-    <div className="flex-center h-[50vh]">
-      <div className="flex-center container flex-col">
+    <div className="flex-center">
+      <div className="flex-center container my-20 flex-col">
         <CalendarOff
           strokeWidth={1.5}
           absoluteStrokeWidth={true}
