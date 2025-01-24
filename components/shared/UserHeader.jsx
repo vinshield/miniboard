@@ -14,8 +14,8 @@ import Link from "next/link";
 
 const UserHeader = ({ user }) => {
   return (
-    <div className="container mt-2 flex flex-col items-start space-y-4">
-      <div className="flex flex-col gap-4">
+    <div className="container my-5 flex flex-col items-start space-y-5">
+      <div className="flex flex-col gap-5">
         <div className="relative h-24 w-24 rounded-[100%] bg-[#333]">
           <Image
             src={user?.imageUrl}
@@ -25,7 +25,7 @@ const UserHeader = ({ user }) => {
             objectFit="cover"
           />
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-black">
+        <h1 className="text-3xl font-bold tracking-tight text-black">
           {user?.publicMetadata?.displayName}
         </h1>
       </div>
@@ -60,7 +60,7 @@ const UserHeader = ({ user }) => {
         </div>
       )}
       {/* <div class="h-px w-full bg-gray-200 shadow-sm"></div> */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent shadow-sm"></div>
+      {/* <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent shadow-sm"></div> */}
       {/* <div class="relative w-full">
         <hr class="border-t border-gray-300" />
         <div class="absolute inset-x-0 -bottom-1 h-2 bg-gradient-to-b from-gray-300 to-transparent opacity-50 blur-sm"></div>

@@ -13,7 +13,7 @@ const ComingSoon = ({ isOwner, creatorName }) => {
           className="text size-2/5 text-[#a8a8a8]"
         />
         <p className="mt-2 text-base font-semibold text-[#6b7280]">
-          Coming soon{" "}
+          Coming soon ✨{" "}
         </p>
         <p className="mt-2 px-4 text-center text-sm text-[#a8a8a8]">
           This feature is in development
