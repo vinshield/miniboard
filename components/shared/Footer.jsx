@@ -19,7 +19,7 @@ const Footer = () => {
           >
             <TextShimmer
               className="font-bold [--base-color:#fafafa] [--base-gradient-color:#38bdf8]"
-              duration={1.1}
+              duration={1.3}
             >
               Create your miniboard
             </TextShimmer>
