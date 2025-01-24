@@ -89,11 +89,11 @@ const EventCard = ({ event, isOwner }) => {
           <div className="relative flex gap-2 p-4">
             <div className="flex-1 overflow-hidden">
               <MorphingDialogTrigger>
-                <p className="mb-1 text-xs uppercase text-gray-500">
+                <p className="mb-2 text-xs uppercase text-gray-500">
                   {formatDateTime(event.startDateTime).dateOnly} |{" "}
                   {formatDateTime(event.startDateTime).timeOnly}
                 </p>
-                <h2 className="mb-1 line-clamp-3 text-lg font-semibold leading-snug text-gray-800">
+                <h2 className="mb-2 line-clamp-3 text-lg font-semibold leading-snug text-gray-800">
                   {event.title}
                 </h2>
                 <div className="mb-8 flex items-center">
