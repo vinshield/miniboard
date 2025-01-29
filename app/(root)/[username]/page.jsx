@@ -30,42 +30,6 @@ const Page = async ({ params }) => {
 
   return (
     <div>
-      <div className="container my-5 flex flex-col items-start space-y-5">
-        {/* Profile Header */}
-        <div className="flex flex-col gap-5">
-          {/* Profile Image Skeleton */}
-          <Skeleton className="h-[6.5rem] w-[6.5rem] rounded-full" />
-
-          {/* User Name Skeleton */}
-          <Skeleton className="h-6 w-40 rounded-lg" />
-        </div>
-
-        {/* Bio Skeleton */}
-        <Skeleton className="h-16 w-4/5 rounded-lg" />
-
-        {/* Social Handles Skeleton */}
-        <div className="flex space-x-3">
-          <Skeleton className="h-6 w-6 rounded-md" />
-          <Skeleton className="h-6 w-6 rounded-md" />
-          <Skeleton className="h-6 w-6 rounded-md" />
-        </div>
-      </div>
-
-      {/* Skeletons for Event Cards */}
-      <div className="container mt-8 space-y-4">
-        {[1, 2].map((index) => (
-          <div key={index} className="flex overflow-hidden rounded-lg">
-            <div>
-              <Skeleton className="h-5 w-32 rounded" /> {/* Event title */}
-              <Skeleton className="mt-2 h-4 w-24 rounded" /> {/* Date */}
-            </div>
-            <div>
-              <Skeleton className="mt-4 h-full w-full rounded" />{" "}
-            </div>
-          </div>
-        ))}
-      </div>
-
       <UserHeader user={creatorInfo} />
       <Tabs defaultValue="events">
         <div className="container">
