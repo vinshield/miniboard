@@ -14,6 +14,7 @@ Error states for uploading events ✅
 Error states for openai ✅
 Create Footer ✅
 Update webhooks ✅
+Create skeletons 
 Clean up order deletion when user is deleted
 Route to /username after sign in and sign up
 Create logo 

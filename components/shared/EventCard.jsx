@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, Suspense } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -31,15 +31,18 @@ import {
   MorphingDialogClose,
   MorphingDialogContainer,
 } from "@/components/ui/morphing-dialog";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 import AddToCalendar from "./AddToCalendar";
 import ReusableShare from "./ReusableShare";
 import { Button } from "../ui/button";
 import { getUserById } from "@/lib/actions/user.actions";
 import { getUserByClerkId } from "@/lib/actions/clerk.actions";
+import { Skeleton } from "../ui/skeleton";
 
 const EventCard = ({ event, isOwner }) => {
   const [creator, setCreator] = useState(null);
+  const [isImageLoading, setIsImageLoading] = useState(true);
   const router = useRouter();
 
   const { organizerClerkId } = event;
@@ -123,12 +126,19 @@ const EventCard = ({ event, isOwner }) => {
               </div>
             </div>
             <div className="w-24">
-              <MorphingDialogImage
+              {isImageLoading && (
+                <Skeleton className="aspect-square w-full rounded-lg" />
+              )}
+              <Image
                 src={event.imageUrl}
                 alt={event.title}
                 width={100}
                 height={100}
-                className="aspect-square w-24 rounded-lg bg-gray-800 object-cover"
+                className={`aspect-square w-24 rounded-lg bg-gray-800 object-cover transition-opacity duration-300 ${
+                  isImageLoading ? "absolute opacity-0" : "static opacity-100"
+                }`}
+                onLoad={() => setIsImageLoading(false)}
+                onError={() => setIsImageLoading(false)} // Hide skeleton if image fails to load
               />
             </div>{" "}
           </div>

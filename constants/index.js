@@ -31,6 +31,7 @@ export const eventDefaultValues = {
 
 export const unavailableUsernames = [
   "demo",
+  "join",
   "ogunlela",
   "signin",
   "signup",
