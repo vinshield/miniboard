@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const Loading = () => {
   return (
     <>
-      <div className="container flex flex-col items-start space-y-5">
+      <div className="container mt-5 flex flex-col items-start space-y-5">
         {/* Profile Header */}
         <div className="flex flex-col gap-5">
           {/* Profile Image Skeleton */}
