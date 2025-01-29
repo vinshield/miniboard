@@ -64,8 +64,8 @@ const EventCard = ({ event, isOwner }) => {
       navigator
         .share({
           title: event.title,
-          text: `${event.title} on ${formatDateTimeForSharing(event.startDateTime).dateWithoutYear} at ${event.location}.`,
-          url: `https://miniboard.site/e/${event.publicId}`,
+          text: `${event.title} on ${formatDateTimeForSharing(event.startDateTime).dateWithoutYear} at ${event.location}. Set a reminder stress-free 👉🏽`,
+          url: `https://miniboard.site/e/${event.publicId}/add`,
         })
         .then(() => console.log("Share successful"))
         .catch((error) => console.error("Error sharing:", error));
@@ -73,7 +73,7 @@ const EventCard = ({ event, isOwner }) => {
       // Fallback: Copy to clipboard or alert the user
       navigator.clipboard
         .writeText(
-          `Check out this event: ${event.title} on ${formatDateTimeForSharing(event.startDateTime).dateWithoutYear} at ${event.location}.\n\nSet a reminder stress-free https://miniboard.site/e/${event.publicId}`,
+          `Check out this event: ${event.title} on ${formatDateTimeForSharing(event.startDateTime).dateWithoutYear} at ${event.location}.\n\nSet a reminder stress-free 👉🏽 https://miniboard.site/e/${event.publicId}/add`,
         )
         .then(() => alert("Link copied to clipboard!"))
         .catch((error) => console.error("Error copying to clipboard:", error));
