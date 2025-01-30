@@ -22,7 +22,7 @@ const UserHeader = ({ user }) => {
             alt={user?.publicMetadata?.displayName}
             className="rounded-[100%]"
             layout="fill"
-            objectFit="cover"
+            // objectFit="cover"
           />
         </div>
         <h1 className="text-2xl font-bold tracking-tight text-black">

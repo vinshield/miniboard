@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSignIn } from "@clerk/nextjs";
+
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -29,7 +30,7 @@ export function SignInPage() {
 
       if (result.status === "complete") {
         await setActive({ session: result.createdSessionId });
-        router.push("/");
+        router.push("/demo");
       } else {
         console.error("Sign in failed", result);
         setError(
@@ -50,8 +51,8 @@ export function SignInPage() {
     try {
       await signIn.authenticateWithRedirect({
         strategy,
-        redirectUrl: "/",
-        redirectUrlComplete: "/",
+        redirectUrl: "/demo",
+        redirectUrlComplete: "/demo",
       });
     } catch (err) {
       console.error("Error during OAuth signin:", err);

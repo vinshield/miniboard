@@ -177,7 +177,7 @@ const EventCard = ({ event, isOwner }) => {
                             alt={creator?.publicMetadata?.displayName}
                             className="rounded-sm"
                             layout="fill"
-                            objectFit="cover"
+                            // objectFit="cover"
                           />
                         </div>
                         {creator?.publicMetadata?.displayName}
