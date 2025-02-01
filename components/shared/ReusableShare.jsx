@@ -62,7 +62,7 @@ const ReusableShare = ({ event }) => {
 
         <Button
           variant="ghost"
-          className="m-0 flex cursor-pointer gap-0.5 px-2"
+          className="m-0 flex cursor-pointer p-0 pl-2"
           onClick={() => handleWhatsappShare()}
         >
           <WhatsappIcon className="size-4 fill-green-500" />

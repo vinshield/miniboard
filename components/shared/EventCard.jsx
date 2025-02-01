@@ -170,8 +170,8 @@ const EventCard = ({ event, isOwner }) => {
                       {event.title}
                     </MorphingDialogTitle>
                     {creator && (
-                      <MorphingDialogSubtitle className="my-2 flex gap-1 text-sm font-light text-gray-600">
-                        <div className="relative h-6 w-6">
+                      <MorphingDialogSubtitle className="my-2 flex items-center gap-1 text-sm font-light text-gray-600">
+                        <div className="relative h-5 w-5">
                           <Image
                             src={creator?.imageUrl}
                             alt={creator?.publicMetadata?.displayName}
@@ -180,17 +180,20 @@ const EventCard = ({ event, isOwner }) => {
                             // objectFit="cover"
                           />
                         </div>
-                        {creator?.publicMetadata?.displayName}
+                        <span>{creator?.publicMetadata?.displayName}</span>
                       </MorphingDialogSubtitle>
                     )}
                   </div>
                   <div className="flex flex-col gap-1">
                     <div className="flex gap-2">
-                      <CalendarDays
-                        className="m-0 p-0 text-gray-400"
-                        size={36}
-                        strokeWidth={1.5}
-                      />
+                      <div className="flex-center">
+                        <CalendarDays
+                          className="m-0 p-0 text-gray-400"
+                          size={32}
+                          strokeWidth={1}
+                        />
+                      </div>
+
                       <div className="text-sm">
                         <p>
                           {
@@ -211,16 +214,20 @@ const EventCard = ({ event, isOwner }) => {
 
                     <div className="flex items-center gap-2">
                       {event.isOnline ? (
-                        <div className="rounded-lg border border-gray-400 p-1">
+                        <div className="flex-center rounded-md border border-gray-400 p-1">
                           <Video
-                            strokeWidth={1.5}
+                            strokeWidth={1}
                             className="text-gray-400"
-                            size={26}
+                            size={21}
                           />{" "}
                         </div>
                       ) : (
-                        <div className="rounded-lg border border-gray-400 p-1">
-                          <MapPin className="text-gray-400" size={26} />
+                        <div className="flex-center rounded-md border border-gray-400 p-1">
+                          <MapPin
+                            className="text-gray-400"
+                            size={21}
+                            strokeWidth={1}
+                          />
                         </div>
                       )}
                       <p className="line-clamp-1 overflow-ellipsis text-sm">
@@ -231,7 +238,7 @@ const EventCard = ({ event, isOwner }) => {
                   <div className="text-sm leading-relaxed text-gray-700">
                     <p>{event.description}</p>
                   </div>
-                  <div className="flex flex-col gap-4 rounded-lg border border-gray-200/60 px-2 py-4">
+                  <div className="my-4 flex flex-col gap-4 rounded-lg border border-gray-200/60 px-2 py-4">
                     <div className="flex flex-col gap-1 pl-2">
                       <h3 className="text-sm font-semibold text-gray-600">
                         Add to your calendar
@@ -252,9 +259,9 @@ const EventCard = ({ event, isOwner }) => {
                     </p>
                   )}
                   <div className="w-full bg-slate-50">
-                    <div className="px-2">
-                      <ReusableShare event={event} />
-                    </div>
+                    {/* <div className="px-2"> */}
+                    <ReusableShare event={event} />
+                    {/* </div> */}
                   </div>
                   {isOwner && (
                     <Button
