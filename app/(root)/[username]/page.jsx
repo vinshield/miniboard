@@ -31,6 +31,7 @@ const Page = async ({ params }) => {
   return (
     <div>
       <UserHeader user={creatorInfo} />
+      {/* <MorphingDialogBasicTwo /> */}
       <Tabs defaultValue="events">
         <div className="container">
           <TabsList className="grid grid-cols-2">

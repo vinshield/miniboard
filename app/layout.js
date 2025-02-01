@@ -14,7 +14,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider domain="miniboard.site" domainJWT=".miniboard.site">
+    <ClerkProvider after domain="miniboard.site" domainJWT=".miniboard.site">
       <html lang="en">
         <head>
           <link

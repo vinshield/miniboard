@@ -44,7 +44,7 @@ const ReusableShare = ({ event }) => {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-sm font-bold text-gray-500">Share:</p>
+        <p className="text-xs font-bold text-gray-500">Share:</p>
       </div>
       <div className="flex gap-2">
         <Button
@@ -57,7 +57,7 @@ const ReusableShare = ({ event }) => {
           ) : (
             <Copy className="size-4" />
           )}
-          <p className="text-sm">{copied ? "Copied!" : "Copy link"} </p>
+          <p className="text-xs">{copied ? "Copied!" : "Copy link"} </p>
         </Button>
 
         <Button
@@ -66,7 +66,7 @@ const ReusableShare = ({ event }) => {
           onClick={() => handleWhatsappShare()}
         >
           <WhatsappIcon className="size-4 fill-green-500" />
-          <p className="text-sm">Whatsapp</p>
+          <p className="text-xs">Whatsapp</p>
         </Button>
       </div>
     </div>

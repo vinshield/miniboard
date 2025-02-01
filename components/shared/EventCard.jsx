@@ -170,7 +170,7 @@ const EventCard = ({ event, isOwner }) => {
                       {event.title}
                     </MorphingDialogTitle>
                     {creator && (
-                      <MorphingDialogSubtitle className="my-2 flex gap-1 font-light text-gray-600">
+                      <MorphingDialogSubtitle className="my-2 flex gap-1 text-sm font-light text-gray-600">
                         <div className="relative h-6 w-6">
                           <Image
                             src={creator?.imageUrl}
@@ -189,6 +189,7 @@ const EventCard = ({ event, isOwner }) => {
                       <CalendarDays
                         className="m-0 p-0 text-gray-400"
                         size={36}
+                        strokeWidth={1.5}
                       />
                       <div className="text-sm">
                         <p>
@@ -211,7 +212,11 @@ const EventCard = ({ event, isOwner }) => {
                     <div className="flex items-center gap-2">
                       {event.isOnline ? (
                         <div className="rounded-lg border border-gray-400 p-1">
-                          <Video className="mr-1 text-gray-400" size={26} />{" "}
+                          <Video
+                            strokeWidth={1.5}
+                            className="text-gray-400"
+                            size={26}
+                          />{" "}
                         </div>
                       ) : (
                         <div className="rounded-lg border border-gray-400 p-1">

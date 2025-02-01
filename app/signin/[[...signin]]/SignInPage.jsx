@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSignIn } from "@clerk/nextjs";
+import { useAuth } from "@clerk/clerk-react";
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -30,7 +31,6 @@ export function SignInPage() {
 
       if (result.status === "complete") {
         await setActive({ session: result.createdSessionId });
-        router.push("/demo");
       } else {
         console.error("Sign in failed", result);
         setError(
