@@ -185,11 +185,11 @@ const EventCard = ({ event, isOwner }) => {
                     )}
                   </div>
                   <div className="flex flex-col gap-1">
-                    <div className="flex gap-2">
-                      <div className="flex-center">
+                    <div className="flex items-center gap-2">
+                      <div className="flex-center rounded-md border border-gray-400 p-1">
                         <CalendarDays
-                          className="m-0 p-0 text-gray-400"
-                          size={32}
+                          className="text-gray-400"
+                          size={25}
                           strokeWidth={1}
                         />
                       </div>
@@ -218,14 +218,14 @@ const EventCard = ({ event, isOwner }) => {
                           <Video
                             strokeWidth={1}
                             className="text-gray-400"
-                            size={21}
+                            size={25}
                           />{" "}
                         </div>
                       ) : (
                         <div className="flex-center rounded-md border border-gray-400 p-1">
                           <MapPin
                             className="text-gray-400"
-                            size={21}
+                            size={25}
                             strokeWidth={1}
                           />
                         </div>
@@ -235,29 +235,31 @@ const EventCard = ({ event, isOwner }) => {
                       </p>
                     </div>
                   </div>
-                  <div className="text-sm leading-relaxed text-gray-700">
+                  <div className="leading-relaxed text-gray-700">
                     <p>{event.description}</p>
                   </div>
-                  <div className="my-4 flex flex-col gap-4 rounded-lg border border-gray-200/60 px-2 py-4">
-                    <div className="flex flex-col gap-1 pl-2">
-                      <h3 className="text-sm font-semibold text-gray-600">
-                        Add to your calendar
-                      </h3>
-                      <p className="text-xs text-gray-500">
-                        We&apos;ll send you a reminder 30 minutes before the
-                        event starts.
-                      </p>
+                  <div className="my-6">
+                    <div className="flex flex-col gap-4 rounded-lg border border-gray-200/60 px-2 py-4">
+                      <div className="flex flex-col gap-1 pl-2">
+                        <h3 className="text-sm font-semibold text-gray-600">
+                          Add to your calendar
+                        </h3>
+                        <p className="text-xs text-gray-500">
+                          We&apos;ll send you a reminder 30 minutes before the
+                          event starts.
+                        </p>
+                      </div>
+                      <AddToCalendar eventData={event} size={2} />
                     </div>
-                    <AddToCalendar eventData={event} size={2} />
+                    {event.numOfSaves > 2 && (
+                      <p className="mt-2 text-xs text-gray-500">
+                        <strong className="text-gray-600">
+                          {event.numOfSaves}
+                        </strong>{" "}
+                        people have set a reminder for this event.
+                      </p>
+                    )}
                   </div>
-                  {event.numOfSaves > 2 && (
-                    <p className="-mt-6 text-xs text-gray-500">
-                      <strong className="text-gray-600">
-                        {event.numOfSaves}
-                      </strong>{" "}
-                      people have set a reminder for this event.
-                    </p>
-                  )}
                   <div className="w-full bg-slate-50">
                     {/* <div className="px-2"> */}
                     <ReusableShare event={event} />
