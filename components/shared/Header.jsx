@@ -28,7 +28,7 @@ const DotIcon = () => {
 };
 
 const Header = () => {
-  const [signInVisible, setSignInVisible] = useState(null);
+  const [signInVisible, setSignInVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
@@ -49,11 +49,11 @@ const Header = () => {
     };
   }, [showMenu]); // Run effect when showMenu changes
 
-  useEffect(() => {
-    setSignInVisible(true);
-    if (pathname === "/signup" || pathname === "/signin")
-      setSignInVisible(false);
-  }, [pathname]);
+  // useEffect(() => {
+  //   setSignInVisible(true);
+  //   if (pathname === "/signup" || pathname === "/signin")
+  //     setSignInVisible(false);
+  // }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -127,6 +127,7 @@ const Header = () => {
                 </div>
               </div>
             </>
+
             {!showMenu && <Menu size={20} onClick={() => setShowMenu(true)} />}
           </div>
         </nav>
