@@ -238,7 +238,7 @@ const EventCard = ({ event, isOwner }) => {
                         </p>
                       </div>
                     </div>
-                    <div className="leading-relaxed text-gray-700">
+                    <div className="text-sm leading-relaxed text-gray-700">
                       <p>{event.description}</p>
                     </div>
                     <div className="my-6">
