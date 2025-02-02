@@ -75,8 +75,8 @@ export default function Page({ params }) {
 
   return (
     <>
-      <div className="h-screen overflow-hidden">
-        <div className="mb-[2.5rem] mt-36 flex flex-col items-center">
+      <div className="mt-12 overflow-hidden">
+        <div className="flex flex-col items-center">
           {!event ? (
             <div className="mt container my-6 space-y-6">
               {[1].map((index) => (
@@ -101,7 +101,7 @@ export default function Page({ params }) {
           )}
           <div className="px-10 pt-8 lg:container">
             <h1
-              className={`leading-12 text-center text-3xl font-bold tracking-tighter md:text-7xl ${!event || event.numOfSaves < 4 ? "mb-6" : ""}`}
+              className={`leading-12 text-center text-2xl font-bold tracking-tighter md:text-7xl ${!event || event.numOfSaves < 4 ? "mb-6" : ""}`}
             >
               Add to your calendar
             </h1>
