@@ -27,7 +27,6 @@ const Page = async ({ params }) => {
 
   let organizersEvents = await getEventsByUser({ userId: creatorId, page: 1 });
   organizersEvents = organizersEvents.data;
-
   return (
     <div>
       <UserHeader user={creatorInfo} />

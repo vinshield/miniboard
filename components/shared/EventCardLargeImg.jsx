@@ -40,7 +40,7 @@ import { getUserById } from "@/lib/actions/user.actions";
 import { getUserByClerkId } from "@/lib/actions/clerk.actions";
 import { Skeleton } from "../ui/skeleton";
 
-const EventCard = ({ event, isOwner }) => {
+const EventCardLargeImg = ({ event, isOwner }) => {
   const [creator, setCreator] = useState(null);
   const [isImageLoading, setIsImageLoading] = useState(true);
   const router = useRouter();
@@ -122,10 +122,10 @@ const EventCard = ({ event, isOwner }) => {
                   <Share2 className="h-[14px] w-[14px] text-gray-700" />
                 </div>
 
-                <WantToGo event={event} />
+                {/* <WantToGo event={event} /> */}
               </div>
             </div>
-            <div className="w-24">
+            <div className="h-40 w-24">
               {isImageLoading && (
                 <Skeleton className="aspect-square w-full rounded-lg" />
               )}
@@ -134,7 +134,7 @@ const EventCard = ({ event, isOwner }) => {
                 alt={event.title}
                 width={100}
                 height={100}
-                className={`aspect-square w-24 rounded-lg bg-gray-800 object-cover transition-opacity duration-300 ${
+                className={`h-40 w-24 rounded-lg bg-gray-800 object-cover transition-opacity duration-300 ${
                   isImageLoading ? "absolute opacity-0" : "static opacity-100"
                 }`}
                 onLoad={() => setIsImageLoading(false)}
@@ -291,4 +291,4 @@ const EventCard = ({ event, isOwner }) => {
   );
 };
 
-export default EventCard;
+export default EventCardLargeImg;

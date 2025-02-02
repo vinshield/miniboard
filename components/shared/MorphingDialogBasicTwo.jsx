@@ -9,6 +9,7 @@ import {
   MorphingDialogContainer,
 } from "@/components/ui/morphing-dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Image from "next/image";
 
 export function MorphingDialogBasicTwo() {
   return (
@@ -26,14 +27,6 @@ export function MorphingDialogBasicTwo() {
         className="border border-gray-200/60 bg-white"
       >
         <div className="flex items-center space-x-3 p-3">
-          <MorphingDialogImage
-            src="https://m.media-amazon.com/images/I/71skAxiMC2L._AC_UF1000,1000_QL80_.jpg"
-            alt="What I Talk About When I Talk About Running - book cover"
-            className="h-8 w-8 object-cover object-top"
-            style={{
-              borderRadius: "4px",
-            }}
-          />
           <div className="flex flex-col items-start justify-center space-y-0">
             <MorphingDialogTitle className="text-[10px] font-medium text-black sm:text-xs">
               What I Talk About When I Talk About Running
@@ -44,6 +37,16 @@ export function MorphingDialogBasicTwo() {
           </div>
         </div>
       </MorphingDialogTrigger>
+      <Image
+        width={100}
+        height={100}
+        src="https://m.media-amazon.com/images/I/71skAxiMC2L._AC_UF1000,1000_QL80_.jpg"
+        alt="What I Talk About When I Talk About Running - book cover"
+        className="h-8 w-8 object-cover object-top"
+        style={{
+          borderRadius: "4px",
+        }}
+      />
       <MorphingDialogContainer>
         <MorphingDialogContent
           style={{
