@@ -31,6 +31,7 @@ export function SignInPage() {
 
       if (result.status === "complete") {
         await setActive({ session: result.createdSessionId });
+        router.push("/demo");
       } else {
         console.error("Sign in failed", result);
         setError(
