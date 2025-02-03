@@ -23,7 +23,7 @@ const ReusableShare = ({ event }) => {
             }`
       }_\n` +
       `📍 _${location}_ \n\n` +
-      `_Set a reminder stress-free_ 👉🏽 https://miniboard.site/e/${publicId}/add`;
+      `_This link helps you set a reminder easily_ 👉🏽 https://miniboard.site/e/${publicId}/add`;
 
     const encodedText = encodeURIComponent(text);
 
