@@ -1,32 +1,63 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { useState, useEffect } from "react";
+import { UserProfile } from "@clerk/nextjs";
 import { useUser, useClerk } from "@clerk/clerk-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { socialHandles } from "@/constants";
 import Link from "next/link";
+
+import useClickOutside from "@/hooks/useClickOutside";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { Button } from "../ui/button";
+import { DotIcon } from "lucide-react";
+import { SocialInfo } from "./SocialInfo";
 
 //Get username from URL (frontend)
 //Get userId and bio info from username (backend)
 //Get events from userId
 
 const UserHeader = ({ user }) => {
+  const router = useRouter();
+
+  const [showUserProfile, setShowUserProfile] = useState(false);
   const [socialHandlesPresent, setSocialHandlesPresent] = useState(false);
   const userSocialHandles = user.publicMetadata.socialHandles;
 
-  if (
-    Object.values(userSocialHandles).some(
-      (value) =>
-        value !== null &&
-        value !== undefined &&
-        value != "" &&
-        !(typeof value === number && isNaN(value)),
-    )
-  ) {
-    setSocialHandlesPresent(true);
-  }
+  const profileRef = useRef(null);
+
+  useEffect(() => {
+    if (
+      userSocialHandles &&
+      Object.values(userSocialHandles).some(
+        (value) =>
+          value !== null &&
+          value !== undefined &&
+          value !== "" &&
+          !(typeof value === "number" && isNaN(value)),
+      )
+    ) {
+      setSocialHandlesPresent(true);
+    } else {
+      setSocialHandlesPresent(false);
+    }
+  }, [userSocialHandles]);
+
+  useClickOutside(profileRef, () => {
+    setShowUserProfile(false);
+  });
 
   return (
     <div className="container my-5 flex flex-col items-start space-y-5">
@@ -78,6 +109,28 @@ const UserHeader = ({ user }) => {
           })}
         </div>
       )}
+
+      {/* <Button
+        type="button"
+        variant=""
+        className="w-3/5 bg-[#282222]"
+        onClick={() => setShowUserProfile(true)}
+      >
+        Edit my profile
+      </Button>
+      {showUserProfile && (
+        <div className="absolute z-10" ref={profileRef}>
+          <UserProfile>
+            <UserProfile.Page
+              label="My Info"
+              labelIcon={<DotIcon />}
+              url="terms"
+            >
+              <SocialInfo />
+            </UserProfile.Page>
+          </UserProfile>
+        </div>
+      )} */}
 
       {/* Different types of horizontal lines: */}
       {/* <div class="h-px w-full bg-gray-200 shadow-sm"></div> */}
