@@ -110,7 +110,7 @@ const UserHeader = ({ user, isOwner }) => {
         </div>
       )}
 
-      {isOwner && (
+      {/* {isOwner && (
         <Button
           type="button"
           variant=""
@@ -132,7 +132,7 @@ const UserHeader = ({ user, isOwner }) => {
             </UserProfile.Page>
           </UserProfile>
         </div>
-      )}
+      )} */}
 
       {/* Different types of horizontal lines: */}
       {/* <div class="h-px w-full bg-gray-200 shadow-sm"></div> */}
