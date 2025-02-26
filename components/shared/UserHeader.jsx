@@ -13,6 +13,21 @@ import Link from "next/link";
 //Get events from userId
 
 const UserHeader = ({ user }) => {
+  const [socialHandlesPresent, setSocialHandlesPresent] = useState(false);
+  const userSocialHandles = user.publicMetadata.socialHandles;
+
+  if (
+    Object.values(userSocialHandles).some(
+      (value) =>
+        value !== null &&
+        value !== undefined &&
+        value != "" &&
+        !(typeof value === number && isNaN(value)),
+    )
+  ) {
+    setSocialHandlesPresent(true);
+  }
+
   return (
     <div className="container my-5 flex flex-col items-start space-y-5">
       <div className="flex flex-col gap-5">
@@ -21,7 +36,9 @@ const UserHeader = ({ user }) => {
             src={user?.imageUrl}
             alt={user?.publicMetadata?.displayName}
             className="rounded-[100%]"
-            layout="fill"
+            width={500}
+            height={500}
+            // layout="fill"
             // objectFit="cover"
           />
         </div>
@@ -29,10 +46,12 @@ const UserHeader = ({ user }) => {
           {user?.publicMetadata?.displayName}
         </h1>
       </div>
-      <p className="text-sm leading-5 text-gray-500">
-        {user?.publicMetadata?.bio}
-      </p>
-      {socialHandles && (
+      {user?.publicMetadata?.bio && (
+        <p className="text-sm leading-5 text-gray-500">
+          {user.publicMetadata.bio}
+        </p>
+      )}
+      {socialHandlesPresent && (
         <div>
           {socialHandles.map((handle) => {
             if (user?.publicMetadata?.socialHandles?.[handle.name]) {
@@ -59,6 +78,8 @@ const UserHeader = ({ user }) => {
           })}
         </div>
       )}
+
+      {/* Different types of horizontal lines: */}
       {/* <div class="h-px w-full bg-gray-200 shadow-sm"></div> */}
       {/* <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent shadow-sm"></div> */}
       {/* <div class="relative w-full">
