@@ -31,7 +31,7 @@ export function SignInPage() {
 
       if (result.status === "complete") {
         await setActive({ session: result.createdSessionId });
-        router.push("/demo");
+        router.push("/signin-callback");
       } else {
         console.error("Sign in failed", result);
         setError(
@@ -52,8 +52,8 @@ export function SignInPage() {
     try {
       await signIn.authenticateWithRedirect({
         strategy,
-        redirectUrl: "/demo",
-        redirectUrlComplete: "/demo",
+        redirectUrl: "/signin-callback",
+        redirectUrlComplete: "/signin-callback",
       });
     } catch (err) {
       console.error("Error during OAuth signin:", err);

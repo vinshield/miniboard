@@ -30,7 +30,7 @@ const DotIcon = () => {
 const Header = () => {
   const [signInVisible, setSignInVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true);
+  const [headerVisible, setHeaderVisible] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
 
   const user = useUser();
@@ -49,16 +49,19 @@ const Header = () => {
     };
   }, [showMenu]); // Run effect when showMenu changes
 
-  // useEffect(() => {
-  //   setSignInVisible(true);
-  //   if (pathname === "/signup" || pathname === "/signin")
-  //     setSignInVisible(false);
-  // }, [pathname]);
+  useEffect(() => {
+    setSignInVisible(true);
+    if (pathname === "/signup" || pathname === "/signin")
+      setSignInVisible(false);
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setHeaderVisible(
+        currentScrollPos < 10 || prevScrollPos > currentScrollPos,
+      );
+
       setPrevScrollPos(currentScrollPos);
     };
 
@@ -69,7 +72,7 @@ const Header = () => {
 
   return (
     <header
-      className={`transition-translate fixed left-0 right-0 top-0 z-10 bg-gradient-to-b from-sky-200 via-slate-50 via-90% to-slate-50 duration-300 ${visible ? "translate-y-0" : "-translate-y-full"}`}
+      className={`transition-translate fixed left-0 right-0 top-0 z-10 bg-gradient-to-b from-sky-200 via-slate-50 via-90% to-slate-50 duration-300 ${headerVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
       <div className="container w-full py-3">
         <nav className="flex w-full items-center justify-between">
@@ -95,7 +98,7 @@ const Header = () => {
                     <div className="flex w-full items-center gap-1 rounded-sm py-1 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
                       {!user.isSignedIn && <LogIn size={16} />}
                       <SignedOut>
-                        <SignInButton signUpUrl="/signup" />
+                        <SignInButton />
                       </SignedOut>
                     </div>
                     <div className="flex items-center gap-2">
