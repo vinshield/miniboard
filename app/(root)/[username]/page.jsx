@@ -29,7 +29,7 @@ const Page = async ({ params }) => {
   organizersEvents = organizersEvents.data;
   return (
     <div>
-      <UserHeader user={creatorInfo} />
+      <UserHeader user={creatorInfo} isOwner={isOwner} />
       {/* <MorphingDialogBasicTwo /> */}
       <Tabs defaultValue="events">
         <div className="container">

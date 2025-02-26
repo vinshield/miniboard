@@ -29,7 +29,7 @@ import { SocialInfo } from "./SocialInfo";
 //Get userId and bio info from username (backend)
 //Get events from userId
 
-const UserHeader = ({ user }) => {
+const UserHeader = ({ user, isOwner }) => {
   const router = useRouter();
 
   const [showUserProfile, setShowUserProfile] = useState(false);
@@ -110,14 +110,16 @@ const UserHeader = ({ user }) => {
         </div>
       )}
 
-      {/* <Button
-        type="button"
-        variant=""
-        className="w-3/5 bg-[#282222]"
-        onClick={() => setShowUserProfile(true)}
-      >
-        Edit my profile
-      </Button>
+      {isOwner && (
+        <Button
+          type="button"
+          variant=""
+          className="w-3/5 bg-[#282222]"
+          onClick={() => setShowUserProfile(true)}
+        >
+          Edit my profile
+        </Button>
+      )}
       {showUserProfile && (
         <div className="absolute z-10" ref={profileRef}>
           <UserProfile>
@@ -130,7 +132,7 @@ const UserHeader = ({ user }) => {
             </UserProfile.Page>
           </UserProfile>
         </div>
-      )} */}
+      )}
 
       {/* Different types of horizontal lines: */}
       {/* <div class="h-px w-full bg-gray-200 shadow-sm"></div> */}
