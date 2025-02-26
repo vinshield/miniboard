@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   SignInButton,
@@ -12,8 +12,9 @@ import {
 import { SocialInfo } from "./SocialInfo";
 import { usePathname } from "next/navigation";
 import { LogIn, Menu, X } from "lucide-react";
-
 import { Button } from "../ui/button";
+
+import useClickOutside from "@/hooks/useClickOutside";
 
 const DotIcon = () => {
   return (
@@ -35,7 +36,13 @@ const Header = () => {
 
   const user = useUser();
 
+  const menuRef = useRef(null);
+
   let pathname = usePathname();
+
+  useClickOutside(menuRef, () => {
+    setShowMenu(false);
+  });
 
   useEffect(() => {
     if (showMenu) {
@@ -87,6 +94,7 @@ const Header = () => {
               )}
               <div
                 className={`absolute right-0 top-0 flex h-screen w-4/6 flex-col space-y-4 bg-white px-4 py-3 transition-transform duration-300 ease-out ${showMenu ? "translate-x-0" : "translate-x-full"}`}
+                ref={menuRef}
               >
                 <X
                   size={30}
