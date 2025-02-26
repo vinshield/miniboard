@@ -52,7 +52,7 @@ export function SignUpPage({ username, onSignUpComplete, changeUsername }) {
       // Start OAuth flow directly
       await signUp.authenticateWithRedirect({
         strategy,
-        redirectUrl: "/", // page to link to if user already has an account
+        redirectUrl: `/${username}`, // page to link to if user already has an account
         redirectUrlComplete: "/sso-callback", // page to link to to create new account
       });
     } catch (err) {

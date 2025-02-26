@@ -203,3 +203,14 @@ dark field gray: #e5e6e8
 button gray: #69737d
 dark text gray: #64696e
 light text gray: #8e9297 */
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

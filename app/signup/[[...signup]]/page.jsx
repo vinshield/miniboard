@@ -46,7 +46,7 @@ export default function SignUpFlow() {
   const handleInfoSubmit = () => {
     // Here you would typically redirect to the user's profile or dashboard
     console.log("Sign-up flow complete!");
-    router.push("/");
+    router.push(`/${username}`);
   };
 
   const changeUsername = () => {
