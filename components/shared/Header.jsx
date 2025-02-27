@@ -111,6 +111,7 @@ const Header = () => {
                       {!user.isSignedIn && <LogIn size={16} />}
                       <SignedOut>
                         <Button
+                          className="p-0"
                           variant="ghost"
                           onClick={() => {
                             router.push("/signin");
