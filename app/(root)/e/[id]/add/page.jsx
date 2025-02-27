@@ -18,6 +18,7 @@ import { getUserByClerkId } from "@/lib/actions/clerk.actions";
 import { MoveRight, MoveUpRight } from "lucide-react";
 
 export default function Page({ params }) {
+  const router = useRouter();
   const pathname = usePathname();
   const [event, setEvent] = useState(null);
   const [creator, setCreator] = useState(null);
@@ -60,7 +61,7 @@ export default function Page({ params }) {
           options={["Apple", "Google", "iCal", "Microsoft365"]}
           location={event.location}
           startDate={event.startDate}
-          description={`${event.description}\n\nVisit [url]https://miniboard.site[/url] for more information.`}
+          description={`Visit [url]https://miniboard.site/${creator.username}[/url] for up-to-date information.\n\n${event.description}`}
           timeZone="Africa/Lagos"
           buttonsList
         />
@@ -74,7 +75,7 @@ export default function Page({ params }) {
         startDate={event.startDate}
         startTime={event.startTime}
         endTime={event.endTime || ""}
-        description={`${event.description}\n\nVisit [url]https://miniboard.site[/url] for more information.`}
+        description={`Visit [url]https://miniboard.site/${creator.username}[/url] for up-to-date information.\n\n${event.description}`}
         timeZone="Africa/Lagos"
         buttonsList
       />

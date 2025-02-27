@@ -12,7 +12,7 @@ import { DateTime } from "luxon";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default function AddToCalendar({ eventData, size }) {
+export default function AddToCalendar({ eventData, size, creatorInfo }) {
   const [event, setEvent] = useState(null);
   // console.log(eventData);
 
@@ -41,7 +41,7 @@ export default function AddToCalendar({ eventData, size }) {
           options={["Apple", "Google", "Microsoft365"]}
           location={event.location}
           startDate={event.startDate}
-          description={`${event.description}\n\nVisit [url]https://miniboard-flax.vercel.app[/url] for more information.`}
+          description={`Visit [url]https://miniboard.site/${creatorInfo.username}[/url] for up-to-date information.\n\n${event.description}`}
           timeZone="Africa/Lagos"
           buttonsList
           size={size}
@@ -56,7 +56,7 @@ export default function AddToCalendar({ eventData, size }) {
         startDate={event.startDate}
         startTime={event.startTime}
         endTime={event.endTime || ""}
-        description={`${event.description}\n\nVisit [url]https://miniboard-flax.vercel.app[/url] for more information.`}
+        description={`Visit [url]https://miniboard.site/${creatorInfo.username}[/url] for up-to-date information.\n\n${event.description}`}
         timeZone="Africa/Lagos"
         buttonsList
         size={size}

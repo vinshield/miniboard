@@ -40,7 +40,7 @@ import { getUserById } from "@/lib/actions/user.actions";
 import { getUserByClerkId } from "@/lib/actions/clerk.actions";
 import { Skeleton } from "../ui/skeleton";
 
-const EventCard = ({ event, isOwner }) => {
+const EventCard = ({ event, isOwner, creatorInfo }) => {
   const [creator, setCreator] = useState(null);
   const [isImageLoading, setIsImageLoading] = useState(true);
   const router = useRouter();
@@ -51,7 +51,8 @@ const EventCard = ({ event, isOwner }) => {
 
   useEffect(() => {
     const getCreator = async () => {
-      const creatorDetails = await getUserByClerkId(organizerClerkId);
+      const creatorDetails =
+        creatorInfo || (await getUserByClerkId(organizerClerkId));
       setCreator(creatorDetails);
     };
 
@@ -122,7 +123,7 @@ const EventCard = ({ event, isOwner }) => {
                   <Share2 className="h-[14px] w-[14px] text-gray-700" />
                 </div>
 
-                <WantToGo event={event} />
+                <WantToGo event={event} creatorInfo={creator} />
               </div>
             </div>
             <div className="w-24">

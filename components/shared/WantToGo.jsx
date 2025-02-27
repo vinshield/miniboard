@@ -11,7 +11,7 @@ const TRANSITION = {
   duration: 0.3,
 };
 
-export default function WantToGo({ event }) {
+export default function WantToGo({ event, creatorInfo }) {
   const uniqueId = useId();
   const formContainerRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +79,11 @@ export default function WantToGo({ event }) {
                   >
                     Add to your calendar
                   </h3>
-                  <AddToCalendar eventData={event} size={2} />
+                  <AddToCalendar
+                    eventData={event}
+                    size={2}
+                    creatorInfo={creatorInfo}
+                  />
                 </div>
               </motion.div>
             </div>
