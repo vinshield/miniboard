@@ -84,7 +84,7 @@ export default function Page({ params }) {
 
   return (
     <>
-      <div className="my-10 overflow-hidden">
+      <div className="my-5 overflow-hidden">
         <div className="flex flex-col items-center">
           {!event ? (
             <div className="mt container my-6 space-y-6">
