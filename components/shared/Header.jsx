@@ -110,7 +110,14 @@ const Header = () => {
                     <div className="flex w-full items-center gap-1 rounded-sm py-1 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
                       {!user.isSignedIn && <LogIn size={16} />}
                       <SignedOut>
-                        <Button variant="ghost">Sign in</Button>
+                        <Button
+                          variant="ghost"
+                          onClick={() => {
+                            router.push("/signin");
+                          }}
+                        >
+                          Sign in
+                        </Button>
                         {/* <SignInButton /> */}
                       </SignedOut>
                     </div>
