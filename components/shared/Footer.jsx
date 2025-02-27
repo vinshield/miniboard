@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { useUser } from "@clerk/clerk-react";
-import CreateMiniboardBtn from "./CreateMiniBoardBtn";
+import CreateMiniboardBtn from "./CreateMiniboardBtn";
 
 const Footer = () => {
   const { user } = useUser();
