@@ -7,12 +7,15 @@ import { LoaderCircle } from "lucide-react";
 
 export default function SSOCallback() {
   const router = useRouter();
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   useEffect(() => {
-    const username = user.username;
-    router.push(`/${username}`);
-  }, [user]);
+    if (isLoaded && user) {
+      const { username } = user;
+      console.log(username);
+      router.push(`/${username}`);
+    }
+  }, [user, isLoaded]);
 
   return (
     <div className="flex min-h-screen items-center justify-center">

@@ -92,56 +92,66 @@ const Header = () => {
           </Link>
 
           <div className={`${!signInVisible ? "hidden" : ""}`}>
-            <>
-              {showMenu && (
-                <div className="absolute left-0 top-0 h-screen w-[100vw] bg-gray-400/40 backdrop-blur-sm"></div>
-              )}
-              <div
-                className={`absolute right-0 top-0 flex h-screen w-4/6 flex-col space-y-4 bg-white px-4 py-3 transition-transform duration-300 ease-out ${showMenu ? "translate-x-0" : "translate-x-full"}`}
-                ref={menuRef}
-              >
-                <X
-                  size={30}
-                  className="ml-auto cursor-pointer"
-                  onClick={() => setShowMenu(false)}
-                />
-                <div className="flex h-full flex-col gap-4">
-                  <div>
-                    <div className="flex w-full items-center gap-1 rounded-sm py-1 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
-                      {!user.isSignedIn && <LogIn size={16} />}
-                      <SignedOut>
-                        <Button
-                          className="p-0"
-                          variant="ghost"
-                          onClick={() => {
-                            router.push("/signin");
-                          }}
-                        >
-                          Sign in
-                        </Button>
-                        {/* <SignInButton /> */}
-                      </SignedOut>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <SignedIn>
-                        <UserButton showName="true">
-                          <UserButton.UserProfilePage
-                            label="My Info"
-                            labelIcon={<DotIcon />}
-                            url="terms"
-                          >
-                            <SocialInfo />
-                          </UserButton.UserProfilePage>
-                        </UserButton>
-                      </SignedIn>
-                    </div>
-                  </div>
-                  {!user.isSignedIn && <CreateMiniboardBtn />}
-                </div>
-              </div>
-            </>
+            {showMenu && (
+              <div className="absolute left-0 top-0 h-screen w-[100vw] bg-gray-400/40 backdrop-blur-sm"></div>
+            )}
 
-            {!showMenu && <Menu size={20} onClick={() => setShowMenu(true)} />}
+            <div
+              className={`absolute right-0 top-0 flex h-screen w-4/6 flex-col space-y-4 bg-white px-4 py-3 transition-transform duration-300 ease-out ${showMenu ? "translate-x-0" : "translate-x-full"}`}
+              ref={menuRef}
+            >
+              <X
+                size={30}
+                className="ml-auto cursor-pointer"
+                onClick={() => setShowMenu(false)}
+              />
+              <div className="flex h-full flex-col gap-4">
+                <div>
+                  <div className="flex w-full items-center gap-1 rounded-sm py-1 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
+                    {!user.isSignedIn && <LogIn size={16} />}
+                    <SignedOut>
+                      <Button
+                        className="p-0"
+                        variant="ghost"
+                        onClick={() => {
+                          router.push("/signin");
+                        }}
+                      >
+                        Sign in
+                      </Button>
+                      {/* <SignInButton /> */}
+                    </SignedOut>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <SignedIn>
+                      <UserButton showName="true">
+                        <UserButton.UserProfilePage
+                          label="My Info"
+                          labelIcon={<DotIcon />}
+                          url="terms"
+                        >
+                          <SocialInfo />
+                        </UserButton.UserProfilePage>
+                      </UserButton>
+                    </SignedIn>
+                  </div>
+                </div>
+                {!user.isSignedIn && <CreateMiniboardBtn />}
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {!user.isSignedIn && (
+                <button
+                  onClick={() => router.push("/signin")}
+                  className="rounded-full bg-sky-200 px-2 py-1 text-xs font-semibold text-[#757b85]"
+                >
+                  Sign in
+                </button>
+              )}
+              {!showMenu && (
+                <Menu size={20} onClick={() => setShowMenu(true)} />
+              )}
+            </div>
           </div>
         </nav>
       </div>
