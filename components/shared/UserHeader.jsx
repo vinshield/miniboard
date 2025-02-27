@@ -73,7 +73,7 @@ const UserHeader = ({ user, isOwner }) => {
             // objectFit="cover"
           />
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-black">
+        <h1 className="text-2xl font-bold leading-none tracking-tight text-black">
           {user?.publicMetadata?.displayName}
         </h1>
       </div>

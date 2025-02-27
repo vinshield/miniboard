@@ -14,15 +14,23 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import EventCardLargeImg from "@/components/shared/EventCardLargeImg";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getUserByClerkId } from "@/lib/actions/clerk.actions";
+import { MoveRight, MoveUpRight } from "lucide-react";
 
 export default function Page({ params }) {
   const pathname = usePathname();
   const [event, setEvent] = useState(null);
+  const [creator, setCreator] = useState(null);
 
   useEffect(() => {
-    const getEvent = async () => {
+    const getEventDetails = async () => {
       try {
         const eventData = await getEventByPublicId(params.id);
+        const { organizerClerkId } = eventData;
+
+        const creatorDetails = await getUserByClerkId(organizerClerkId);
+        setCreator(creatorDetails);
+
         if (eventData) {
           const start = DateTime.fromISO(eventData.startDateTime);
           const end = eventData.endDateTime
@@ -41,7 +49,7 @@ export default function Page({ params }) {
         console.log(err);
       }
     };
-    getEvent();
+    getEventDetails();
   }, [params.id]);
 
   const CalendarButton = (data) => {
@@ -75,7 +83,7 @@ export default function Page({ params }) {
 
   return (
     <>
-      <div className="mt-12 overflow-hidden">
+      <div className="my-10 overflow-hidden">
         <div className="flex flex-col items-center">
           {!event ? (
             <div className="mt container my-6 space-y-6">
@@ -97,7 +105,11 @@ export default function Page({ params }) {
               ))}
             </div>
           ) : (
-            <EventCardLargeImg event={event} isOwner={false} />
+            <EventCardLargeImg
+              event={event}
+              isOwner={false}
+              creatorInfo={creator}
+            />
           )}
           <div className="px-10 pt-8 lg:container">
             <h1
@@ -126,10 +138,19 @@ export default function Page({ params }) {
                     <CalendarButton data={event} />
                   </div>
 
-                  <Button className="mx-auto shadow-md">
-                    <Link href="https://miniboard.site/demo">
-                      Visit demo page 🚀
-                    </Link>
+                  <Button
+                    variant="test"
+                    className="mx-auto flex h-auto w-4/5 max-w-80 text-center shadow-md"
+                    onClick={() =>
+                      router.push(`https://miniboard.site/${creator.username}`)
+                    }
+                  >
+                    <span>
+                      See all events by {creator.publicMetadata.displayName}
+                    </span>
+                    <div className="mb-auto ml-auto rounded-md bg-sky-400 p-1">
+                      <MoveUpRight size={12} />
+                    </div>
                   </Button>
                 </div>
               )}

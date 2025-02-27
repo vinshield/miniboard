@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   SignInButton,
@@ -30,6 +31,8 @@ const DotIcon = () => {
 };
 
 const Header = () => {
+  const router = useRouter();
+
   const [signInVisible, setSignInVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -107,7 +110,8 @@ const Header = () => {
                     <div className="flex w-full items-center gap-1 rounded-sm py-1 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
                       {!user.isSignedIn && <LogIn size={16} />}
                       <SignedOut>
-                        <SignInButton />
+                        <Button variant="ghost">Sign in</Button>
+                        {/* <SignInButton /> */}
                       </SignedOut>
                     </div>
                     <div className="flex items-center gap-2">

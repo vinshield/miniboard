@@ -36,11 +36,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import AddToCalendar from "./AddToCalendar";
 import ReusableShare from "./ReusableShare";
 import { Button } from "../ui/button";
-import { getUserById } from "@/lib/actions/user.actions";
 import { getUserByClerkId } from "@/lib/actions/clerk.actions";
 import { Skeleton } from "../ui/skeleton";
 
-const EventCardLargeImg = ({ event, isOwner }) => {
+const EventCardLargeImg = ({ event, isOwner, creatorInfo }) => {
   const [creator, setCreator] = useState(null);
   const [isImageLoading, setIsImageLoading] = useState(true);
   const router = useRouter();
@@ -51,7 +50,8 @@ const EventCardLargeImg = ({ event, isOwner }) => {
 
   useEffect(() => {
     const getCreator = async () => {
-      const creatorDetails = await getUserByClerkId(organizerClerkId);
+      const creatorDetails =
+        creatorInfo || (await getUserByClerkId(organizerClerkId));
       setCreator(creatorDetails);
     };
 
