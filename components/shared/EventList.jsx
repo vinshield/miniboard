@@ -63,7 +63,7 @@ const EventList = ({ organizersEvents, creator }) => {
             key={event._id}
             isOwner={isOwner}
             event={event}
-            creator={creator}
+            creatorInfo={creator}
           />
         ))}
       </div>
