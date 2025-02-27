@@ -115,7 +115,7 @@ const UserHeader = ({ user, isOwner }) => {
           type="button"
           variant=""
           className="w-3/5 bg-[#282222]"
-          onClick={() => setShowUserProfile(true)}
+          onClick={() => router.push(`/user-profile`)}
         >
           Edit my profile
         </Button>

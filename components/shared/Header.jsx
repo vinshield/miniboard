@@ -15,6 +15,7 @@ import { LogIn, Menu, X } from "lucide-react";
 import { Button } from "../ui/button";
 
 import useClickOutside from "@/hooks/useClickOutside";
+import CreateMiniboardBtn from "./CreateMiniBoardBtn";
 
 const DotIcon = () => {
   return (
@@ -101,7 +102,7 @@ const Header = () => {
                   className="ml-auto cursor-pointer"
                   onClick={() => setShowMenu(false)}
                 />
-                <div className="flex h-full flex-col justify-between">
+                <div className="flex h-full flex-col gap-4">
                   <div>
                     <div className="flex w-full items-center gap-1 rounded-sm py-1 text-sm font-semibold text-[#474b51] hover:bg-slate-400/40">
                       {!user.isSignedIn && <LogIn size={16} />}
@@ -123,18 +124,7 @@ const Header = () => {
                       </SignedIn>
                     </div>
                   </div>
-                  <div className="flex w-full justify-center">
-                    {!user.isSignedIn && (
-                      <Button
-                        onClick={() => (window.location.href = "/signup")}
-                        variant="outline"
-                        className="mb-28 border border-sky-400 py-6 text-sm text-[#5b6169] shadow-md"
-                      >
-                        Create your
-                        <span className="font-bold">&nbsp;miniboard</span>
-                      </Button>
-                    )}
-                  </div>
+                  {!user.isSignedIn && <CreateMiniboardBtn />}
                 </div>
               </div>
             </>
