@@ -252,7 +252,11 @@ const EventCardLargeImg = ({ event, isOwner, creatorInfo }) => {
                             event starts.
                           </p>
                         </div>
-                        <AddToCalendar eventData={event} size={2} />
+                        <AddToCalendar
+                          eventData={event}
+                          size={2}
+                          creatorInfo={creator}
+                        />
                       </div>
                       {event.numOfSaves > 2 && (
                         <p className="mt-2 text-xs text-gray-500">
