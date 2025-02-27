@@ -15,7 +15,7 @@ import { LogIn, Menu, X } from "lucide-react";
 import { Button } from "../ui/button";
 
 import useClickOutside from "@/hooks/useClickOutside";
-import CreateMiniboardBtn from "./CreateMiniBoardBtn";
+import CreateMiniboardBtn from "./CreateMiniboardBtn";
 
 const DotIcon = () => {
   return (
