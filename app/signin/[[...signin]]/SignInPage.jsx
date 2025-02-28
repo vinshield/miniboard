@@ -64,8 +64,8 @@ export function SignInPage() {
   };
 
   return (
-    <div className="flex flex-col space-y-16">
-      <div className="mt-12">
+    <div className="my-8 flex flex-col space-y-16">
+      <div className="">
         <p className="mb-1 text-3xl text-gray-500">Welcome back!</p>
         <h2 className="leading-12 block text-4xl font-semibold tracking-tighter md:text-4xl">
           Sign in to your Miniboard
