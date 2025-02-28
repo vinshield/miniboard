@@ -64,7 +64,7 @@ export function SignInPage() {
   };
 
   return (
-    <div className="my-8 flex flex-col space-y-16">
+    <div className="mb-8 flex flex-col space-y-16">
       <div className="">
         <p className="mb-1 text-3xl text-gray-500">Welcome back!</p>
         <h2 className="leading-12 block text-4xl font-semibold tracking-tighter md:text-4xl">
